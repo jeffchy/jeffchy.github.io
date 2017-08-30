@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Web,CocosCreator,Js,Game," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="这是一个大二学生用一个月挤出的课余时间给女友写的生日礼物My Game your GameGithub Source Code所用开发工具：CocosCreator、VScode、Chrome、PS、AU这不是一个教你如何一步一步写出我这样的一个游戏的教程，因为代码挺多的，说不完，我会分享一下写这个项目的时候总结的一些心得体会，以及这个2D游戏引擎常用的一些关键操作。 所以我们开始吧:)">
+<meta name="keywords" content="Web,CocosCreator,Js,Game">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hello Cocos (i)OverView">
+<meta property="og:url" content="http://yoursite.com/2016/12/03/Hello-Cocos/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="这是一个大二学生用一个月挤出的课余时间给女友写的生日礼物My Game your GameGithub Source Code所用开发工具：CocosCreator、VScode、Chrome、PS、AU这不是一个教你如何一步一步写出我这样的一个游戏的教程，因为代码挺多的，说不完，我会分享一下写这个项目的时候总结的一些心得体会，以及这个2D游戏引擎常用的一些关键操作。 所以我们开始吧:)">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/image/HelloCocos1/1.png">
+<meta property="og:updated_time" content="2017-08-30T08:47:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hello Cocos (i)OverView">
+<meta name="twitter:description" content="这是一个大二学生用一个月挤出的课余时间给女友写的生日礼物My Game your GameGithub Source Code所用开发工具：CocosCreator、VScode、Chrome、PS、AU这不是一个教你如何一步一步写出我这样的一个游戏的教程，因为代码挺多的，说不完，我会分享一下写这个项目的时候总结的一些心得体会，以及这个2D游戏引擎常用的一些关键操作。 所以我们开始吧:)">
+<meta name="twitter:image" content="http://yoursite.com/images/image/HelloCocos1/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/03/Hello-Cocos/"/>
+
+
+
+
+
+  <title>Hello Cocos (i)OverView | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/03/Hello-Cocos/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hello Cocos (i)OverView</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-03T12:16:34+08:00">
+                2016-12-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="这是一个大二学生用一个月挤出的课余时间给女友写的生日礼物"><a href="#这是一个大二学生用一个月挤出的课余时间给女友写的生日礼物" class="headerlink" title="这是一个大二学生用一个月挤出的课余时间给女友写的生日礼物"></a>这是一个大二学生用一个月挤出的课余时间给女友写的生日礼物</h2><p><a href="http://xuyiwenzhuzhuzhu.cn/game.html" target="_blank" rel="external">My Game your Game</a><br><a href="https://github.com/jeffchy/projectzhuzhuzhu-Cocoscreator" target="_blank" rel="external">Github Source Code</a><br>所用开发工具：CocosCreator、VScode、Chrome、PS、AU<br>这不是一个教你如何一步一步写出我这样的一个游戏的教程，因为代码挺多的，说不完，我会分享一下写这个项目的时候总结的一些心得体会，以及这个2D游戏引擎常用的一些关键操作。</p>
+<p>所以我们开始吧:)<br><a id="more"></a></p>
+<h3 id="为什么选择CocosCreator"><a href="#为什么选择CocosCreator" class="headerlink" title="为什么选择CocosCreator"></a>为什么选择CocosCreator</h3><p><a href="http://www.cocos.com/" target="_blank" rel="external">CocosCreator</a>是一个很不错的2D游戏开发引擎，虽然是一个2016年的新工具，但是它也是从Cocos2d-x、CocosStudio一步一步进化而来。<br>之前有用过C++写过一点点Cocos2d-x,但是写完了场景跳转就感觉写不下去了，而CocosCreator的好处就是脚本驱动，将游戏开发脚本化模块化了，不仅更加贴近于Unity3D的模式,而且门槛降低了很多，还有很关键的一点，他将UI设计、Anim制作、Coding集成在同一个平台上，但是互相之间也有明确的界限，是的开发者和设计者可以相互合作，提高效率。哦对了，可以比较方便地发布到各个平台（WebDesktop WebMobile Android IOS Win32 OSX），很强。</p>
+<h3 id="为什么想到要写个游戏"><a href="#为什么想到要写个游戏" class="headerlink" title="为什么想到要写个游戏"></a>为什么想到要写个游戏</h3><p>不为什么，就想找个project开发开发，开发啥不重要，主要两个目的：</p>
+<ul>
+<li>告诉女友 I love her</li>
+<li>锻炼一下自己，因为平时虽然也会经常有几百行代码的作业，但和开发的思路还是不太一样的。</li>
+</ul>
+<hr>
+<p>我试一试Markdown的分割线 </p>
+<h3 id="我写了个啥？"><a href="#我写了个啥？" class="headerlink" title="我写了个啥？"></a>我写了个啥？</h3><p>如果你玩过上面的链接，你应该就懂了，一个游戏逻辑十分简单，但是尽可能加了一些功能和变化提高可玩性和颜值的游戏。<br><img src="/images/image/HelloCocos1/1.png" alt=""><br>这是工作界面，里面主要由层级管理器、资源管理器、场景编辑器、控件库、属性检查器、控制台、动画编辑器组成。<br>这些基本但是重要的东西，还是看<a href="http://www.cocos.com/docs/creator/getting-started/index.html" target="_blank" rel="external">官方文档</a>最好。<br>看完应该就有一个一知半解了。在仔细一点地分析这个游戏之前，我把我的学习路线分享给大家。</p>
+<h3 id="小白如何学习CocosCreator？"><a href="#小白如何学习CocosCreator？" class="headerlink" title="小白如何学习CocosCreator？"></a>小白如何学习CocosCreator？</h3><ul>
+<li>看完<a href="http://www.cocos.com/docs/creator/getting-started/index.html" target="_blank" rel="external">官方文档</a>的入门部分。</li>
+<li>认真敲完官方文档中的<a href="http://www.cocos.com/docs/creator/getting-started/quick-start.html" target="_blank" rel="external">实例游戏</a>，这就是我游戏的原型[smirk]。</li>
+<li>同时非常建议提前看一下另外两个实例游戏的代码。<a href="https://github.com/cocos-creator/tutorial-duang-sheep" target="_blank" rel="external">DuangSheep</a>,<a href="https://github.com/cocos-creator/tutorial-dark-slash" target="_blank" rel="external">暗黑斩</a>，以及官方的<a href="https://github.com/cocos-creator/example-cases" target="_blank" rel="external">范例集合</a>。</li>
+<li>敲完以后认真想一下你想做什么，用户操作的是什么元素？应该建立几个场景？他们的层级关系？如果你像我一样头硬的话就可以开始写了。</li>
+<li>如果有不明白的，搜索引擎会告诉你，文档会告诉你，实例游戏的源码会告诉你，没有什么解决不了的。</li>
+</ul>
+<h1 id="下一篇我会说一下我如何进行开发调试，以及游戏的基本结构。"><a href="#下一篇我会说一下我如何进行开发调试，以及游戏的基本结构。" class="headerlink" title="下一篇我会说一下我如何进行开发调试，以及游戏的基本结构。"></a>下一篇我会说一下我如何进行开发调试，以及游戏的基本结构。</h1>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Web/" rel="tag"># Web</a>
+          
+            <a href="/tags/CocosCreator/" rel="tag"># CocosCreator</a>
+          
+            <a href="/tags/Js/" rel="tag"># Js</a>
+          
+            <a href="/tags/Game/" rel="tag"># Game</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/02/hello-hexo/" rel="next" title="Hello Hexo">
+                <i class="fa fa-chevron-left"></i> Hello Hexo
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/03/Hello-Cocos-ii-Debugging-and-Structure/" rel="prev" title="Hello Cocos (ii)Debugging and Structure">
+                Hello Cocos (ii)Debugging and Structure <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Jeff Chiang" />
+          <p class="site-author-name" itemprop="name">Jeff Chiang</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives">
+            
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#这是一个大二学生用一个月挤出的课余时间给女友写的生日礼物"><span class="nav-number">1.</span> <span class="nav-text">这是一个大二学生用一个月挤出的课余时间给女友写的生日礼物</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么选择CocosCreator"><span class="nav-number">1.1.</span> <span class="nav-text">为什么选择CocosCreator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么想到要写个游戏"><span class="nav-number">1.2.</span> <span class="nav-text">为什么想到要写个游戏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我写了个啥？"><span class="nav-number">1.3.</span> <span class="nav-text">我写了个啥？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小白如何学习CocosCreator？"><span class="nav-number">1.4.</span> <span class="nav-text">小白如何学习CocosCreator？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#下一篇我会说一下我如何进行开发调试，以及游戏的基本结构。"><span class="nav-number"></span> <span class="nav-text">下一篇我会说一下我如何进行开发调试，以及游戏的基本结构。</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeff Chiang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
