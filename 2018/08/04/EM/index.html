@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Natual Languate Processing,Algorithm,Probability Theory," />
 
 
 
@@ -95,16 +95,18 @@
 
 
 
-<meta name="description" content="Personal portal for Sharing Computer Science Technology and some petty things in my life">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jeff-Chiang">
-<meta property="og:url" content="https://jeffchy.github.io/categories/Tech/Note/index.html">
+<meta name="description" content="这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.http://www.cs.columbia.edu/~mcollins/ Expectation Maximization AlgorithmEM 算法是无监督学习(Unsupervised Learning)中的重要算法。Collins大佬的">
+<meta name="keywords" content="Natual Languate Processing,Algorithm,Probability Theory">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Expectation-Maximization Algorithm">
+<meta property="og:url" content="https://jeffchy.github.io/2018/08/04/EM/index.html">
 <meta property="og:site_name" content="Jeff-Chiang">
-<meta property="og:description" content="Personal portal for Sharing Computer Science Technology and some petty things in my life">
+<meta property="og:description" content="这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.http://www.cs.columbia.edu/~mcollins/ Expectation Maximization AlgorithmEM 算法是无监督学习(Unsupervised Learning)中的重要算法。Collins大佬的">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-04T09:20:42.615Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jeff-Chiang">
-<meta name="twitter:description" content="Personal portal for Sharing Computer Science Technology and some petty things in my life">
+<meta name="twitter:title" content="Expectation-Maximization Algorithm">
+<meta name="twitter:description" content="这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.http://www.cs.columbia.edu/~mcollins/ Expectation Maximization AlgorithmEM 算法是无监督学习(Unsupervised Learning)中的重要算法。Collins大佬的">
 
 
 
@@ -134,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://jeffchy.github.io/categories/Tech/Note/"/>
+  <link rel="canonical" href="https://jeffchy.github.io/2018/08/04/EM/"/>
 
 
 
 
 
-  <title>分类: Note | Jeff-Chiang</title>
+  <title>Expectation-Maximization Algorithm | Jeff-Chiang</title>
   
 
 
@@ -169,7 +171,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -273,311 +275,206 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Note<small>分类</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/04/EM/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2017/02/01/Django-Project-Simple-Gallery-一/" itemprop="url">
-              
-                <span itemprop="name">Django Project: Simple Gallery(二)</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Expectation-Maximization Algorithm</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-02-01T21:01:08+08:00"
-              content="2017-02-01" >
-          02-01
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T13:31:21+08:00">
+                2018-08-04
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Note/" itemprop="url" rel="index">
+                    <span itemprop="name">Note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/04/EM/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/04/EM/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/01/26/Django-Project-Simple-Gallery/" itemprop="url">
-              
-                <span itemprop="name">Django Project: Simple Gallery(一)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-01-26T20:42:36+08:00"
-              content="2017-01-26" >
-          01-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/01/23/Django-Part-IV-staticfiles/" itemprop="url">
-              
-                <span itemprop="name">Django Part IV staticfiles</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-01-23T18:38:20+08:00"
-              content="2017-01-23" >
-          01-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/01/20/阿里云ECS-LNMP环境搭建及工具整理/" itemprop="url">
-              
-                <span itemprop="name">阿里云ECS LNMP环境搭建及工具整理</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-01-20T23:28:57+08:00"
-              content="2017-01-20" >
-          01-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/01/18/Django-Part-II/" itemprop="url">
-              
-                <span itemprop="name">Django Part II</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-01-18T22:44:45+08:00"
-              content="2017-01-18" >
-          01-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/01/18/Django-PART-III/" itemprop="url">
-              
-                <span itemprop="name">Django Part III</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-01-18T22:44:45+08:00"
-              content="2017-01-18" >
-          01-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/01/17/Django-PART-I/" itemprop="url">
-              
-                <span itemprop="name">Django PART I</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-01-17T20:58:46+08:00"
-              content="2017-01-17" >
-          01-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/01/15/python3-class/" itemprop="url">
-              
-                <span itemprop="name">python3 class</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-01-15T20:06:40+08:00"
-              content="2017-01-15" >
-          01-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/01/15/python3-module-and-namespaces/" itemprop="url">
-              
-                <span itemprop="name">python3 Modules and Namespaces</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-01-15T16:34:54+08:00"
-              content="2017-01-15" >
-          01-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/01/13/Django-useful-learning-materials/" itemprop="url">
-              
-                <span itemprop="name">Django useful learning materials</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-01-13T23:10:41+08:00"
-              content="2017-01-13" >
-          01-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <p>这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.<br><a href="http://www.cs.columbia.edu/~mcollins/" target="_blank" rel="external">http://www.cs.columbia.edu/~mcollins/</a></p>
+<h3 id="Expectation-Maximization-Algorithm"><a href="#Expectation-Maximization-Algorithm" class="headerlink" title="Expectation Maximization Algorithm"></a>Expectation Maximization Algorithm</h3><p>EM 算法是无监督学习(Unsupervised Learning)中的重要算法。Collins大佬的notes中先用我们之前提到的Naive Bayes进行举例，所以如果之前的notes没有看的话，先看一下呗? ![Naive-Bayes.md]</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Natual-Languate-Processing/" rel="tag"># Natual Languate Processing</a>
+          
+            <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+          
+            <a href="/tags/Probability-Theory/" rel="tag"># Probability Theory</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/07/LeetCode-26-Remove-Duplicates/" rel="next" title="LeetCode-26-Remove Duplicates from Sorted Array">
+                <i class="fa fa-chevron-left"></i> LeetCode-26-Remove Duplicates from Sorted Array
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/04/Naive-Bayes/" rel="prev" title="Naive Bayes">
+                Naive Bayes <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/categories/Tech/Note/page/2/">2</a><a class="extend next" rel="next" href="/categories/Tech/Note/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -585,6 +482,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -605,8 +513,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -705,6 +622,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Expectation-Maximization-Algorithm"><span class="nav-number">1.</span> <span class="nav-text">Expectation Maximization Algorithm</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -825,6 +758,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
 
   
 
@@ -842,6 +779,18 @@
       <script id="dsq-count-scr" src="https://https-jeffchy-github-io.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://jeffchy.github.io/2018/08/04/EM/';
+          this.page.identifier = '2018/08/04/EM/';
+          this.page.title = 'Expectation-Maximization Algorithm';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://https-jeffchy-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
