@@ -104,7 +104,7 @@
 <meta property="og:description" content="这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.http://www.cs.columbia.edu/~mcollins/ Naive Bayes TheoryNaive Bayes (之后简称NB) 是一个常用于分类问题的概率模型. 先说模型的输入输出,输入的是features,输出是分类的">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-4/31561909.jpg">
-<meta property="og:updated_time" content="2018-08-04T07:44:19.627Z">
+<meta property="og:updated_time" content="2018-08-04T09:32:07.682Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Naive Bayes">
 <meta name="twitter:description" content="这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.http://www.cs.columbia.edu/~mcollins/ Naive Bayes TheoryNaive Bayes (之后简称NB) 是一个常用于分类问题的概率模型. 先说模型的输入输出,输入的是features,输出是分类的">
@@ -413,7 +413,7 @@ output:\ class\ y \in \{ y_1, y_2, \cdots, y_m \}
 <li>比如判别垃圾邮件问题,垃圾邮件中,出现“会所”与出现“保健”之间是独立的事情,一方的出现不会影响另一方.虽然这个例子中“会所”与“保健”之间似乎是有某种神秘的联系,但是NB模型一律假设这些“特征”是条件独立的.</li>
 <li>用一张图来说的话是这样的 <img src="http://oj4pv4f25.bkt.clouddn.com/18-8-4/31561909.jpg" alt=""></li>
 </ul>
-<h3 id="概率建模"><a href="#概率建模" class="headerlink" title="概率建模"></a>概率建模</h3><p>基于我们之前的那个假设,条件独立的性质,我们用feature与label<strong>联合概率分布</strong>来建模整个bayes classifier.<br><span>$p(y, x_1, x_2, \cdots, x_n) = p(y) \prod_{i=1}^n p(x_i | y)$</span><!-- Has MathJax --><br>那么最有可能的label $y$ 自然是与所有feature联合概率分布最大的那个.即</p>
+<h3 id="概率建模"><a href="#概率建模" class="headerlink" title="概率建模"></a>概率建模</h3><p>基于我们之前的那个假设,条件独立的性质,我们用feature与label<strong>联合概率分布</strong>来建模整个bayes classifier.<br><span>$p(y, x_1, x_2, \cdots, x_n) = p(y) \prod_{j=1}^n p(x_j | y)$</span><!-- Has MathJax --><br>那么最有可能的label $y$ 自然是与所有feature联合概率分布最大的那个.即</p>
 <span>$$arg\ max_{y \in \{ 1 \cdots m \}} p(y, x_1, x_2, \cdots, x_n) = 
 arg\ max_{y \in \{ 1 \cdots m \}} p(y) \prod_{i=1}^n p(x_i | y)$$</span><!-- Has MathJax -->
 <h3 id="如何计算"><a href="#如何计算" class="headerlink" title="如何计算"></a>如何计算</h3><p>这样 Naive Bayes Model的理论就基本上讲清楚啦.<br>那么如何计算上一个等式中右边的各项呢?假设我们的训练数据是$N$个pair of $(x_i, y_i)$<br>那简单啊,数一下不就成了么<br><span>$$p(y=i) = \frac{count(y=i)}{N} \\

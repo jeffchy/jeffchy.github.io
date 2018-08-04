@@ -103,10 +103,12 @@
 <meta property="og:site_name" content="Jeff-Chiang">
 <meta property="og:description" content="这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.http://www.cs.columbia.edu/~mcollins/ Expectation Maximization AlgorithmEM 算法是无监督学习(Unsupervised Learning)中的重要算法。Collins大佬的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-04T09:20:42.615Z">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-4/36887730.jpg">
+<meta property="og:updated_time" content="2018-08-04T14:47:36.189Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Expectation-Maximization Algorithm">
 <meta name="twitter:description" content="这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.http://www.cs.columbia.edu/~mcollins/ Expectation Maximization AlgorithmEM 算法是无监督学习(Unsupervised Learning)中的重要算法。Collins大佬的">
+<meta name="twitter:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-4/36887730.jpg">
 
 
 
@@ -401,7 +403,34 @@
 
       
         <p>这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.<br><a href="http://www.cs.columbia.edu/~mcollins/" target="_blank" rel="external">http://www.cs.columbia.edu/~mcollins/</a></p>
-<h3 id="Expectation-Maximization-Algorithm"><a href="#Expectation-Maximization-Algorithm" class="headerlink" title="Expectation Maximization Algorithm"></a>Expectation Maximization Algorithm</h3><p>EM 算法是无监督学习(Unsupervised Learning)中的重要算法。Collins大佬的notes中先用我们之前提到的Naive Bayes进行举例，所以如果之前的notes没有看的话，先看一下呗? ![Naive-Bayes.md]</p>
+<h3 id="Expectation-Maximization-Algorithm"><a href="#Expectation-Maximization-Algorithm" class="headerlink" title="Expectation Maximization Algorithm"></a>Expectation Maximization Algorithm</h3><p>EM 算法是无监督学习(Unsupervised Learning)中的重要算法。Collins大佬的notes中先用我们之前提到的Naive Bayes进行举例，所以如果之前的notes没有看的话，先看一下呗? <a href="/2018/08/04/Naive-Bayes/">Naive-Bayes</a></p>
+<h3 id="如果Naive-Bayes的training-data中没有label了怎么办？"><a href="#如果Naive-Bayes的training-data中没有label了怎么办？" class="headerlink" title="如果Naive Bayes的training data中没有label了怎么办？"></a>如果Naive Bayes的training data中没有label了怎么办？</h3><p>首先简单回忆一下Naive Bayes模型。在Supervised，即有(feature, label) pairs 的情况下，我们可以通过统计出$p(y),p(x|y)$计算出一个classifier，之前我们说过！统计出$p(y),p(x|y)$的过程虽然简单，数个数就完事了，但是这实际上是一个<a href="/2018/08/04/MLE/">Maximum Likelihood Estimation</a>的过程！我们通过我们手上的(feature,label) pair，计算出生成这组数据可能性最大的分布的参数！也就是最终计算出了生成这组数据的概率分布，也就是$p(y),p(x|y)$. 为什么要这么麻烦？因为理解MLE的过程是对理解EM算法非常重要的。</p>
+<p>没有label是无监督学习的一个常见的设定。如果没有label，那么我们就没有办法通过最大似然估计MLE计算出$p(y),p(x|y)$等一系列概率了。</p>
+<h3 id="无监督学习的怪圈"><a href="#无监督学习的怪圈" class="headerlink" title="无监督学习的怪圈"></a>无监督学习的怪圈</h3><p>所以现在出现了严重的问题</p>
+<ul>
+<li>如果没有label, 我们不可能估计出分布的参数, NB模型中即$p(y),p(x|y)$</li>
+<li>如果我们有了分布$p(y),p(x|y)$，我们就可以通过计算联合分布来产生一个NB classifier, 并且可以用它来判别新的数据的label.</li>
+</ul>
+<h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><p>怎么解决呢？我们没有参数，那么我们就假设一个合理的呗？</p>
+<ul>
+<li>随机初始化$p(y),p(x|y)$，并且满足他们是合理的概率就行了，概率和条件概率都大于零小于一，并且加起来等于一。现在我们就有我们计算classifier所需要的$p(y),p(x|y)$了。</li>
+<li>那么我们就计算classifier呗 <span>$p(y, x_1, x_2, \cdots, x_n) = p(y) \prod_{j=1}^n p(x_j | y)$</span><!-- Has MathJax --></li>
+<li>我们可以通过这个classifier计算出每个样本点的feature集合使得样本点表现为不同label的概率，这里的$\theta$指得是我们上一次嘉定的参数。即$p(y|x^{(i)}, \theta^{t-1})=\frac{p(y,x_1,x_2,\cdots,x_n)}{p(x_1,x_2,\cdots,x_n)}=\frac{p(y,x_1,x_2,\cdots,x_n)}{\sum_j p(y_j, x_1,x_2,\cdots,x_n)}$, 这一步就是普通的条件概率的计算。分母marginalize掉所有可能的label.</li>
+<li>我们通过我们这个暂时的classifier得到了所有的样本点的label的条件概率分布之后，我们就可对通过计算获得最新的参数了，$p(y),p(x|y)$，反复迭代</li>
+<li>整个算法的具体过程如下图<img src="http://oj4pv4f25.bkt.clouddn.com/18-8-4/36887730.jpg" alt=""></li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>EM 算法通常用在无监督学习，没有label的任务中</li>
+<li>input: Data样本和最终准备归为的几类 output: 每个样本被明确assign</li>
+<li>EM 算法的具体步骤<ul>
+<li>随机初始化模型分布的参数 $\theta$</li>
+<li>已知参数计算出每个样本的label的分布$p(y|x^{(i)},\theta)$</li>
+<li>用类似MLE的方法更新参数 $\theta$</li>
+<li>回到第二步，不断迭代。</li>
+</ul>
+</li>
+<li>EM 中更新参数与 MLE 的关系：如果EM中的y的分布非0即1的话那么久等同于MLE,但是EM中的y是一个分布,比如$p(y=y^{(i)})=0.3$</li>
+</ul>
 
       
     </div>
@@ -632,7 +661,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Expectation-Maximization-Algorithm"><span class="nav-number">1.</span> <span class="nav-text">Expectation Maximization Algorithm</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Expectation-Maximization-Algorithm"><span class="nav-number">1.</span> <span class="nav-text">Expectation Maximization Algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果Naive-Bayes的training-data中没有label了怎么办？"><span class="nav-number">2.</span> <span class="nav-text">如果Naive Bayes的training data中没有label了怎么办？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无监督学习的怪圈"><span class="nav-number">3.</span> <span class="nav-text">无监督学习的怪圈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决问题"><span class="nav-number">4.</span> <span class="nav-text">解决问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
