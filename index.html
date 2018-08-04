@@ -288,6 +288,178 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/04/MLE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/04/MLE/" itemprop="url">Maximum Likelihood Estimation</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T13:31:21+08:00">
+                2018-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Note/" itemprop="url" rel="index">
+                    <span itemprop="name">Note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/04/MLE/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/04/MLE/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.<br><a href="http://www.cs.columbia.edu/~mcollins/" target="_blank" rel="external">http://www.cs.columbia.edu/~mcollins/</a></p>
+<h3 id="Maximum-Likelihood-Estimation"><a href="#Maximum-Likelihood-Estimation" class="headerlink" title="Maximum Likelihood Estimation"></a>Maximum Likelihood Estimation</h3><p>MLE, 先说人话</p>
+<blockquote>
+<p><strong>MLE的思路用一句人话来说就是:</strong> 我们拿到了一堆数据,我们不知道生成这个数据的概率分布是什么,(我们不知道某个分布的参数)那么我们就用手上的数据,以这个参数为未知数把生成这个数据的结果的概率给求出来,然后求这个概率最大的时候参数的值就可以了!</p>
+</blockquote>
+<h3 id="来点数学玩意"><a href="#来点数学玩意" class="headerlink" title="来点数学玩意"></a>来点数学玩意</h3><p>MLE的general的数学表示是啥呢?一行就够了<br>$$\mathop{argmax} \limits_{\theta} P(D|\theta)$$<br>$D$ 是data, $\theta$ 是未知概率分布的参数,我们的目标是找到最好的$\theta$,结合前面的人话看,很简单的对吧.</p>
+<p>值得一题的是,我们通常在外面取一个$\log$因为这个operation不会改变函数的单调性,因为概率多位连乘,加上log以后变为连加,容易求导.<br>$$\mathop{argmax} \limits_{\theta} \log{P(D|\theta)}$$</p>
+<h3 id="一个栗子"><a href="#一个栗子" class="headerlink" title="一个栗子"></a>一个栗子</h3><p>一个畸形硬币,有两面$H,T$, $P(H)=\theta, P(T)=1-\theta$, 这里 $\theta$ 就是我们的参数啦, 假设我们获取了一份数据$D$, 为 HHTTHHT, 那么,生成这一份数据的概率是多少呢? 连乘起来得到<br>$$\log{P(D|\theta)} = \log{\theta^4 (1-\theta)^3} = 4 \log{\theta} + 3 \log{(1-\theta)} $$<br>要求<br>$$\mathop{argmax} \limits_{\theta} \log{P(D|\theta)}$$<br>我们只要求导即可<br>$$\frac{d \log{P(D|\theta)}}{d \theta}=\frac{4}{\theta}-\frac{3}{1-\theta}=0$$<br>$$\theta=\frac47$$</p>
+<h3 id="两个栗子"><a href="#两个栗子" class="headerlink" title="两个栗子"></a>两个栗子</h3><p>M. Collins 的原文章中是拿 Multinomial 来举例子的,而上一个栗子中硬币的分布式 Binomial. 他们两个本质没有区别…<br>一个超级畸形硬币,有<strong>三</strong>面$H,T,M$, $P(H)=\theta_1, P(T)=\theta_2, P(M) = 1- \theta_1 - \theta_2$, 这里 $\theta_1, \theta_2$ 就是我们的参数啦, 其他步骤都是一样的,只不过最后一步改成求偏导即可<br>$$\frac{d \log{P(D|\theta_1, \theta_2)}}{d \theta_1}=0$$<br>$$\frac{d \log{P(D|\theta_1, \theta_2)}}{d \theta_2}=0$$<br>M.Collins原文中使用了拉格朗日乘子法转换为convex问题来求解，结果应该是一样的。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/04/Naive-Bayes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -779,160 +951,6 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/03/06/LeetCode-794-Tic-Tac-Toe/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Chiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeff-Chiang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/06/LeetCode-794-Tic-Tac-Toe/" itemprop="url">LeetCode-794-Tic-Tac-Toe</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T18:44:10+08:00">
-                2018-03-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Code/" itemprop="url" rel="index">
-                    <span itemprop="name">Code</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/03/06/LeetCode-794-Tic-Tac-Toe/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/03/06/LeetCode-794-Tic-Tac-Toe/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://leetcode.com/problems/valid-tic-tac-toe-state/description/" target="_blank" rel="external">LeetCode #794 Valid Tic-Tac-Toe State</a></p>
-<p>基本思路:统计基本信息+检查。<br>根据谁赢来分成两类，考察编码者思维条理性，代码难度不难，思维难度中等。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">validTicTacToe</span><span class="params">(self, board)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line"><span class="string">        :type board: List[str]</span></div><div class="line"><span class="string">        :rtype: bool</span></div><div class="line"><span class="string">        """</span></div><div class="line">        <span class="comment"># count part</span></div><div class="line">        O = <span class="number">0</span></div><div class="line">        X = <span class="number">0</span></div><div class="line">        OOO = <span class="number">0</span></div><div class="line">        XXX = <span class="number">0</span></div><div class="line"></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">            <span class="comment"># check row</span></div><div class="line">            <span class="keyword">if</span> board[i] == <span class="string">"OOO"</span>:</div><div class="line">                O += <span class="number">3</span></div><div class="line">                OOO += <span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> board[i] == <span class="string">"XXX"</span>:</div><div class="line">                X += <span class="number">3</span></div><div class="line">                XXX += <span class="number">1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">                    <span class="keyword">if</span> board[i][j] == <span class="string">"O"</span>:</div><div class="line">                        O += <span class="number">1</span></div><div class="line">                    <span class="keyword">if</span> board[i][j] == <span class="string">"X"</span>:</div><div class="line">                        X += <span class="number">1</span></div><div class="line"></div><div class="line">            <span class="comment"># check column</span></div><div class="line">            <span class="keyword">if</span> (board[<span class="number">0</span>][i] == board[<span class="number">1</span>][i]) <span class="keyword">and</span> (board[<span class="number">2</span>][i] == board[<span class="number">1</span>][i]):</div><div class="line">                <span class="keyword">if</span> board[<span class="number">0</span>][i] == <span class="string">"X"</span>:</div><div class="line">                    XXX += <span class="number">1</span></div><div class="line">                <span class="keyword">if</span> board[<span class="number">0</span>][i] == <span class="string">"O"</span>:</div><div class="line">                    OOO += <span class="number">1</span></div><div class="line"></div><div class="line">        <span class="comment"># check diagnal                </span></div><div class="line">        <span class="keyword">if</span> (board[<span class="number">0</span>][<span class="number">0</span>] == board[<span class="number">1</span>][<span class="number">1</span>]) <span class="keyword">and</span>  (board[<span class="number">1</span>][<span class="number">1</span>] == board[<span class="number">2</span>][<span class="number">2</span>]):</div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"X"</span>) :</div><div class="line">                XXX += <span class="number">1</span></div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"O"</span>) :</div><div class="line">                OOO += <span class="number">1</span></div><div class="line">        <span class="keyword">if</span> (board[<span class="number">2</span>][<span class="number">0</span>] == board[<span class="number">1</span>][<span class="number">1</span>]) <span class="keyword">and</span>  (board[<span class="number">1</span>][<span class="number">1</span>] == board[<span class="number">0</span>][<span class="number">2</span>]):</div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"X"</span>) :</div><div class="line">                XXX += <span class="number">1</span></div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"O"</span>) :</div><div class="line">                OOO += <span class="number">1</span></div><div class="line"></div><div class="line">        print(X,O,XXX,OOO)</div><div class="line">        <span class="comment"># key check part</span></div><div class="line">        <span class="keyword">if</span> XXX + OOO &gt; <span class="number">1</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> (O &gt; X) <span class="keyword">or</span> (X &gt; O + <span class="number">1</span>):</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> XXX == <span class="number">1</span>:</div><div class="line">            <span class="keyword">if</span> X != O + <span class="number">1</span>:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> OOO == <span class="number">1</span>:</div><div class="line">            <span class="keyword">if</span> X != O:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">True</span></div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/03/06/LeetCode-48-Rotate-Image/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1039,6 +1057,160 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
           
             <p><a href="https://leetcode.com/problems/rotate-image/description/" target="_blank" rel="external">LeetCode #48 Rotate Image</a></p>
 <p>可以四个四个来<br>也可以transpose + flip(X)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rotate</span><span class="params">(self, matrix)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line"><span class="string">        :type matrix: List[List[int]]</span></div><div class="line"><span class="string">        :rtype: void Do not return anything, modify matrix in-place instead.</span></div><div class="line"><span class="string">        """</span></div><div class="line">        n = len(matrix)</div><div class="line">        print(n)</div><div class="line">        <span class="keyword">if</span> n == <span class="number">0</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">None</span></div><div class="line"></div><div class="line">        <span class="comment"># transpose</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</div><div class="line">                <span class="keyword">if</span> i &gt; j:</div><div class="line">                    temp = matrix[i][j]</div><div class="line">                    matrix[i][j] = matrix[j][i]</div><div class="line">                    matrix[j][i] = temp</div><div class="line"></div><div class="line">        print(<span class="number">1</span>)</div><div class="line">        <span class="comment"># flip</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(n//<span class="number">2</span>):</div><div class="line">                temp = matrix[i][j]</div><div class="line">                matrix[i][j] = matrix[i][n-j<span class="number">-1</span>]</div><div class="line">                matrix[i][n-j<span class="number">-1</span>] = temp</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/03/06/LeetCode-794-Tic-Tac-Toe/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/06/LeetCode-794-Tic-Tac-Toe/" itemprop="url">LeetCode-794-Tic-Tac-Toe</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T18:44:10+08:00">
+                2018-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Code/" itemprop="url" rel="index">
+                    <span itemprop="name">Code</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/06/LeetCode-794-Tic-Tac-Toe/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/03/06/LeetCode-794-Tic-Tac-Toe/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://leetcode.com/problems/valid-tic-tac-toe-state/description/" target="_blank" rel="external">LeetCode #794 Valid Tic-Tac-Toe State</a></p>
+<p>基本思路:统计基本信息+检查。<br>根据谁赢来分成两类，考察编码者思维条理性，代码难度不难，思维难度中等。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">validTicTacToe</span><span class="params">(self, board)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line"><span class="string">        :type board: List[str]</span></div><div class="line"><span class="string">        :rtype: bool</span></div><div class="line"><span class="string">        """</span></div><div class="line">        <span class="comment"># count part</span></div><div class="line">        O = <span class="number">0</span></div><div class="line">        X = <span class="number">0</span></div><div class="line">        OOO = <span class="number">0</span></div><div class="line">        XXX = <span class="number">0</span></div><div class="line"></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">            <span class="comment"># check row</span></div><div class="line">            <span class="keyword">if</span> board[i] == <span class="string">"OOO"</span>:</div><div class="line">                O += <span class="number">3</span></div><div class="line">                OOO += <span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> board[i] == <span class="string">"XXX"</span>:</div><div class="line">                X += <span class="number">3</span></div><div class="line">                XXX += <span class="number">1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">                    <span class="keyword">if</span> board[i][j] == <span class="string">"O"</span>:</div><div class="line">                        O += <span class="number">1</span></div><div class="line">                    <span class="keyword">if</span> board[i][j] == <span class="string">"X"</span>:</div><div class="line">                        X += <span class="number">1</span></div><div class="line"></div><div class="line">            <span class="comment"># check column</span></div><div class="line">            <span class="keyword">if</span> (board[<span class="number">0</span>][i] == board[<span class="number">1</span>][i]) <span class="keyword">and</span> (board[<span class="number">2</span>][i] == board[<span class="number">1</span>][i]):</div><div class="line">                <span class="keyword">if</span> board[<span class="number">0</span>][i] == <span class="string">"X"</span>:</div><div class="line">                    XXX += <span class="number">1</span></div><div class="line">                <span class="keyword">if</span> board[<span class="number">0</span>][i] == <span class="string">"O"</span>:</div><div class="line">                    OOO += <span class="number">1</span></div><div class="line"></div><div class="line">        <span class="comment"># check diagnal                </span></div><div class="line">        <span class="keyword">if</span> (board[<span class="number">0</span>][<span class="number">0</span>] == board[<span class="number">1</span>][<span class="number">1</span>]) <span class="keyword">and</span>  (board[<span class="number">1</span>][<span class="number">1</span>] == board[<span class="number">2</span>][<span class="number">2</span>]):</div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"X"</span>) :</div><div class="line">                XXX += <span class="number">1</span></div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"O"</span>) :</div><div class="line">                OOO += <span class="number">1</span></div><div class="line">        <span class="keyword">if</span> (board[<span class="number">2</span>][<span class="number">0</span>] == board[<span class="number">1</span>][<span class="number">1</span>]) <span class="keyword">and</span>  (board[<span class="number">1</span>][<span class="number">1</span>] == board[<span class="number">0</span>][<span class="number">2</span>]):</div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"X"</span>) :</div><div class="line">                XXX += <span class="number">1</span></div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"O"</span>) :</div><div class="line">                OOO += <span class="number">1</span></div><div class="line"></div><div class="line">        print(X,O,XXX,OOO)</div><div class="line">        <span class="comment"># key check part</span></div><div class="line">        <span class="keyword">if</span> XXX + OOO &gt; <span class="number">1</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> (O &gt; X) <span class="keyword">or</span> (X &gt; O + <span class="number">1</span>):</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> XXX == <span class="number">1</span>:</div><div class="line">            <span class="keyword">if</span> X != O + <span class="number">1</span>:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> OOO == <span class="number">1</span>:</div><div class="line">            <span class="keyword">if</span> X != O:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">True</span></div></pre></td></tr></table></figure></p>
 
           
         
@@ -1717,174 +1889,6 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2017/01/26/Django-Project-Simple-Gallery/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Chiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeff-Chiang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/01/26/Django-Project-Simple-Gallery/" itemprop="url">Django Project: Simple Gallery(一)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-26T20:42:36+08:00">
-                2017-01-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tech/" itemprop="url" rel="index">
-                    <span itemprop="name">Tech</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tech/Note/" itemprop="url" rel="index">
-                    <span itemprop="name">Note</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/01/26/Django-Project-Simple-Gallery/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/01/26/Django-Project-Simple-Gallery/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>今天继续唠唠Django，我果然是耐不住手痒的人。一直都有写一个Webapp的美好愿望，之前零零碎碎学了一些django的web框架知识，总得想办法用一用，于是我花了大概三天，断断续续终于把所有的框架以及前端搭好了(虽然还有很多不完美的地方)。就差在自己的阿里云ECS上部署完成了,部署对我来说绝对是一个很大的难题，作为之前完全没有接触过后端的小白，光是在服务器上配置好LNMP的环境就废了我不少功夫，如何在阿里云ECS上部署Django，网上有很多教程，但是随着一些软件的更新，基本上是没有办法直接用了，所以我觉得还是得真正弄懂这些软件背后的原理(nginx,supervisor,Gunicorn),为啥要反向代理，WSGI server又是个啥，这些玩意都得上官网弄得基本明白才能配置成功，之后我还要在这方面努力一下…后话不多说，这一系列主要介绍一下我这个webapp,并且借此小小说明一下django的一些环节的工作流。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/01/26/Django-Project-Simple-Gallery/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1937,7 +1941,7 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">38</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
