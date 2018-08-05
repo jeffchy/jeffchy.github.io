@@ -95,20 +95,27 @@
 
 
 
-<meta name="description" content="这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.http://www.cs.columbia.edu/~mcollins/ Expectation Maximization AlgorithmEM 算法是无监督学习(Unsupervised Learning)中的重要算法。Collins大佬的">
+<meta name="description" content="这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.http://www.cs.columbia.edu/~mcollins/ Inside Outside AlgorithmInside Outside 算法是 PCFG grammar induction (Unsupervised Learn">
 <meta name="keywords" content="Natual Languate Processing,Algorithm,Probability Theory">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Expectation-Maximization Algorithm">
-<meta property="og:url" content="https://jeffchy.github.io/2018/08/04/EM/index.html">
+<meta property="og:title" content="Inside-Outside-Algorithm">
+<meta property="og:url" content="https://jeffchy.github.io/2018/08/05/Inside-Outside-Algorithm/index.html">
 <meta property="og:site_name" content="Jeff-Chiang">
-<meta property="og:description" content="这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.http://www.cs.columbia.edu/~mcollins/ Expectation Maximization AlgorithmEM 算法是无监督学习(Unsupervised Learning)中的重要算法。Collins大佬的">
+<meta property="og:description" content="这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.http://www.cs.columbia.edu/~mcollins/ Inside Outside AlgorithmInside Outside 算法是 PCFG grammar induction (Unsupervised Learn">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-4/36887730.jpg">
-<meta property="og:updated_time" content="2018-08-05T06:24:12.774Z">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-5/92426943.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-5/74502801.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-5/49723064.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-5/71696567.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-5/44133812.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-5/23219939.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-5/79155619.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-5/53921346.jpg">
+<meta property="og:updated_time" content="2018-08-05T13:45:24.747Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Expectation-Maximization Algorithm">
-<meta name="twitter:description" content="这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.http://www.cs.columbia.edu/~mcollins/ Expectation Maximization AlgorithmEM 算法是无监督学习(Unsupervised Learning)中的重要算法。Collins大佬的">
-<meta name="twitter:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-4/36887730.jpg">
+<meta name="twitter:title" content="Inside-Outside-Algorithm">
+<meta name="twitter:description" content="这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.http://www.cs.columbia.edu/~mcollins/ Inside Outside AlgorithmInside Outside 算法是 PCFG grammar induction (Unsupervised Learn">
+<meta name="twitter:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-5/92426943.jpg">
 
 
 
@@ -138,13 +145,13 @@
 
 
 
-  <link rel="canonical" href="https://jeffchy.github.io/2018/08/04/EM/"/>
+  <link rel="canonical" href="https://jeffchy.github.io/2018/08/05/Inside-Outside-Algorithm/"/>
 
 
 
 
 
-  <title>Expectation-Maximization Algorithm | Jeff-Chiang</title>
+  <title>Inside-Outside-Algorithm | Jeff-Chiang</title>
   
 
 
@@ -291,7 +298,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/04/EM/">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/05/Inside-Outside-Algorithm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeff Chiang">
@@ -308,7 +315,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Expectation-Maximization Algorithm</h1>
+          <h1 class="post-title" itemprop="name headline">Inside-Outside-Algorithm</h1>
         
 
         <div class="post-meta">
@@ -320,8 +327,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T20:31:21+08:00">
-                2018-08-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-05T13:31:21+08:00">
+                2018-08-05
               </time>
             
 
@@ -372,9 +379,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/04/EM/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/05/Inside-Outside-Algorithm/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/04/EM/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/05/Inside-Outside-Algorithm/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -403,34 +410,50 @@
 
       
         <p>这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.<br><a href="http://www.cs.columbia.edu/~mcollins/" target="_blank" rel="external">http://www.cs.columbia.edu/~mcollins/</a></p>
-<h3 id="Expectation-Maximization-Algorithm"><a href="#Expectation-Maximization-Algorithm" class="headerlink" title="Expectation Maximization Algorithm"></a>Expectation Maximization Algorithm</h3><p>EM 算法是无监督学习(Unsupervised Learning)中的重要算法。Collins大佬的notes中先用我们之前提到的Naive Bayes进行举例，所以如果之前的notes没有看的话，先看一下呗? <a href="/2018/08/04/Naive-Bayes/">Naive-Bayes</a></p>
-<h3 id="如果Naive-Bayes的training-data中没有label了怎么办？"><a href="#如果Naive-Bayes的training-data中没有label了怎么办？" class="headerlink" title="如果Naive Bayes的training data中没有label了怎么办？"></a>如果Naive Bayes的training data中没有label了怎么办？</h3><p>首先简单回忆一下Naive Bayes模型。在Supervised，即有(feature, label) pairs 的情况下，我们可以通过统计出$p(y),p(x|y)$计算出一个classifier，之前我们说过！统计出$p(y),p(x|y)$的过程虽然简单，数个数就完事了，但是这实际上是一个<a href="/2018/08/04/MLE/">Maximum Likelihood Estimation</a>的过程！我们通过我们手上的(feature,label) pair，计算出生成这组数据可能性最大的分布的参数！也就是最终计算出了生成这组数据的概率分布，也就是$p(y),p(x|y)$. 为什么要这么麻烦？因为理解MLE的过程是对理解EM算法非常重要的。</p>
-<p>没有label是无监督学习的一个常见的设定。如果没有label，那么我们就没有办法通过最大似然估计MLE计算出$p(y),p(x|y)$等一系列概率了。</p>
-<h3 id="无监督学习的怪圈"><a href="#无监督学习的怪圈" class="headerlink" title="无监督学习的怪圈"></a>无监督学习的怪圈</h3><p>所以现在出现了严重的问题</p>
+<h3 id="Inside-Outside-Algorithm"><a href="#Inside-Outside-Algorithm" class="headerlink" title="Inside Outside Algorithm"></a>Inside Outside Algorithm</h3><p>Inside Outside 算法是 PCFG grammar induction (Unsupervised Learning)中的重要算法。Collins大佬的notes中的<a href="/2018/08/04/EM/">EM</a>算法是本notes的基础。<br>Inside Outside 算法被誉为是NLP中最难的算法，如果彻底搞懂NLP就没什么好怕的了！</p>
+<h3 id="什么是PCFG"><a href="#什么是PCFG" class="headerlink" title="什么是PCFG"></a>什么是PCFG</h3><p>Probability Context-free Grammars</p>
 <ul>
-<li>如果没有label, 我们不可能估计出分布的参数, NB模型中即$p(y),p(x|y)$</li>
-<li>如果我们有了分布$p(y),p(x|y)$，我们就可以通过计算联合分布来产生一个NB classifier, 并且可以用它来判别新的数据的label.</li>
+<li>$N$ is finite sets of non-terminals</li>
+<li>$\sum$ is finite sets of ternminals</li>
+<li>$R$ is finite set of rules, the grammar is in Chomsky normal form, $A \to BC , A \to x$</li>
+<li>$S \in N$ is a distinguished start symbol</li>
 </ul>
-<h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><p>怎么解决呢？我们没有参数，那么我们就假设一个合理的呗？</p>
+<p>对于每一条rule，我们定义rule spanning，如下。一个parse tree可以被定义为多个rule production的势函数的乘积。</p>
 <ul>
-<li>随机初始化$p(y),p(x|y)$，并且满足他们是合理的概率就行了，概率和条件概率都大于零小于一，并且加起来等于一。现在我们就有我们计算classifier所需要的$p(y),p(x|y)$了。</li>
-<li>那么我们就计算classifier呗 <span>$p(y, x_1, x_2, \cdots, x_n) = p(y) \prod_{j=1}^n p(x_j | y)$</span><!-- Has MathJax --></li>
-<li>我们可以通过这个classifier计算出每个样本点的feature集合使得样本点表现为不同label的概率，这里的$\theta$指得是我们上一次嘉定的参数。即$p(y|x^{(i)}, \theta^{t-1})=\frac{p(y,x_1,x_2,\cdots,x_n)}{p(x_1,x_2,\cdots,x_n)}=\frac{p(y,x_1,x_2,\cdots,x_n)}{\sum_j p(y_j, x_1,x_2,\cdots,x_n)}$, 这一步就是普通的条件概率的计算。分母marginalize掉所有可能的label.</li>
-<li>我们通过我们这个暂时的classifier得到了所有的样本点的label的条件概率分布之后，我们就可对通过计算获得最新的参数了，$p(y),p(x|y)$，反复迭代</li>
-<li>整个算法的具体过程如下图<img src="http://oj4pv4f25.bkt.clouddn.com/18-8-4/36887730.jpg" alt=""></li>
+<li>$(A \to B,C,i,k,j)$表示non-ternminal $A$ span 出了 $w_i \cdots w_j$,  $B$ span 出了 $w_i \cdots w_k$, $C$ span 出了 $w_k \cdots w_j$</li>
+<li>$(A \to i)$ 表示 non-terminal $A$ span 出了最底层的word i</li>
+<li>举一个例子<img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/92426943.jpg" alt=""></li>
+<li>上面两种rules 都有其对应的 potential function $\phi(r)$, 所以一整棵树的势函数就是所有rule的势函数的乘积<img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/74502801.jpg" alt=""></li>
+<li>通常我们对于每一种rule我们可以直接定义它的势函数为，看见这一条rule的概率，或者说这一条rule在这个corpus中出现的概率。所以我们将$\phi(A \to BC,i,k,j)=q(A\to BC)$,这个概率就是我们针对每个grammar rule assign的参数</li>
 </ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li>EM 算法通常用在无监督学习，没有label的任务中</li>
-<li>input: Data样本和最终准备归为的几类 output: 每个样本被明确assign</li>
-<li>EM 算法的具体步骤<ul>
-<li>随机初始化模型分布的参数 $\theta$</li>
-<li>已知参数计算出每个样本的label的分布$p(y|x^{(i)},\theta)$</li>
-<li>用类似MLE的方法更新参数 $\theta$</li>
-<li>回到第二步，不断迭代。</li>
+<h3 id="Inside-Outside-算法用作grammar-learning的Input-Output是什么"><a href="#Inside-Outside-算法用作grammar-learning的Input-Output是什么" class="headerlink" title="Inside-Outside 算法用作grammar learning的Input Output是什么"></a>Inside-Outside 算法用作grammar learning的Input Output是什么</h3><p>Input</p>
+<ul>
+<li>一个句子 $x_1 \cdots x_n$,$x_i$是词</li>
+<li>一个CFG $(N,\sum, R,S)$ in Chomsky Normal Form，注意!这里的每个$r \in R$是没有概率的，也就是这里不是PCFG,如果我们知道每个gramma rules的概率的话，我们就是一个完整的PCFG的设定了！我们就可以用 <strong>CYK</strong> 算法，在$O(n^3G)$动态规划得把整棵树parse出来。</li>
 </ul>
-</li>
-<li>EM 中更新参数与 MLE 的关系：如果EM中的y的分布非0即1的话那么久等同于MLE,但是EM中的y是一个分布,比如$p(y=y^{(i)})=0.3$</li>
+<p>Output</p>
+<ul>
+<li>每个grammar rules的概率，也就是我们对每个语法的$\phi$</li>
 </ul>
+<h2 id="Inside-Outside-算法的基本设定就讲完了，下面我们就讲一下细节"><a href="#Inside-Outside-算法的基本设定就讲完了，下面我们就讲一下细节" class="headerlink" title="Inside Outside 算法的基本设定就讲完了，下面我们就讲一下细节"></a>Inside Outside 算法的基本设定就讲完了，下面我们就讲一下细节</h2><p>接下来的资料是根据 prof. Kewei Tu 在Shanghaitech CS181课程中的slice #17进行概括<br>这个更加图文并茂一些</p>
+<h3 id="EM算法的设定"><a href="#EM算法的设定" class="headerlink" title="EM算法的设定"></a>EM算法的设定</h3><p>看了前面的input,output是不是很熟悉呢？因为我们拿到是一个POS sequence而不是整个parse-tree,也就是说我们没有办法通过统计的方法来通过corpus得到每个grammar rules的参数（也就是概率）了，我们也因此没有办法用 CYK 算法进行parsing了。所以这个时候就该用EM算法了。</p>
+<h3 id="sketch-of-Inside-outside-人话版本"><a href="#sketch-of-Inside-outside-人话版本" class="headerlink" title="sketch of Inside-outside 人话版本"></a>sketch of Inside-outside 人话版本</h3><ul>
+<li>随机初始化 grammar rules 的概率</li>
+<li>利用这个概率计算出每个 grammar rules 的 <strong>expected counts</strong></li>
+<li>利用我们的expected counts 我们就能重新更新我们 grammar rules 的概率了！</li>
+<li>进入step2, 反复迭代。</li>
+</ul>
+<h3 id="sketch-of-Inside-outside-数学版本"><a href="#sketch-of-Inside-outside-数学版本" class="headerlink" title="sketch of Inside-outside 数学版本"></a>sketch of Inside-outside 数学版本</h3><ul>
+<li>随机初始化 grammar rules 的概率 $\theta^0$</li>
+<li>E-step: 利用这个概率计算出每个 grammar rules 的 <strong>expected counts</strong> $C(N^j\to N^r N^s \ used | X, \theta^t)$, $X$是句子，没有parse的，$N^j$表示第j个non-terminal</li>
+<li>M-step: 利用我们的expected counts 我们就能重新更新我们 grammar rules 的概率了！$\theta^{t+1}_{jrs}=P(N^j \to N^r N^s)=\frac{C(N^j\to N^r N^s \ used | X, \theta^t)}{C(N^j \ used | X, \theta^t)}$</li>
+<li>进入step2, 反复迭代。</li>
+</ul>
+<h3 id="最关键的问题-如何计算expected-count"><a href="#最关键的问题-如何计算expected-count" class="headerlink" title="最关键的问题: 如何计算expected count?"></a>最关键的问题: 如何计算expected count?</h3><script type="math/tex; mode=display">C(N^j\to N^r N^s \ used | X, \theta^t) = \sum_{(w_1 \cdots w_m) \in X} E_{p(t|w_1 \cdots w_m)} C(N^j\to N^r N^s \ used\ in\ t)</script><p>这一句话的意思是：对于一句话的每一个parse tree $t$, 我们都能够数出对于这个parse tree某个rule $N^j\to N^r N^s$的使用的次数，于是如果我们枚举出了所有的parse trees以及其对应的概率,那么我们就可以求出这个rule出现在这句话里面的次数的期望，也就是我们这句话的expected counts!最后对于每一句话$x \in X$都加起来，就得到了我们整个corpus的expected counts.但是一个句子的parse tree可能有很多，所以我们是无法枚举的。</p>
+<h3 id="所以我们通过计算inside-outside-probability来计算出expected-counts"><a href="#所以我们通过计算inside-outside-probability来计算出expected-counts" class="headerlink" title="所以我们通过计算inside-outside probability来计算出expected counts"></a><strong>所以我们通过计算inside-outside probability来计算出expected counts</strong></h3><p>expected count 可以这样表示，给定一个rule: $(N^j \to N^r \ N^s ,p,d,q)$(见最开始的定义)，对于每一个句子，我们可以通过枚举所有的$p,d,q$,加起来得到这个句子的这个grammar rule的expected counts,并且对每个句子加起来，最终得到这个corpus的expected counts<br>这里的$P$写清楚一点的话是$P(N^j \to N^r \ N^s ,p,d,q|w_{1,m},\theta^t)$<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/49723064.jpg" alt=""></p>
+<h2 id="那么我们如何计算-P-N-j-to-N-r-N-s-p-d-q-w-1-m-theta-t"><a href="#那么我们如何计算-P-N-j-to-N-r-N-s-p-d-q-w-1-m-theta-t" class="headerlink" title="那么我们如何计算 $P(N^j \to N^r \ N^s ,p,d,q|w_{1,m},\theta^t)$"></a>那么我们如何计算 $P(N^j \to N^r \ N^s ,p,d,q|w_{1,m},\theta^t)$</h2><p>我们通过计算inside probability 和 outside probability 来计算。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/71696567.jpg" alt=""></p>
+<h3 id="Inside-Probability"><a href="#Inside-Probability" class="headerlink" title="Inside Probability"></a>Inside Probability</h3><p>Inside score $\beta_j(p,q)$是non-terminal $N^j$ 生成terminal $w_p \cdots w_q$的概率,也就是$P(w_{pq}|N^j_{pq},G)$, 我们可以通过动态规划(Dynamic Programming)来计算。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/44133812.jpg" alt=""><br>我们可以把原问题划分为这样的子问题。$N^j$的spanning可以分解为$N^j \to N^r, N^s$，并且$N^r$ spanning成$w_p \cdots w_d$, $N^s$ spanning成$w_{d+1} \cdots w_q$, 我们只要枚举不同的split $d$ 并且加起来就行了。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/23219939.jpg" alt=""><br>Base case<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/79155619.jpg" alt=""><br><strong>这个过程就等同于CYK parsing,只不过把max换成了sum</strong></p>
+<h3 id="Outside-Probability"><a href="#Outside-Probability" class="headerlink" title="Outside Probability"></a>Outside Probability</h3><p>Outside score $\alpha_j(p,q)$是non-terminal $N^j$ 生成terminal $w_p \cdots w_q$<strong>之外</strong>的所有的non-ternimal的概率,也就是$P(w_{1(p-1)},N^j_{pq},w_{(q+1)m}|G)$, 我们可以通过动态规划(Dynamic Programming)来计算。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/53921346.jpg" alt=""></p>
 
       
     </div>
@@ -465,8 +488,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/04/MLE/" rel="next" title="Maximum Likelihood Estimation">
-                <i class="fa fa-chevron-left"></i> Maximum Likelihood Estimation
+              <a href="/2018/08/04/EM/" rel="next" title="Expectation-Maximization Algorithm">
+                <i class="fa fa-chevron-left"></i> Expectation-Maximization Algorithm
               </a>
             
           </div>
@@ -474,10 +497,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/05/Inside-Outside-Algorithm/" rel="prev" title="Inside-Outside-Algorithm">
-                Inside-Outside-Algorithm <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -661,7 +680,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Expectation-Maximization-Algorithm"><span class="nav-number">1.</span> <span class="nav-text">Expectation Maximization Algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果Naive-Bayes的training-data中没有label了怎么办？"><span class="nav-number">2.</span> <span class="nav-text">如果Naive Bayes的training data中没有label了怎么办？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无监督学习的怪圈"><span class="nav-number">3.</span> <span class="nav-text">无监督学习的怪圈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决问题"><span class="nav-number">4.</span> <span class="nav-text">解决问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Inside-Outside-Algorithm"><span class="nav-number">1.</span> <span class="nav-text">Inside Outside Algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是PCFG"><span class="nav-number">2.</span> <span class="nav-text">什么是PCFG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Inside-Outside-算法用作grammar-learning的Input-Output是什么"><span class="nav-number">3.</span> <span class="nav-text">Inside-Outside 算法用作grammar learning的Input Output是什么</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Inside-Outside-算法的基本设定就讲完了，下面我们就讲一下细节"><span class="nav-number"></span> <span class="nav-text">Inside Outside 算法的基本设定就讲完了，下面我们就讲一下细节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#EM算法的设定"><span class="nav-number">1.</span> <span class="nav-text">EM算法的设定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sketch-of-Inside-outside-人话版本"><span class="nav-number">2.</span> <span class="nav-text">sketch of Inside-outside 人话版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sketch-of-Inside-outside-数学版本"><span class="nav-number">3.</span> <span class="nav-text">sketch of Inside-outside 数学版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最关键的问题-如何计算expected-count"><span class="nav-number">4.</span> <span class="nav-text">最关键的问题: 如何计算expected count?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#所以我们通过计算inside-outside-probability来计算出expected-counts"><span class="nav-number">5.</span> <span class="nav-text">所以我们通过计算inside-outside probability来计算出expected counts</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#那么我们如何计算-P-N-j-to-N-r-N-s-p-d-q-w-1-m-theta-t"><span class="nav-number"></span> <span class="nav-text">那么我们如何计算 $P(N^j \to N^r \ N^s ,p,d,q|w_{1,m},\theta^t)$</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Inside-Probability"><span class="nav-number">1.</span> <span class="nav-text">Inside Probability</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Outside-Probability"><span class="nav-number">2.</span> <span class="nav-text">Outside Probability</span></a></li></ol></div>
             
 
           </div>
@@ -811,9 +830,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://jeffchy.github.io/2018/08/04/EM/';
-          this.page.identifier = '2018/08/04/EM/';
-          this.page.title = 'Expectation-Maximization Algorithm';
+          this.page.url = 'https://jeffchy.github.io/2018/08/05/Inside-Outside-Algorithm/';
+          this.page.identifier = '2018/08/05/Inside-Outside-Algorithm/';
+          this.page.title = 'Inside-Outside-Algorithm';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://https-jeffchy-github-io.disqus.com/embed.js';

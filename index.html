@@ -288,6 +288,406 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/05/Inside-Outside-Algorithm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/05/Inside-Outside-Algorithm/" itemprop="url">Inside-Outside-Algorithm</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-05T13:31:21+08:00">
+                2018-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Note/" itemprop="url" rel="index">
+                    <span itemprop="name">Note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/05/Inside-Outside-Algorithm/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/05/Inside-Outside-Algorithm/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.<br><a href="http://www.cs.columbia.edu/~mcollins/" target="_blank" rel="external">http://www.cs.columbia.edu/~mcollins/</a></p>
+<h3 id="Inside-Outside-Algorithm"><a href="#Inside-Outside-Algorithm" class="headerlink" title="Inside Outside Algorithm"></a>Inside Outside Algorithm</h3><p>Inside Outside 算法是 PCFG grammar induction (Unsupervised Learning)中的重要算法。Collins大佬的notes中的<a href="/2018/08/04/EM/">EM</a>算法是本notes的基础。<br>Inside Outside 算法被誉为是NLP中最难的算法，如果彻底搞懂NLP就没什么好怕的了！</p>
+<h3 id="什么是PCFG"><a href="#什么是PCFG" class="headerlink" title="什么是PCFG"></a>什么是PCFG</h3><p>Probability Context-free Grammars</p>
+<ul>
+<li>$N$ is finite sets of non-terminals</li>
+<li>$\sum$ is finite sets of ternminals</li>
+<li>$R$ is finite set of rules, the grammar is in Chomsky normal form, $A \to BC , A \to x$</li>
+<li>$S \in N$ is a distinguished start symbol</li>
+</ul>
+<p>对于每一条rule，我们定义rule spanning，如下。一个parse tree可以被定义为多个rule production的势函数的乘积。</p>
+<ul>
+<li>$(A \to B,C,i,k,j)$表示non-ternminal $A$ span 出了 $w_i \cdots w_j$,  $B$ span 出了 $w_i \cdots w_k$, $C$ span 出了 $w_k \cdots w_j$</li>
+<li>$(A \to i)$ 表示 non-terminal $A$ span 出了最底层的word i</li>
+<li>举一个例子<img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/92426943.jpg" alt=""></li>
+<li>上面两种rules 都有其对应的 potential function $\phi(r)$, 所以一整棵树的势函数就是所有rule的势函数的乘积<img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/74502801.jpg" alt=""></li>
+<li>通常我们对于每一种rule我们可以直接定义它的势函数为，看见这一条rule的概率，或者说这一条rule在这个corpus中出现的概率。所以我们将$\phi(A \to BC,i,k,j)=q(A\to BC)$,这个概率就是我们针对每个grammar rule assign的参数</li>
+</ul>
+<h3 id="Inside-Outside-算法用作grammar-learning的Input-Output是什么"><a href="#Inside-Outside-算法用作grammar-learning的Input-Output是什么" class="headerlink" title="Inside-Outside 算法用作grammar learning的Input Output是什么"></a>Inside-Outside 算法用作grammar learning的Input Output是什么</h3><p>Input</p>
+<ul>
+<li>一个句子 $x_1 \cdots x_n$,$x_i$是词</li>
+<li>一个CFG $(N,\sum, R,S)$ in Chomsky Normal Form，注意!这里的每个$r \in R$是没有概率的，也就是这里不是PCFG,如果我们知道每个gramma rules的概率的话，我们就是一个完整的PCFG的设定了！我们就可以用 <strong>CYK</strong> 算法，在$O(n^3G)$动态规划得把整棵树parse出来。</li>
+</ul>
+<p>Output</p>
+<ul>
+<li>每个grammar rules的概率，也就是我们对每个语法的$\phi$</li>
+</ul>
+<h2 id="Inside-Outside-算法的基本设定就讲完了，下面我们就讲一下细节"><a href="#Inside-Outside-算法的基本设定就讲完了，下面我们就讲一下细节" class="headerlink" title="Inside Outside 算法的基本设定就讲完了，下面我们就讲一下细节"></a>Inside Outside 算法的基本设定就讲完了，下面我们就讲一下细节</h2><p>接下来的资料是根据 prof. Kewei Tu 在Shanghaitech CS181课程中的slice #17进行概括<br>这个更加图文并茂一些</p>
+<h3 id="EM算法的设定"><a href="#EM算法的设定" class="headerlink" title="EM算法的设定"></a>EM算法的设定</h3><p>看了前面的input,output是不是很熟悉呢？因为我们拿到是一个POS sequence而不是整个parse-tree,也就是说我们没有办法通过统计的方法来通过corpus得到每个grammar rules的参数（也就是概率）了，我们也因此没有办法用 CYK 算法进行parsing了。所以这个时候就该用EM算法了。</p>
+<h3 id="sketch-of-Inside-outside-人话版本"><a href="#sketch-of-Inside-outside-人话版本" class="headerlink" title="sketch of Inside-outside 人话版本"></a>sketch of Inside-outside 人话版本</h3><ul>
+<li>随机初始化 grammar rules 的概率</li>
+<li>利用这个概率计算出每个 grammar rules 的 <strong>expected counts</strong></li>
+<li>利用我们的expected counts 我们就能重新更新我们 grammar rules 的概率了！</li>
+<li>进入step2, 反复迭代。</li>
+</ul>
+<h3 id="sketch-of-Inside-outside-数学版本"><a href="#sketch-of-Inside-outside-数学版本" class="headerlink" title="sketch of Inside-outside 数学版本"></a>sketch of Inside-outside 数学版本</h3><ul>
+<li>随机初始化 grammar rules 的概率 $\theta^0$</li>
+<li>E-step: 利用这个概率计算出每个 grammar rules 的 <strong>expected counts</strong> $C(N^j\to N^r N^s \ used | X, \theta^t)$, $X$是句子，没有parse的，$N^j$表示第j个non-terminal</li>
+<li>M-step: 利用我们的expected counts 我们就能重新更新我们 grammar rules 的概率了！$\theta^{t+1}_{jrs}=P(N^j \to N^r N^s)=\frac{C(N^j\to N^r N^s \ used | X, \theta^t)}{C(N^j \ used | X, \theta^t)}$</li>
+<li>进入step2, 反复迭代。</li>
+</ul>
+<h3 id="最关键的问题-如何计算expected-count"><a href="#最关键的问题-如何计算expected-count" class="headerlink" title="最关键的问题: 如何计算expected count?"></a>最关键的问题: 如何计算expected count?</h3><script type="math/tex; mode=display">C(N^j\to N^r N^s \ used | X, \theta^t) = \sum_{(w_1 \cdots w_m) \in X} E_{p(t|w_1 \cdots w_m)} C(N^j\to N^r N^s \ used\ in\ t)</script><p>这一句话的意思是：对于一句话的每一个parse tree $t$, 我们都能够数出对于这个parse tree某个rule $N^j\to N^r N^s$的使用的次数，于是如果我们枚举出了所有的parse trees以及其对应的概率,那么我们就可以求出这个rule出现在这句话里面的次数的期望，也就是我们这句话的expected counts!最后对于每一句话$x \in X$都加起来，就得到了我们整个corpus的expected counts.但是一个句子的parse tree可能有很多，所以我们是无法枚举的。</p>
+<h3 id="所以我们通过计算inside-outside-probability来计算出expected-counts"><a href="#所以我们通过计算inside-outside-probability来计算出expected-counts" class="headerlink" title="所以我们通过计算inside-outside probability来计算出expected counts"></a><strong>所以我们通过计算inside-outside probability来计算出expected counts</strong></h3><p>expected count 可以这样表示，给定一个rule: $(N^j \to N^r \ N^s ,p,d,q)$(见最开始的定义)，对于每一个句子，我们可以通过枚举所有的$p,d,q$,加起来得到这个句子的这个grammar rule的expected counts,并且对每个句子加起来，最终得到这个corpus的expected counts<br>这里的$P$写清楚一点的话是$P(N^j \to N^r \ N^s ,p,d,q|w_{1,m},\theta^t)$<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/49723064.jpg" alt=""></p>
+<h2 id="那么我们如何计算-P-N-j-to-N-r-N-s-p-d-q-w-1-m-theta-t"><a href="#那么我们如何计算-P-N-j-to-N-r-N-s-p-d-q-w-1-m-theta-t" class="headerlink" title="那么我们如何计算 $P(N^j \to N^r \ N^s ,p,d,q|w_{1,m},\theta^t)$"></a>那么我们如何计算 $P(N^j \to N^r \ N^s ,p,d,q|w_{1,m},\theta^t)$</h2><p>我们通过计算inside probability 和 outside probability 来计算。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/71696567.jpg" alt=""></p>
+<h3 id="Inside-Probability"><a href="#Inside-Probability" class="headerlink" title="Inside Probability"></a>Inside Probability</h3><p>Inside score $\beta_j(p,q)$是non-terminal $N^j$ 生成terminal $w_p \cdots w_q$的概率,也就是$P(w_{pq}|N^j_{pq},G)$, 我们可以通过动态规划(Dynamic Programming)来计算。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/44133812.jpg" alt=""><br>我们可以把原问题划分为这样的子问题。$N^j$的spanning可以分解为$N^j \to N^r, N^s$，并且$N^r$ spanning成$w_p \cdots w_d$, $N^s$ spanning成$w_{d+1} \cdots w_q$, 我们只要枚举不同的split $d$ 并且加起来就行了。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/23219939.jpg" alt=""><br>Base case<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/79155619.jpg" alt=""><br><strong>这个过程就等同于CYK parsing,只不过把max换成了sum</strong></p>
+<h3 id="Outside-Probability"><a href="#Outside-Probability" class="headerlink" title="Outside Probability"></a>Outside Probability</h3><p>Outside score $\alpha_j(p,q)$是non-terminal $N^j$ 生成terminal $w_p \cdots w_q$<strong>之外</strong>的所有的non-ternimal的概率,也就是$P(w_{1(p-1)},N^j_{pq},w_{(q+1)m}|G)$, 我们可以通过动态规划(Dynamic Programming)来计算。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/53921346.jpg" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/04/EM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/04/EM/" itemprop="url">Expectation-Maximization Algorithm</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T20:31:21+08:00">
+                2018-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Note/" itemprop="url" rel="index">
+                    <span itemprop="name">Note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/04/EM/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/04/EM/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.<br><a href="http://www.cs.columbia.edu/~mcollins/" target="_blank" rel="external">http://www.cs.columbia.edu/~mcollins/</a></p>
+<h3 id="Expectation-Maximization-Algorithm"><a href="#Expectation-Maximization-Algorithm" class="headerlink" title="Expectation Maximization Algorithm"></a>Expectation Maximization Algorithm</h3><p>EM 算法是无监督学习(Unsupervised Learning)中的重要算法。Collins大佬的notes中先用我们之前提到的Naive Bayes进行举例，所以如果之前的notes没有看的话，先看一下呗? <a href="/2018/08/04/Naive-Bayes/">Naive-Bayes</a></p>
+<h3 id="如果Naive-Bayes的training-data中没有label了怎么办？"><a href="#如果Naive-Bayes的training-data中没有label了怎么办？" class="headerlink" title="如果Naive Bayes的training data中没有label了怎么办？"></a>如果Naive Bayes的training data中没有label了怎么办？</h3><p>首先简单回忆一下Naive Bayes模型。在Supervised，即有(feature, label) pairs 的情况下，我们可以通过统计出$p(y),p(x|y)$计算出一个classifier，之前我们说过！统计出$p(y),p(x|y)$的过程虽然简单，数个数就完事了，但是这实际上是一个<a href="/2018/08/04/MLE/">Maximum Likelihood Estimation</a>的过程！我们通过我们手上的(feature,label) pair，计算出生成这组数据可能性最大的分布的参数！也就是最终计算出了生成这组数据的概率分布，也就是$p(y),p(x|y)$. 为什么要这么麻烦？因为理解MLE的过程是对理解EM算法非常重要的。</p>
+<p>没有label是无监督学习的一个常见的设定。如果没有label，那么我们就没有办法通过最大似然估计MLE计算出$p(y),p(x|y)$等一系列概率了。</p>
+<h3 id="无监督学习的怪圈"><a href="#无监督学习的怪圈" class="headerlink" title="无监督学习的怪圈"></a>无监督学习的怪圈</h3><p>所以现在出现了严重的问题</p>
+<ul>
+<li>如果没有label, 我们不可能估计出分布的参数, NB模型中即$p(y),p(x|y)$</li>
+<li>如果我们有了分布$p(y),p(x|y)$，我们就可以通过计算联合分布来产生一个NB classifier, 并且可以用它来判别新的数据的label.</li>
+</ul>
+<h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><p>怎么解决呢？我们没有参数，那么我们就假设一个合理的呗？</p>
+<ul>
+<li>随机初始化$p(y),p(x|y)$，并且满足他们是合理的概率就行了，概率和条件概率都大于零小于一，并且加起来等于一。现在我们就有我们计算classifier所需要的$p(y),p(x|y)$了。</li>
+<li>那么我们就计算classifier呗 <span>$p(y, x_1, x_2, \cdots, x_n) = p(y) \prod_{j=1}^n p(x_j | y)$</span><!-- Has MathJax --></li>
+<li>我们可以通过这个classifier计算出每个样本点的feature集合使得样本点表现为不同label的概率，这里的$\theta$指得是我们上一次嘉定的参数。即$p(y|x^{(i)}, \theta^{t-1})=\frac{p(y,x_1,x_2,\cdots,x_n)}{p(x_1,x_2,\cdots,x_n)}=\frac{p(y,x_1,x_2,\cdots,x_n)}{\sum_j p(y_j, x_1,x_2,\cdots,x_n)}$, 这一步就是普通的条件概率的计算。分母marginalize掉所有可能的label.</li>
+<li>我们通过我们这个暂时的classifier得到了所有的样本点的label的条件概率分布之后，我们就可对通过计算获得最新的参数了，$p(y),p(x|y)$，反复迭代</li>
+<li>整个算法的具体过程如下图<img src="http://oj4pv4f25.bkt.clouddn.com/18-8-4/36887730.jpg" alt=""></li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>EM 算法通常用在无监督学习，没有label的任务中</li>
+<li>input: Data样本和最终准备归为的几类 output: 每个样本被明确assign</li>
+<li>EM 算法的具体步骤<ul>
+<li>随机初始化模型分布的参数 $\theta$</li>
+<li>已知参数计算出每个样本的label的分布$p(y|x^{(i)},\theta)$</li>
+<li>用类似MLE的方法更新参数 $\theta$</li>
+<li>回到第二步，不断迭代。</li>
+</ul>
+</li>
+<li>EM 中更新参数与 MLE 的关系：如果EM中的y的分布非0即1的话那么久等同于MLE,但是EM中的y是一个分布,比如$p(y=y^{(i)})=0.3$</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/04/MLE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -319,7 +719,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T13:31:21+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T16:50:21+08:00">
                 2018-08-04
               </time>
             
@@ -408,10 +808,14 @@
 <blockquote>
 <p><strong>MLE的思路用一句人话来说就是:</strong> 我们拿到了一堆数据,我们不知道生成这个数据的概率分布是什么,(我们不知道某个分布的参数)那么我们就用手上的数据,以这个参数为未知数把生成这个数据的结果的概率给求出来,然后求这个概率最大的时候参数的值就可以了!</p>
 </blockquote>
-<h3 id="来点数学玩意"><a href="#来点数学玩意" class="headerlink" title="来点数学玩意"></a>来点数学玩意</h3><p>MLE的general的数学表示是啥呢?一行就够了<br>$$\mathop{argmax} \limits_{\theta} P(D|\theta)$$<br>$D$ 是data, $\theta$ 是未知概率分布的参数,我们的目标是找到最好的$\theta$,结合前面的人话看,很简单的对吧.</p>
-<p>值得一题的是,我们通常在外面取一个$\log$因为这个operation不会改变函数的单调性,因为概率多位连乘,加上log以后变为连加,容易求导.<br>$$\mathop{argmax} \limits_{\theta} \log{P(D|\theta)}$$</p>
-<h3 id="一个栗子"><a href="#一个栗子" class="headerlink" title="一个栗子"></a>一个栗子</h3><p>一个畸形硬币,有两面$H,T$, $P(H)=\theta, P(T)=1-\theta$, 这里 $\theta$ 就是我们的参数啦, 假设我们获取了一份数据$D$, 为 HHTTHHT, 那么,生成这一份数据的概率是多少呢? 连乘起来得到<br>$$\log{P(D|\theta)} = \log{\theta^4 (1-\theta)^3} = 4 \log{\theta} + 3 \log{(1-\theta)} $$<br>要求<br>$$\mathop{argmax} \limits_{\theta} \log{P(D|\theta)}$$<br>我们只要求导即可<br>$$\frac{d \log{P(D|\theta)}}{d \theta}=\frac{4}{\theta}-\frac{3}{1-\theta}=0$$<br>$$\theta=\frac47$$</p>
-<h3 id="两个栗子"><a href="#两个栗子" class="headerlink" title="两个栗子"></a>两个栗子</h3><p>M. Collins 的原文章中是拿 Multinomial 来举例子的,而上一个栗子中硬币的分布式 Binomial. 他们两个本质没有区别…<br>一个超级畸形硬币,有<strong>三</strong>面$H,T,M$, $P(H)=\theta_1, P(T)=\theta_2, P(M) = 1- \theta_1 - \theta_2$, 这里 $\theta_1, \theta_2$ 就是我们的参数啦, 其他步骤都是一样的,只不过最后一步改成求偏导即可<br>$$\frac{d \log{P(D|\theta_1, \theta_2)}}{d \theta_1}=0$$<br>$$\frac{d \log{P(D|\theta_1, \theta_2)}}{d \theta_2}=0$$<br>M.Collins原文中使用了拉格朗日乘子法转换为convex问题来求解，结果应该是一样的。</p>
+<h3 id="来点数学玩意"><a href="#来点数学玩意" class="headerlink" title="来点数学玩意"></a>来点数学玩意</h3><p>MLE的general的数学表示是啥呢?一行就够了</p>
+<script type="math/tex; mode=display">\mathop{argmax} \limits_{\theta} P(D|\theta)</script><p>$D$ 是data, $\theta$ 是未知概率分布的参数,我们的目标是找到最好的$\theta$,结合前面的人话看,很简单的对吧.</p>
+<p>值得一题的是,我们通常在外面取一个$\log$因为这个operation不会改变函数的单调性,因为概率多位连乘,加上log以后变为连加,容易求导.</p>
+<script type="math/tex; mode=display">\mathop{argmax} \limits_{\theta} \log{P(D|\theta)}</script><h3 id="一个栗子"><a href="#一个栗子" class="headerlink" title="一个栗子"></a>一个栗子</h3><p>一个畸形硬币,有两面$H,T$, $P(H)=\theta, P(T)=1-\theta$, 这里 $\theta$ 就是我们的参数啦, 假设我们获取了一份数据$D$, 为 HHTTHHT, 那么,生成这一份数据的概率是多少呢? 连乘起来得到</p>
+<script type="math/tex; mode=display">\log{P(D|\theta)} = \log{\theta^4 (1-\theta)^3} = 4 \log{\theta} + 3 \log{(1-\theta)}</script><p>要求</p>
+<script type="math/tex; mode=display">\mathop{argmax} \limits_{\theta} \log{P(D|\theta)}</script><p>我们只要求导即可</p>
+<script type="math/tex; mode=display">\frac{d \log{P(D|\theta)}}{d \theta}=\frac{4}{\theta}-\frac{3}{1-\theta}=0</script><script type="math/tex; mode=display">\theta=\frac47</script><h3 id="两个栗子"><a href="#两个栗子" class="headerlink" title="两个栗子"></a>两个栗子</h3><p>M. Collins 的原文章中是拿 Multinomial 来举例子的,而上一个栗子中硬币的分布式 Binomial. 他们两个本质没有区别…<br>一个超级畸形硬币,有<strong>三</strong>面$H,T,M$, $P(H)=\theta_1, P(T)=\theta_2, P(M) = 1- \theta_1 - \theta_2$, 这里 $\theta_1, \theta_2$ 就是我们的参数啦, 其他步骤都是一样的,只不过最后一步改成求偏导即可</p>
+<script type="math/tex; mode=display">\frac{d \log{P(D|\theta_1, \theta_2)}}{d \theta_1}=0</script><script type="math/tex; mode=display">\frac{d \log{P(D|\theta_1, \theta_2)}}{d \theta_2}=0</script><p>M.Collins原文中使用了拉格朗日乘子法转换为convex问题来求解，结果应该是一样的。</p>
 
           
         
@@ -596,198 +1000,6 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
 <p><strong>Naive Bayes 用一句人话来说就是:</strong><br>特征之间条件独立, 我么用足够的数据来求得必要的概率,然后用最大的feature和label的联合概率分布来判断新的数据的label是什么.</p>
 </blockquote>
 <h3 id="如果还是不觉得是人话那就万分抱歉了"><a href="#如果还是不觉得是人话那就万分抱歉了" class="headerlink" title="如果还是不觉得是人话那就万分抱歉了."></a>如果还是不觉得是人话那就万分抱歉了.</h3>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/04/EM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Chiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeff-Chiang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/04/EM/" itemprop="url">Expectation-Maximization Algorithm</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T13:31:21+08:00">
-                2018-08-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NLP/" itemprop="url" rel="index">
-                    <span itemprop="name">NLP</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NLP/Note/" itemprop="url" rel="index">
-                    <span itemprop="name">Note</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/04/EM/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/04/EM/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.<br><a href="http://www.cs.columbia.edu/~mcollins/" target="_blank" rel="external">http://www.cs.columbia.edu/~mcollins/</a></p>
-<h3 id="Expectation-Maximization-Algorithm"><a href="#Expectation-Maximization-Algorithm" class="headerlink" title="Expectation Maximization Algorithm"></a>Expectation Maximization Algorithm</h3><p>EM 算法是无监督学习(Unsupervised Learning)中的重要算法。Collins大佬的notes中先用我们之前提到的Naive Bayes进行举例，所以如果之前的notes没有看的话，先看一下呗? <a href="/2018/08/04/Naive-Bayes/">Naive-Bayes</a></p>
-<h3 id="如果Naive-Bayes的training-data中没有label了怎么办？"><a href="#如果Naive-Bayes的training-data中没有label了怎么办？" class="headerlink" title="如果Naive Bayes的training data中没有label了怎么办？"></a>如果Naive Bayes的training data中没有label了怎么办？</h3><p>首先简单回忆一下Naive Bayes模型。在Supervised，即有(feature, label) pairs 的情况下，我们可以通过统计出$p(y),p(x|y)$计算出一个classifier，之前我们说过！统计出$p(y),p(x|y)$的过程虽然简单，数个数就完事了，但是这实际上是一个<a href="/2018/08/04/MLE/">Maximum Likelihood Estimation</a>的过程！我们通过我们手上的(feature,label) pair，计算出生成这组数据可能性最大的分布的参数！也就是最终计算出了生成这组数据的概率分布，也就是$p(y),p(x|y)$. 为什么要这么麻烦？因为理解MLE的过程是对理解EM算法非常重要的。</p>
-<p>没有label是无监督学习的一个常见的设定。如果没有label，那么我们就没有办法通过最大似然估计MLE计算出$p(y),p(x|y)$等一系列概率了。</p>
-<h3 id="无监督学习的怪圈"><a href="#无监督学习的怪圈" class="headerlink" title="无监督学习的怪圈"></a>无监督学习的怪圈</h3><p>所以现在出现了严重的问题</p>
-<ul>
-<li>如果没有label, 我们不可能估计出分布的参数, NB模型中即$p(y),p(x|y)$</li>
-<li>如果我们有了分布$p(y),p(x|y)$，我们就可以通过计算联合分布来产生一个NB classifier, 并且可以用它来判别新的数据的label.</li>
-</ul>
-<h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><p>怎么解决呢？我们没有参数，那么我们就假设一个合理的呗？</p>
-<ul>
-<li>随机初始化$p(y),p(x|y)$，并且满足他们是合理的概率就行了，概率和条件概率都大于零小于一，并且加起来等于一。现在我们就有我们计算classifier所需要的$p(y),p(x|y)$了。</li>
-<li>那么我们就计算classifier呗 <span>$p(y, x_1, x_2, \cdots, x_n) = p(y) \prod_{j=1}^n p(x_j | y)$</span><!-- Has MathJax --></li>
-<li>我们可以通过这个classifier计算出每个样本点的feature集合使得样本点表现为不同label的概率，这里的$\theta$指得是我们上一次嘉定的参数。即$p(y|x^{(i)}, \theta^{t-1})=\frac{p(y,x_1,x_2,\cdots,x_n)}{p(x_1,x_2,\cdots,x_n)}=\frac{p(y,x_1,x_2,\cdots,x_n)}{\sum_j p(y_j, x_1,x_2,\cdots,x_n)}$, 这一步就是普通的条件概率的计算。分母marginalize掉所有可能的label.</li>
-<li>我们通过我们这个暂时的classifier得到了所有的样本点的label的条件概率分布之后，我们就可对通过计算获得最新的参数了，$p(y),p(x|y)$，反复迭代</li>
-<li>整个算法的具体过程如下图<img src="http://oj4pv4f25.bkt.clouddn.com/18-8-4/36887730.jpg" alt=""></li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li>EM 算法通常用在无监督学习，没有label的任务中</li>
-<li>input: Data样本和最终准备归为的几类 output: 每个样本被明确assign</li>
-<li>EM 算法的具体步骤<ul>
-<li>随机初始化模型分布的参数 $\theta$</li>
-<li>已知参数计算出每个样本的label的分布$p(y|x^{(i)},\theta)$</li>
-<li>用类似MLE的方法更新参数 $\theta$</li>
-<li>回到第二步，不断迭代。</li>
-</ul>
-</li>
-<li>EM 中更新参数与 MLE 的关系：如果EM中的y的分布非0即1的话那么久等同于MLE,但是EM中的y是一个分布,比如$p(y=y^{(i)})=0.3$</li>
-</ul>
-
           
         
       
@@ -1143,160 +1355,6 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/03/06/LeetCode-794-Tic-Tac-Toe/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Chiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeff-Chiang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/06/LeetCode-794-Tic-Tac-Toe/" itemprop="url">LeetCode-794-Tic-Tac-Toe</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T18:44:10+08:00">
-                2018-03-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Code/" itemprop="url" rel="index">
-                    <span itemprop="name">Code</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/03/06/LeetCode-794-Tic-Tac-Toe/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/03/06/LeetCode-794-Tic-Tac-Toe/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://leetcode.com/problems/valid-tic-tac-toe-state/description/" target="_blank" rel="external">LeetCode #794 Valid Tic-Tac-Toe State</a></p>
-<p>基本思路:统计基本信息+检查。<br>根据谁赢来分成两类，考察编码者思维条理性，代码难度不难，思维难度中等。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">validTicTacToe</span><span class="params">(self, board)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line"><span class="string">        :type board: List[str]</span></div><div class="line"><span class="string">        :rtype: bool</span></div><div class="line"><span class="string">        """</span></div><div class="line">        <span class="comment"># count part</span></div><div class="line">        O = <span class="number">0</span></div><div class="line">        X = <span class="number">0</span></div><div class="line">        OOO = <span class="number">0</span></div><div class="line">        XXX = <span class="number">0</span></div><div class="line"></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">            <span class="comment"># check row</span></div><div class="line">            <span class="keyword">if</span> board[i] == <span class="string">"OOO"</span>:</div><div class="line">                O += <span class="number">3</span></div><div class="line">                OOO += <span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> board[i] == <span class="string">"XXX"</span>:</div><div class="line">                X += <span class="number">3</span></div><div class="line">                XXX += <span class="number">1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">                    <span class="keyword">if</span> board[i][j] == <span class="string">"O"</span>:</div><div class="line">                        O += <span class="number">1</span></div><div class="line">                    <span class="keyword">if</span> board[i][j] == <span class="string">"X"</span>:</div><div class="line">                        X += <span class="number">1</span></div><div class="line"></div><div class="line">            <span class="comment"># check column</span></div><div class="line">            <span class="keyword">if</span> (board[<span class="number">0</span>][i] == board[<span class="number">1</span>][i]) <span class="keyword">and</span> (board[<span class="number">2</span>][i] == board[<span class="number">1</span>][i]):</div><div class="line">                <span class="keyword">if</span> board[<span class="number">0</span>][i] == <span class="string">"X"</span>:</div><div class="line">                    XXX += <span class="number">1</span></div><div class="line">                <span class="keyword">if</span> board[<span class="number">0</span>][i] == <span class="string">"O"</span>:</div><div class="line">                    OOO += <span class="number">1</span></div><div class="line"></div><div class="line">        <span class="comment"># check diagnal                </span></div><div class="line">        <span class="keyword">if</span> (board[<span class="number">0</span>][<span class="number">0</span>] == board[<span class="number">1</span>][<span class="number">1</span>]) <span class="keyword">and</span>  (board[<span class="number">1</span>][<span class="number">1</span>] == board[<span class="number">2</span>][<span class="number">2</span>]):</div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"X"</span>) :</div><div class="line">                XXX += <span class="number">1</span></div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"O"</span>) :</div><div class="line">                OOO += <span class="number">1</span></div><div class="line">        <span class="keyword">if</span> (board[<span class="number">2</span>][<span class="number">0</span>] == board[<span class="number">1</span>][<span class="number">1</span>]) <span class="keyword">and</span>  (board[<span class="number">1</span>][<span class="number">1</span>] == board[<span class="number">0</span>][<span class="number">2</span>]):</div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"X"</span>) :</div><div class="line">                XXX += <span class="number">1</span></div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"O"</span>) :</div><div class="line">                OOO += <span class="number">1</span></div><div class="line"></div><div class="line">        print(X,O,XXX,OOO)</div><div class="line">        <span class="comment"># key check part</span></div><div class="line">        <span class="keyword">if</span> XXX + OOO &gt; <span class="number">1</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> (O &gt; X) <span class="keyword">or</span> (X &gt; O + <span class="number">1</span>):</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> XXX == <span class="number">1</span>:</div><div class="line">            <span class="keyword">if</span> X != O + <span class="number">1</span>:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> OOO == <span class="number">1</span>:</div><div class="line">            <span class="keyword">if</span> X != O:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">True</span></div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/03/06/LeetCode-48-Rotate-Image/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1403,6 +1461,160 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
           
             <p><a href="https://leetcode.com/problems/rotate-image/description/" target="_blank" rel="external">LeetCode #48 Rotate Image</a></p>
 <p>可以四个四个来<br>也可以transpose + flip(X)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rotate</span><span class="params">(self, matrix)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line"><span class="string">        :type matrix: List[List[int]]</span></div><div class="line"><span class="string">        :rtype: void Do not return anything, modify matrix in-place instead.</span></div><div class="line"><span class="string">        """</span></div><div class="line">        n = len(matrix)</div><div class="line">        print(n)</div><div class="line">        <span class="keyword">if</span> n == <span class="number">0</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">None</span></div><div class="line"></div><div class="line">        <span class="comment"># transpose</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</div><div class="line">                <span class="keyword">if</span> i &gt; j:</div><div class="line">                    temp = matrix[i][j]</div><div class="line">                    matrix[i][j] = matrix[j][i]</div><div class="line">                    matrix[j][i] = temp</div><div class="line"></div><div class="line">        print(<span class="number">1</span>)</div><div class="line">        <span class="comment"># flip</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(n//<span class="number">2</span>):</div><div class="line">                temp = matrix[i][j]</div><div class="line">                matrix[i][j] = matrix[i][n-j<span class="number">-1</span>]</div><div class="line">                matrix[i][n-j<span class="number">-1</span>] = temp</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/03/06/LeetCode-794-Tic-Tac-Toe/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/06/LeetCode-794-Tic-Tac-Toe/" itemprop="url">LeetCode-794-Tic-Tac-Toe</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T18:44:10+08:00">
+                2018-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Code/" itemprop="url" rel="index">
+                    <span itemprop="name">Code</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/06/LeetCode-794-Tic-Tac-Toe/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/03/06/LeetCode-794-Tic-Tac-Toe/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://leetcode.com/problems/valid-tic-tac-toe-state/description/" target="_blank" rel="external">LeetCode #794 Valid Tic-Tac-Toe State</a></p>
+<p>基本思路:统计基本信息+检查。<br>根据谁赢来分成两类，考察编码者思维条理性，代码难度不难，思维难度中等。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">validTicTacToe</span><span class="params">(self, board)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line"><span class="string">        :type board: List[str]</span></div><div class="line"><span class="string">        :rtype: bool</span></div><div class="line"><span class="string">        """</span></div><div class="line">        <span class="comment"># count part</span></div><div class="line">        O = <span class="number">0</span></div><div class="line">        X = <span class="number">0</span></div><div class="line">        OOO = <span class="number">0</span></div><div class="line">        XXX = <span class="number">0</span></div><div class="line"></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">            <span class="comment"># check row</span></div><div class="line">            <span class="keyword">if</span> board[i] == <span class="string">"OOO"</span>:</div><div class="line">                O += <span class="number">3</span></div><div class="line">                OOO += <span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> board[i] == <span class="string">"XXX"</span>:</div><div class="line">                X += <span class="number">3</span></div><div class="line">                XXX += <span class="number">1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">                    <span class="keyword">if</span> board[i][j] == <span class="string">"O"</span>:</div><div class="line">                        O += <span class="number">1</span></div><div class="line">                    <span class="keyword">if</span> board[i][j] == <span class="string">"X"</span>:</div><div class="line">                        X += <span class="number">1</span></div><div class="line"></div><div class="line">            <span class="comment"># check column</span></div><div class="line">            <span class="keyword">if</span> (board[<span class="number">0</span>][i] == board[<span class="number">1</span>][i]) <span class="keyword">and</span> (board[<span class="number">2</span>][i] == board[<span class="number">1</span>][i]):</div><div class="line">                <span class="keyword">if</span> board[<span class="number">0</span>][i] == <span class="string">"X"</span>:</div><div class="line">                    XXX += <span class="number">1</span></div><div class="line">                <span class="keyword">if</span> board[<span class="number">0</span>][i] == <span class="string">"O"</span>:</div><div class="line">                    OOO += <span class="number">1</span></div><div class="line"></div><div class="line">        <span class="comment"># check diagnal                </span></div><div class="line">        <span class="keyword">if</span> (board[<span class="number">0</span>][<span class="number">0</span>] == board[<span class="number">1</span>][<span class="number">1</span>]) <span class="keyword">and</span>  (board[<span class="number">1</span>][<span class="number">1</span>] == board[<span class="number">2</span>][<span class="number">2</span>]):</div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"X"</span>) :</div><div class="line">                XXX += <span class="number">1</span></div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"O"</span>) :</div><div class="line">                OOO += <span class="number">1</span></div><div class="line">        <span class="keyword">if</span> (board[<span class="number">2</span>][<span class="number">0</span>] == board[<span class="number">1</span>][<span class="number">1</span>]) <span class="keyword">and</span>  (board[<span class="number">1</span>][<span class="number">1</span>] == board[<span class="number">0</span>][<span class="number">2</span>]):</div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"X"</span>) :</div><div class="line">                XXX += <span class="number">1</span></div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"O"</span>) :</div><div class="line">                OOO += <span class="number">1</span></div><div class="line"></div><div class="line">        print(X,O,XXX,OOO)</div><div class="line">        <span class="comment"># key check part</span></div><div class="line">        <span class="keyword">if</span> XXX + OOO &gt; <span class="number">1</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> (O &gt; X) <span class="keyword">or</span> (X &gt; O + <span class="number">1</span>):</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> XXX == <span class="number">1</span>:</div><div class="line">            <span class="keyword">if</span> X != O + <span class="number">1</span>:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> OOO == <span class="number">1</span>:</div><div class="line">            <span class="keyword">if</span> X != O:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">True</span></div></pre></td></tr></table></figure></p>
 
           
         
@@ -1753,174 +1965,6 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2017/02/01/Django-Project-Simple-Gallery-一/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Chiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeff-Chiang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/02/01/Django-Project-Simple-Gallery-一/" itemprop="url">Django Project: Simple Gallery(二)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-01T21:01:08+08:00">
-                2017-02-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tech/" itemprop="url" rel="index">
-                    <span itemprop="name">Tech</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tech/Note/" itemprop="url" rel="index">
-                    <span itemprop="name">Note</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/02/01/Django-Project-Simple-Gallery-一/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/02/01/Django-Project-Simple-Gallery-一/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>大家好久不见，我把gallery部署了，不过先没有部署在阿里云上，而是在pythonanywhere上，说一下如何在上面部署吧。<br>链接：<a href="http://jeffchiang.pythonanywhere.com/gallery/" target="_blank" rel="external">http://jeffchiang.pythonanywhere.com/gallery/</a><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/01/Django-Project-Simple-Gallery-一/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1973,7 +2017,7 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
