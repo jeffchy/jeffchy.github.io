@@ -422,7 +422,7 @@
 </ul>
 <h3 id="Inside-Outside-算法用作grammar-learning的Input-Output是什么"><a href="#Inside-Outside-算法用作grammar-learning的Input-Output是什么" class="headerlink" title="Inside-Outside 算法用作grammar learning的Input Output是什么"></a>Inside-Outside 算法用作grammar learning的Input Output是什么</h3><p>Input</p>
 <ul>
-<li>一个句子 $x_1 \cdots x_n$,$x_i$是词</li>
+<li>很多个句子的集合 $X$, 每一个句子$x \in X$, 我们有$x_1 \cdots x_n$, $x_i$是词</li>
 <li>一个CFG $(N,\sum, R,S)$ in Chomsky Normal Form，注意!这里的每个$r \in R$是没有概率的，也就是这里不是PCFG,如果我们知道每个gramma rules的概率的话，我们就是一个完整的PCFG的设定了！我们就可以用 <strong>CYK</strong> 算法，在$O(n^3G)$动态规划得把整棵树parse出来。</li>
 </ul>
 <p>Output</p>
@@ -447,7 +447,24 @@
 <h3 id="所以我们通过计算inside-outside-probability来计算出expected-counts"><a href="#所以我们通过计算inside-outside-probability来计算出expected-counts" class="headerlink" title="所以我们通过计算inside-outside probability来计算出expected counts"></a><strong>所以我们通过计算inside-outside probability来计算出expected counts</strong></h3><p>expected count 可以这样表示，给定一个rule: $(N^j \to N^r \ N^s ,p,d,q)$(见最开始的定义)，对于每一个句子，我们可以通过枚举所有的$p,d,q$,加起来得到这个句子的这个grammar rule的expected counts,并且对每个句子加起来，最终得到这个corpus的expected counts<br>这里的$P$写清楚一点的话是$P(N^j \to N^r \ N^s ,p,d,q|w_{1,m},\theta^t)$<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/49723064.jpg" alt=""></p>
 <h2 id="那么我们如何计算-P-N-j-to-N-r-N-s-p-d-q-w-1-m-theta-t"><a href="#那么我们如何计算-P-N-j-to-N-r-N-s-p-d-q-w-1-m-theta-t" class="headerlink" title="那么我们如何计算 $P(N^j \to N^r \ N^s ,p,d,q|w_{1,m},\theta^t)$"></a>那么我们如何计算 $P(N^j \to N^r \ N^s ,p,d,q|w_{1,m},\theta^t)$</h2><p>我们通过计算inside probability 和 outside probability 来计算。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/71696567.jpg" alt=""></p>
 <h3 id="Inside-Probability"><a href="#Inside-Probability" class="headerlink" title="Inside Probability"></a>Inside Probability</h3><p>Inside score $\beta_j(p,q)$是non-terminal $N^j$ 生成terminal $w_p \cdots w_q$的概率,也就是$P(w_{pq}|N^j_{pq},G)$, 我们可以通过动态规划(Dynamic Programming)来计算。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/44133812.jpg" alt=""><br>我们可以把原问题划分为这样的子问题。$N^j$的spanning可以分解为$N^j \to N^r, N^s$，并且$N^r$ spanning成$w_p \cdots w_d$, $N^s$ spanning成$w_{d+1} \cdots w_q$, 我们只要枚举不同的split $d$ 并且加起来就行了。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/23219939.jpg" alt=""><br>Base case<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/79155619.jpg" alt=""><br><strong>这个过程就等同于CYK parsing,只不过把max换成了sum</strong></p>
-<h3 id="Outside-Probability"><a href="#Outside-Probability" class="headerlink" title="Outside Probability"></a>Outside Probability</h3><p>Outside score $\alpha_j(p,q)$是non-terminal $N^j$ 生成terminal $w_p \cdots w_q$<strong>之外</strong>的所有的non-ternimal的概率,也就是$P(w_{1(p-1)},N^j_{pq},w_{(q+1)m}|G)$, 我们可以通过动态规划(Dynamic Programming)来计算。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/53921346.jpg" alt=""></p>
+<h3 id="Outside-Probability"><a href="#Outside-Probability" class="headerlink" title="Outside Probability"></a>Outside Probability</h3><p>Outside score $\alpha_j(p,q)$是non-terminal $N^j$ 生成terminal $w_p \cdots w_q$<strong>之外</strong>的所有的non-ternimal的概率,也就是$P(w_{1(p-1)},N^j_{pq},w_{(q+1)m}|G)$, 我们可以通过动态规划(Dynamic Programming)来计算。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/53921346.jpg" alt=""><br>怎么分解成子问题呢？如果是$N^f \to N^g, N^j$我们需要计算的是$w_1 \cdots w_{(p-1)}, w_q \cdots w_{m}$这两段的概率，那我们可以通过计算$N^f$的outside score乘上$N^g$的inside score来计算，如果是$N^f \to N^j, N^g$那么与之前类似，我们需要这两种情况。最终我们得到。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/73296021.jpg" alt=""></p>
+<h3 id="用-Inside-Outside-score-来表示-P-N-j-to-N-r-N-s-p-d-q-w-1-m-theta-t"><a href="#用-Inside-Outside-score-来表示-P-N-j-to-N-r-N-s-p-d-q-w-1-m-theta-t" class="headerlink" title="用 Inside+Outside score 来表示 $P(N^j \to N^r \ N^s ,p,d,q|w_{1,m},\theta^t)$"></a>用 Inside+Outside score 来表示 $P(N^j \to N^r \ N^s ,p,d,q|w_{1,m},\theta^t)$</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/77178935.jpg" alt=""><br>这个就很直观啦，$N^j \to N^r, N^s$并且生成$w_{1,m}$的概率$P(N^j \to N^r \ N^s ,p,d,q|w_{1,m},\theta^t)$ 可以表示为：$N^r$的inside score 乘上 $N^s$的 Inside Score 乘上$N^j$的outside score 乘上$N^j \to N^r, N^s$的概率在 condition on (除以得到条件概率) $S$的inside score!</p>
+<h3 id="用人话总结-Inside-Outside"><a href="#用人话总结-Inside-Outside" class="headerlink" title="用人话总结 Inside-Outside"></a>用人话总结 Inside-Outside</h3><ul>
+<li>我们没有parse tree 的标注(annotation)，所以我么希望通过EM算法进行无监督学习</li>
+<li>EM Algorithm<ul>
+<li>Initialize parameters (每个grammar rules $r$在corpus$X$中出现的概率)</li>
+<li>E-step: 计算Expected Count (grammar rules $r$在corpus$X$中出现的次数的期望)<ul>
+<li>计算Inside Score (DP)</li>
+<li>计算Outside Score (DP)</li>
+<li>得到用Inside/Outside Score表示Expected Count</li>
+</ul>
+</li>
+<li>M-step: Update Probabilities Use expected counts</li>
+<li>跳到E-step, 迭代</li>
+</ul>
+</li>
+<li>最终我们得到了每个grammar rules的概率，于是我们可以用类似<strong>CYK</strong>的算法进行语法树的parsing了。</li>
+</ul>
 
           
         
