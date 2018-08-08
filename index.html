@@ -288,6 +288,181 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/08/Inductive-Bias/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/08/Inductive-Bias/" itemprop="url">Inductive Bias</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-08T23:51:21+08:00">
+                2018-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning-Theory/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning Theory</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning-Theory/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/08/Inductive-Bias/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/08/Inductive-Bias/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h3><p>Inductive Bias 归纳偏置是机器学习中的一个重要常见的概念<br>摘自Wikipedia</p>
+<blockquote>
+<p>当学习器去预测其未遇到过的输入的结果时，会做一些假设（Mitchell, 1980）。而学习算法中的归纳偏置则是这些假设的集合。</p>
+</blockquote>
+<h3 id="机器学习中常见的归纳偏置列表："><a href="#机器学习中常见的归纳偏置列表：" class="headerlink" title="机器学习中常见的归纳偏置列表："></a>机器学习中常见的归纳偏置列表：</h3><ul>
+<li>最大条件独立性（conditional independence）：如果假说能转成贝叶斯模型架构，则试着使用最大化条件独立性。这是用于朴素贝叶斯分类器（Naive Bayes classifier）的偏置。</li>
+<li>最小交叉验证误差：当试图在假说中做选择时，挑选那个具有最低交叉验证误差的假说，虽然交叉验证看起来可能无关偏置，但天下没有免费的午餐理论显示交叉验证已是偏置的。</li>
+<li>最大边界：当要在两个类别间画一道分界线时，试图去最大化边界的宽度。这是用于支持向量机的偏置。这个假设是不同的类别是由宽界线来区分。</li>
+<li>最小描述长度（Minimum description length）：当构成一个假设时，试图去最小化其假设的描述长度。假设越简单，越可能为真的。见奥卡姆剃刀。</li>
+<li>最少特征数（Minimum features）：除非有充分的证据显示一个特征是有效用的，否则它应当被删除。这是特征选择（feature selection）算法背后所使用的假设。</li>
+<li>最近邻居：假设在特征空间（feature space）中一小区域内大部分的样本是同属一类。给一个未知类别的样本，猜测它与它最紧接的大部分邻居是同属一类。这是用于最近邻居法的偏置。这个假设是相近的样本应倾向同属于一类别。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/08/Unsupervised-Neural-Dependency-Parsing/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -307,7 +482,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/08/Unsupervised-Neural-Dependency-Parsing/" itemprop="url">Dependency Model With Valence</a></h1>
+                <a class="post-title-link" href="/2018/08/08/Unsupervised-Neural-Dependency-Parsing/" itemprop="url">Neural Unsupervided Dependency Parsing</a></h1>
         
 
         <div class="post-meta">
@@ -319,7 +494,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-08T09:31:21+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-08T23:31:21+08:00">
                 2018-08-08
               </time>
             
@@ -403,32 +578,190 @@
       
         
           
-            <p>这篇Notes主要介绍一下什么事Dependency Model With Valence<br>Some Materials in this note are taken from Prof. Kewei Tu’s Lecture slice 17 in Shanghaitech SIST CS181 course</p>
-<h2 id="Dependency-Grammars"><a href="#Dependency-Grammars" class="headerlink" title="Dependency Grammars"></a>Dependency Grammars</h2><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/89653079.jpg" alt=""><br>Dependency Grammar与Context Free Grammar有着很大的联系，DG通常是由一个POS tag指向了另外一个，$A \to B$, $head \to dependent$. 被指向的dependent通常是head的“modifier”。<br>$A \to B =&gt; B\ modify \ A =&gt; A\ depend\ on\ B$</p>
-<h2 id="Unsupervised-Dependency-Parser"><a href="#Unsupervised-Dependency-Parser" class="headerlink" title="Unsupervised Dependency Parser"></a>Unsupervised Dependency Parser</h2><p>无监督学习 DG 成为了一个难以解决的问题。无监督学习DG的设定通常是给定句子的corpus,并且句子是带有Part Of Speeach Tags的。<br>说到无监督，那么我们不得不提到<a href="/2018/08/04/EM/">EM</a>算法了，同时由于DG和CFG的相似性，建议在看DMV这一篇之前先去看一下<a href="/2018/08/05/Inside-Outside-Algorithm/">inside-outside Algorithm</a><br>DMV(Dependency Model With Valence)是 <a href="https://people.eecs.berkeley.edu/~klein/papers/acl04-factored_induction.ps" target="_blank" rel="external">Klein and Manning, 2004</a>的一篇杰出工作. 之后的大多无监督依存句法分析的工作通常都是DMV算法的改进。</p>
-<h2 id="DMV"><a href="#DMV" class="headerlink" title="DMV"></a>DMV</h2><h3 id="Genarative-Point-Of-View"><a href="#Genarative-Point-Of-View" class="headerlink" title="Genarative Point Of View"></a>Genarative Point Of View</h3><p>DMV是一种生成模型。假设DMV模型的参数已经训练好，那么我们如何生成一刻DG parse tree呢？<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/63286428.jpg" alt=""><br>我们先往左边生成,对node(head) sample可能的dependent,如果是一个valid的dependet,我们就递归得进入这个node,如果我们sample到了一个stop sign，我们就结束这一条路线，返回上一个node,这个时候我们该尝试往右边sample，同样，如果sample到了dependent，那么就继续进入下一级递归，如果sample到了stop sign,那么再往上一级进行递归<br>[matiarial from (<a href="https://ufal.mff.cuni.cz/~marecek/papers/2012_pondelni_seminar.ppt" target="_blank" rel="external">https://ufal.mff.cuni.cz/~marecek/papers/2012_pondelni_seminar.ppt</a>)]<br>我们再看一个更具体一点的例子：<br><img src="http://03.imgmini.eastday.com/mobile/20170919/20170919095515_4baf0af3c783c320329e672290980538_3.jpeg" alt=""><br>[matiarial from (<a href="http://mini.eastday.com/a/170919095515198-2.html" target="_blank" rel="external">http://mini.eastday.com/a/170919095515198-2.html</a>)]</p>
-<h3 id="Probability-Model-of-DMV"><a href="#Probability-Model-of-DMV" class="headerlink" title="Probability Model of DMV"></a>Probability Model of DMV</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-6/864191.jpg" alt=""></p>
-<h3 id="Running-Example"><a href="#Running-Example" class="headerlink" title="Running Example"></a>Running Example</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-6/58920928.jpg" alt=""><br>解析：一开始ROOT只能往右边走，通过sample attach了VB,乘上sample的概率然后再乘上$y$在position 2上，给定了$VB, \theta$继续生成的概率。之后继续递归。…</p>
-<h3 id="根据上面的式子，我们知道！"><a href="#根据上面的式子，我们知道！" class="headerlink" title="根据上面的式子，我们知道！"></a>根据上面的式子，我们知道！</h3><p>只要有了所有的parameters，也就是 $\theta_c, \theta_s$或者说每一个rule（比如：VB—&gt;NN)的的概率，我们就相当于得到了DMV这个生成模型的分布，那么我们就可以根据这个分布进行生成了(parsing)。但是我们一开始是没有parsing过的data的，我们只有POS的data,而没有整颗parse tree，所以又到了我们EM算法出场的时候了。是不是和CFG的Inside-outside很像？</p>
-<h3 id="回顾一下inside-outside-这里可以原封不动地套用"><a href="#回顾一下inside-outside-这里可以原封不动地套用" class="headerlink" title="回顾一下inside-outside, 这里可以原封不动地套用"></a>回顾一下inside-outside, 这里可以原封不动地套用</h3><ul>
-<li>我们没有parse tree 的标注(annotation)，所以我么希望通过EM算法进行无监督学习</li>
-<li>EM Algorithm<ul>
-<li>Initialize parameters (每个grammar rules $r$在corpus$X$中出现的概率)</li>
-<li>E-step: 计算Expected Count (grammar rules $r$在corpus$X$中出现的次数的期望)<ul>
-<li>计算Inside Score (DP)</li>
-<li>计算Outside Score (DP)</li>
-<li>得到用Inside/Outside Score表示Expected Count</li>
+            <h2 id="Unsupervised-Neural-Dependency-Parsing-Y-Jiang-et-al"><a href="#Unsupervised-Neural-Dependency-Parsing-Y-Jiang-et-al" class="headerlink" title="Unsupervised Neural Dependency Parsing[Y. Jiang et. al]"></a>Unsupervised Neural Dependency Parsing[Y. Jiang et. al]</h2><p>今天介绍的论文是 Unsupervised Neural Dependency Parsing <a href="https://aclweb.org/anthology/D16-1073" target="_blank" rel="external">Y. Jiang et. al</a>的中文提要</p>
+<h3 id="什么是无Unsupervised-Dependency-Parsing？这篇文章的主要工作"><a href="#什么是无Unsupervised-Dependency-Parsing？这篇文章的主要工作" class="headerlink" title="什么是无Unsupervised Dependency Parsing？这篇文章的主要工作"></a>什么是无Unsupervised Dependency Parsing？这篇文章的主要工作</h3><p><a href="/2018/08/05/DMV/">Unsupervised Dependency Parsing</a><br>再简要总结一下Unsupervided Dependency Parsing的特点</p>
+<ul>
+<li>输入是带有POS的句子，但是不带有具体的parse tree</li>
+<li>通常使用基于<a href="/2018/08/04/EM/">EM</a>算法的方法来估计每个”grammar rules”的参数(概率)</li>
+<li>传统模型通常使用特征(features)和归纳偏置(inductive bias)来将一些有用的先验信息incorporate进模型中，比如grammar rules的correlation使得模型达到更好的效果。通常是一些手动design的featue和特别的prior distribution。</li>
+<li>这篇文章创新地使用了神经网络来自动地在预测 grammars rules 的参数，基于对POS tags的离散表示，而这些离散表示是自动地从corpus中间学习得到的。这些离散表示可以很好地将POS之间的correlation 进去。这里有一些类似word2vec模型？</li>
+<li>最终这篇文章的模型达到了非常好的效果</li>
 </ul>
-</li>
-<li>M-step: Update Probabilities Use expected counts</li>
-<li>跳到E-step, 迭代</li>
+<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><ul>
+<li>之前大多做Unsupervised Dependency Parsing（以下简称UDP）的工作多是基于<a href="2018/08/05/DMV/">DMV</a>,在DMV的基础上添加多种inductive bias,或者handcrafted features来将先验知识encode进模型之中。</li>
 </ul>
-</li>
-<li>最终我们得到了每个grammar </li>
-</ul>
-<h3 id="Dependency-Grammar的Inside-Outside-Score怎么计算呢？"><a href="#Dependency-Grammar的Inside-Outside-Score怎么计算呢？" class="headerlink" title="Dependency Grammar的Inside-Outside Score怎么计算呢？"></a>Dependency Grammar的Inside-Outside Score怎么计算呢？</h3><p>注意了！DG和CFG是有着非常非常紧密地联系的！他们可以互相转化！<br>DG: $w_i \to w_j$ =&gt; CFG: $w_i \to w_i w_j$,就像本篇文章第一张图那样。<br>就拿上面的那一张图来举例子吧！<br>$ P(VBZ&lt;-VBZ| X, \theta) [DG]= P(VBZ \to VBG, VBZ| X, \theta)[CFG]$ 所有的$p,d,q$加起来。<br>回忆一下这个图。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/49723064.jpg" alt=""></p>
-<h3 id="根据DG和CFG之间的转化关系我们可以用同样的Inside-Outside算法来计算出expected-count了"><a href="#根据DG和CFG之间的转化关系我们可以用同样的Inside-Outside算法来计算出expected-count了" class="headerlink" title="根据DG和CFG之间的转化关系我们可以用同样的Inside-Outside算法来计算出expected count了"></a>根据DG和CFG之间的转化关系我们可以用同样的Inside-Outside算法来计算出expected count了</h3><p>之后我们再更新EM algorithm的参数就行了！<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-6/85653980.jpg" alt=""></p>
 
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/08/Prior-Distribution/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/08/Prior-Distribution/" itemprop="url">Prior & Posterial</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-08T23:31:21+08:00">
+                2018-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Probability-Theory/" itemprop="url" rel="index">
+                    <span itemprop="name">Probability Theory</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Probability-Theory/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/08/Prior-Distribution/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/08/Prior-Distribution/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Notations"><a href="#Notations" class="headerlink" title="Notations"></a>Notations</h3><ul>
+<li>$\theta$ parameters of distribution</li>
+<li>$X$ data R.V</li>
+<li>$P(\theta)$ Prior, Prior distribution when not seeing data</li>
+<li>$P(\theta | X)$ posterior distribution when seen data</li>
+<li>$P(X | \theta)$ Likelihood</li>
+<li>$P(X)$ data distribution</li>
+</ul>
+<h3 id="Prior-amp-Posterior"><a href="#Prior-amp-Posterior" class="headerlink" title="Prior &amp; Posterior"></a>Prior &amp; Posterior</h3><script type="math/tex; mode=display">P(\theta | X) = \frac{P(\theta)P(X|\theta)}{P(X)}</script><script type="math/tex; mode=display">P(X) = \int_\theta P(X|\theta)P(\theta)d \theta</script>
           
         
       
@@ -785,7 +1118,7 @@
 <h2 id="Dependency-Grammars"><a href="#Dependency-Grammars" class="headerlink" title="Dependency Grammars"></a>Dependency Grammars</h2><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/89653079.jpg" alt=""><br>Dependency Grammar与Context Free Grammar有着很大的联系，DG通常是由一个POS tag指向了另外一个，$A \to B$, $head \to dependent$. 被指向的dependent通常是head的“modifier”。<br>$A \to B =&gt; B\ modify \ A =&gt; A\ depend\ on\ B$</p>
 <h2 id="Unsupervised-Dependency-Parser"><a href="#Unsupervised-Dependency-Parser" class="headerlink" title="Unsupervised Dependency Parser"></a>Unsupervised Dependency Parser</h2><p>无监督学习 DG 成为了一个难以解决的问题。无监督学习DG的设定通常是给定句子的corpus,并且句子是带有Part Of Speeach Tags的。<br>说到无监督，那么我们不得不提到<a href="/2018/08/04/EM/">EM</a>算法了，同时由于DG和CFG的相似性，建议在看DMV这一篇之前先去看一下<a href="/2018/08/05/Inside-Outside-Algorithm/">inside-outside Algorithm</a><br>DMV(Dependency Model With Valence)是 <a href="https://people.eecs.berkeley.edu/~klein/papers/acl04-factored_induction.ps" target="_blank" rel="external">Klein and Manning, 2004</a>的一篇杰出工作. 之后的大多无监督依存句法分析的工作通常都是DMV算法的改进。</p>
 <h2 id="DMV"><a href="#DMV" class="headerlink" title="DMV"></a>DMV</h2><h3 id="Genarative-Point-Of-View"><a href="#Genarative-Point-Of-View" class="headerlink" title="Genarative Point Of View"></a>Genarative Point Of View</h3><p>DMV是一种生成模型。假设DMV模型的参数已经训练好，那么我们如何生成一刻DG parse tree呢？<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/63286428.jpg" alt=""><br>我们先往左边生成,对node(head) sample可能的dependent,如果是一个valid的dependet,我们就递归得进入这个node,如果我们sample到了一个stop sign，我们就结束这一条路线，返回上一个node,这个时候我们该尝试往右边sample，同样，如果sample到了dependent，那么就继续进入下一级递归，如果sample到了stop sign,那么再往上一级进行递归<br>[matiarial from (<a href="https://ufal.mff.cuni.cz/~marecek/papers/2012_pondelni_seminar.ppt" target="_blank" rel="external">https://ufal.mff.cuni.cz/~marecek/papers/2012_pondelni_seminar.ppt</a>)]<br>我们再看一个更具体一点的例子：<br><img src="http://03.imgmini.eastday.com/mobile/20170919/20170919095515_4baf0af3c783c320329e672290980538_3.jpeg" alt=""><br>[matiarial from (<a href="http://mini.eastday.com/a/170919095515198-2.html" target="_blank" rel="external">http://mini.eastday.com/a/170919095515198-2.html</a>)]</p>
-<h3 id="Probability-Model-of-DMV"><a href="#Probability-Model-of-DMV" class="headerlink" title="Probability Model of DMV"></a>Probability Model of DMV</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-6/864191.jpg" alt=""></p>
+<h3 id="Probability-Model-of-DMV"><a href="#Probability-Model-of-DMV" class="headerlink" title="Probability Model of DMV"></a>Probability Model of DMV</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-6/864191.jpg" alt=""><br>$p(y^{(0)}| S, \theta )$表示从$ROOT$开始生成root at position 0的parse tree y的概率</p>
 <h3 id="Running-Example"><a href="#Running-Example" class="headerlink" title="Running Example"></a>Running Example</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-6/58920928.jpg" alt=""><br>解析：一开始ROOT只能往右边走，通过sample attach了VB,乘上sample的概率然后再乘上$y$在position 2上，给定了$VB, \theta$继续生成的概率。之后继续递归。…</p>
 <h3 id="根据上面的式子，我们知道！"><a href="#根据上面的式子，我们知道！" class="headerlink" title="根据上面的式子，我们知道！"></a>根据上面的式子，我们知道！</h3><p>只要有了所有的parameters，也就是 $\theta_c, \theta_s$或者说每一个rule（比如：VB—&gt;NN)的的概率，我们就相当于得到了DMV这个生成模型的分布，那么我们就可以根据这个分布进行生成了(parsing)。但是我们一开始是没有parsing过的data的，我们只有POS的data,而没有整颗parse tree，所以又到了我们EM算法出场的时候了。是不是和CFG的Inside-outside很像？</p>
 <h3 id="回顾一下inside-outside-这里可以原封不动地套用"><a href="#回顾一下inside-outside-这里可以原封不动地套用" class="headerlink" title="回顾一下inside-outside, 这里可以原封不动地套用"></a>回顾一下inside-outside, 这里可以原封不动地套用</h3><ul>
@@ -1389,12 +1722,12 @@
             <p>这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.<br><a href="http://www.cs.columbia.edu/~mcollins/" target="_blank" rel="external">http://www.cs.columbia.edu/~mcollins/</a></p>
 <h3 id="Maximum-Likelihood-Estimation"><a href="#Maximum-Likelihood-Estimation" class="headerlink" title="Maximum Likelihood Estimation"></a>Maximum Likelihood Estimation</h3><p>MLE, 先说人话</p>
 <blockquote>
-<p><strong>MLE的思路用一句人话来说就是:</strong> 我们拿到了一堆数据,我们不知道生成这个数据的概率分布是什么,(我们不知道某个分布的参数)那么我们就用手上的数据,以这个参数为未知数把生成这个数据的结果的概率给求出来,然后求这个概率最大的时候参数的值就可以了!</p>
+<p><strong>MLE的思路用一句人话来说就是:</strong> 我们拿到了一堆数据，这些数据观察的概率是独立同分布的$i.i.d$,我们不知道生成这个数据的概率分布是什么,(我们不知道某个分布的参数)那么我们就用手上的数据,以这个参数为未知数把生成这个数据的结果的概率给求出来,然后求这个概率最大的时候参数的值就可以了!</p>
 </blockquote>
 <h3 id="来点数学玩意"><a href="#来点数学玩意" class="headerlink" title="来点数学玩意"></a>来点数学玩意</h3><p>MLE的general的数学表示是啥呢?一行就够了</p>
 <script type="math/tex; mode=display">\mathop{argmax} \limits_{\theta} P(D|\theta)</script><p>$D$ 是data, $\theta$ 是未知概率分布的参数,我们的目标是找到最好的$\theta$,结合前面的人话看,很简单的对吧.</p>
 <p>值得一题的是,我们通常在外面取一个$\log$因为这个operation不会改变函数的单调性,因为概率多位连乘,加上log以后变为连加,容易求导.</p>
-<script type="math/tex; mode=display">\mathop{argmax} \limits_{\theta} \log{P(D|\theta)}</script><h3 id="一个栗子"><a href="#一个栗子" class="headerlink" title="一个栗子"></a>一个栗子</h3><p>一个畸形硬币,有两面$H,T$, $P(H)=\theta, P(T)=1-\theta$, 这里 $\theta$ 就是我们的参数啦, 假设我们获取了一份数据$D$, 为 HHTTHHT, 那么,生成这一份数据的概率是多少呢? 连乘起来得到</p>
+<script type="math/tex; mode=display">\mathop{argmax} \limits_{\theta} \log{P(D|\theta)}</script><h3 id="一个栗子"><a href="#一个栗子" class="headerlink" title="一个栗子"></a>一个栗子</h3><p>一个畸形硬币,有两面$H,T$, $P(H)=\theta, P(T)=1-\theta$, 这里 $\theta$ 就是我们的参数啦, 假设我们获取了一份数据$D$, 为 HHTTHHT, 那么,生成这一份数据的概率是多少呢? 连乘起来得到（因为数据是独立同分布）</p>
 <script type="math/tex; mode=display">\log{P(D|\theta)} = \log{\theta^4 (1-\theta)^3} = 4 \log{\theta} + 3 \log{(1-\theta)}</script><p>要求</p>
 <script type="math/tex; mode=display">\mathop{argmax} \limits_{\theta} \log{P(D|\theta)}</script><p>我们只要求导即可</p>
 <script type="math/tex; mode=display">\frac{d \log{P(D|\theta)}}{d \theta}=\frac{4}{\theta}-\frac{3}{1-\theta}=0</script><script type="math/tex; mode=display">\theta=\frac47</script><h3 id="两个栗子"><a href="#两个栗子" class="headerlink" title="两个栗子"></a>两个栗子</h3><p>M. Collins 的原文章中是拿 Multinomial 来举例子的,而上一个栗子中硬币的分布式 Binomial. 他们两个本质没有区别…<br>一个超级畸形硬币,有<strong>三</strong>面$H,T,M$, $P(H)=\theta_1, P(T)=\theta_2, P(M) = 1- \theta_1 - \theta_2$, 这里 $\theta_1, \theta_2$ 就是我们的参数啦, 其他步骤都是一样的,只不过最后一步改成求偏导即可</p>
@@ -1772,313 +2105,6 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/03/06/C-pointer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Chiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeff-Chiang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/06/C-pointer/" itemprop="url">C-pointer</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T19:02:09+08:00">
-                2018-03-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Code/" itemprop="url" rel="index">
-                    <span itemprop="name">Code</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/03/06/C-pointer/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/03/06/C-pointer/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>复习一下C指针<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">inc_ptr_1</span><span class="params">(<span class="keyword">int</span> *p)</span></span>&#123;</div><div class="line">    p = p + <span class="number">1</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">inc_ptr_2</span><span class="params">(<span class="keyword">int</span> *p)</span></span>&#123;</div><div class="line">    *p = *p + <span class="number">1</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">inc_ptr_3</span><span class="params">(<span class="keyword">int</span> **p)</span></span>&#123;</div><div class="line">    *p = *p + <span class="number">1</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> A[<span class="number">3</span>] = &#123;<span class="number">50</span>, <span class="number">60</span>, <span class="number">70</span>&#125;;</div><div class="line">    <span class="keyword">int</span> *q = A;</div><div class="line">    inc_ptr_1(q);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"*q = %d\n"</span>, *q); <span class="comment">/*50*/</span></div><div class="line"></div><div class="line">    inc_ptr_2(q);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"*q = %d\n"</span>, *q); <span class="comment">/*51*/</span></div><div class="line"></div><div class="line">    inc_ptr_3(&amp;q);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"*q = %d\n"</span>, *q); <span class="comment">/*60*/</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/03/06/LeetCode-794-Tic-Tac-Toe/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Chiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeff-Chiang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/06/LeetCode-794-Tic-Tac-Toe/" itemprop="url">LeetCode-794-Tic-Tac-Toe</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T18:44:10+08:00">
-                2018-03-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Code/" itemprop="url" rel="index">
-                    <span itemprop="name">Code</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/03/06/LeetCode-794-Tic-Tac-Toe/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/03/06/LeetCode-794-Tic-Tac-Toe/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://leetcode.com/problems/valid-tic-tac-toe-state/description/" target="_blank" rel="external">LeetCode #794 Valid Tic-Tac-Toe State</a></p>
-<p>基本思路:统计基本信息+检查。<br>根据谁赢来分成两类，考察编码者思维条理性，代码难度不难，思维难度中等。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">validTicTacToe</span><span class="params">(self, board)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line"><span class="string">        :type board: List[str]</span></div><div class="line"><span class="string">        :rtype: bool</span></div><div class="line"><span class="string">        """</span></div><div class="line">        <span class="comment"># count part</span></div><div class="line">        O = <span class="number">0</span></div><div class="line">        X = <span class="number">0</span></div><div class="line">        OOO = <span class="number">0</span></div><div class="line">        XXX = <span class="number">0</span></div><div class="line"></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">            <span class="comment"># check row</span></div><div class="line">            <span class="keyword">if</span> board[i] == <span class="string">"OOO"</span>:</div><div class="line">                O += <span class="number">3</span></div><div class="line">                OOO += <span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> board[i] == <span class="string">"XXX"</span>:</div><div class="line">                X += <span class="number">3</span></div><div class="line">                XXX += <span class="number">1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">                    <span class="keyword">if</span> board[i][j] == <span class="string">"O"</span>:</div><div class="line">                        O += <span class="number">1</span></div><div class="line">                    <span class="keyword">if</span> board[i][j] == <span class="string">"X"</span>:</div><div class="line">                        X += <span class="number">1</span></div><div class="line"></div><div class="line">            <span class="comment"># check column</span></div><div class="line">            <span class="keyword">if</span> (board[<span class="number">0</span>][i] == board[<span class="number">1</span>][i]) <span class="keyword">and</span> (board[<span class="number">2</span>][i] == board[<span class="number">1</span>][i]):</div><div class="line">                <span class="keyword">if</span> board[<span class="number">0</span>][i] == <span class="string">"X"</span>:</div><div class="line">                    XXX += <span class="number">1</span></div><div class="line">                <span class="keyword">if</span> board[<span class="number">0</span>][i] == <span class="string">"O"</span>:</div><div class="line">                    OOO += <span class="number">1</span></div><div class="line"></div><div class="line">        <span class="comment"># check diagnal                </span></div><div class="line">        <span class="keyword">if</span> (board[<span class="number">0</span>][<span class="number">0</span>] == board[<span class="number">1</span>][<span class="number">1</span>]) <span class="keyword">and</span>  (board[<span class="number">1</span>][<span class="number">1</span>] == board[<span class="number">2</span>][<span class="number">2</span>]):</div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"X"</span>) :</div><div class="line">                XXX += <span class="number">1</span></div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"O"</span>) :</div><div class="line">                OOO += <span class="number">1</span></div><div class="line">        <span class="keyword">if</span> (board[<span class="number">2</span>][<span class="number">0</span>] == board[<span class="number">1</span>][<span class="number">1</span>]) <span class="keyword">and</span>  (board[<span class="number">1</span>][<span class="number">1</span>] == board[<span class="number">0</span>][<span class="number">2</span>]):</div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"X"</span>) :</div><div class="line">                XXX += <span class="number">1</span></div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"O"</span>) :</div><div class="line">                OOO += <span class="number">1</span></div><div class="line"></div><div class="line">        print(X,O,XXX,OOO)</div><div class="line">        <span class="comment"># key check part</span></div><div class="line">        <span class="keyword">if</span> XXX + OOO &gt; <span class="number">1</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> (O &gt; X) <span class="keyword">or</span> (X &gt; O + <span class="number">1</span>):</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> XXX == <span class="number">1</span>:</div><div class="line">            <span class="keyword">if</span> X != O + <span class="number">1</span>:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> OOO == <span class="number">1</span>:</div><div class="line">            <span class="keyword">if</span> X != O:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">True</span></div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2131,7 +2157,7 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2142,7 +2168,7 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2153,7 +2179,7 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
