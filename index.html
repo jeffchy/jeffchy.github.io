@@ -288,6 +288,433 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/10/Unsupervised-Neural-Dependency-Parsing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/10/Unsupervised-Neural-Dependency-Parsing/" itemprop="url">Neural Unsupervided Dependency Parsing</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-10T23:31:21+08:00">
+                2018-08-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/10/Unsupervised-Neural-Dependency-Parsing/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/10/Unsupervised-Neural-Dependency-Parsing/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Unsupervised-Neural-Dependency-Parsing-Y-Jiang-et-al"><a href="#Unsupervised-Neural-Dependency-Parsing-Y-Jiang-et-al" class="headerlink" title="Unsupervised Neural Dependency Parsing[Y. Jiang et. al]"></a>Unsupervised Neural Dependency Parsing[Y. Jiang et. al]</h2><p>今天介绍的论文是 Unsupervised Neural Dependency Parsing <a href="https://aclweb.org/anthology/D16-1073" target="_blank" rel="external">Y. Jiang et. al</a>的中文提要</p>
+<h3 id="什么是无Unsupervised-Dependency-Parsing？这篇文章的主要工作"><a href="#什么是无Unsupervised-Dependency-Parsing？这篇文章的主要工作" class="headerlink" title="什么是无Unsupervised Dependency Parsing？这篇文章的主要工作"></a>什么是无Unsupervised Dependency Parsing？这篇文章的主要工作</h3><p><a href="/2018/08/05/DMV/">Unsupervised Dependency Parsing</a><br>再简要总结一下Unsupervided Dependency Parsing的特点</p>
+<ul>
+<li>输入是带有POS的句子，但是不带有具体的parse tree</li>
+<li>通常使用基于<a href="/2018/08/04/EM/">EM</a>算法的方法来估计每个”grammar rules”的参数(概率)</li>
+<li>传统模型通常使用特征(features)和归纳偏置(inductive bias)来将一些有用的先验信息incorporate进模型中，比如grammar rules的correlation使得模型达到更好的效果。通常是一些手动design的featue和特别的prior distribution。</li>
+<li>这篇文章创新地使用了神经网络来自动地在预测 grammars rules 的参数，基于对POS tags的离散表示，而这些离散表示是自动地从corpus中间学习得到的。这些离散表示可以很好地将POS之间的correlation 进去。这里有一些类似word2vec模型？</li>
+<li>最终这篇文章的模型达到了非常好的效果</li>
+</ul>
+<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><ul>
+<li>之前大多做Unsupervised Dependency Parsing（以下简称UDP）的工作多是基于<a href="2018/08/05/DMV/">DMV</a>,在DMV的基础上添加多种inductive bias,或者handcrafted features来将POS tags 之间的相关性correlation encode进模型之中。</li>
+<li>但是本文做事使用了神经网络来做两件事情<ul>
+<li>学习得到每个POS tags的离散表示，生成POS embedding</li>
+<li>根据POS embedding 预测 每个 grammar rules 的概率（更新概率）</li>
+</ul>
+</li>
+<li>因此我们学习到的embeddings可以自动地encode我们词之间的correlation，而不需要hand crafted feature.</li>
+<li>同时作者提到，POS的相关性导致的需要smoothing的问题已经被神经网络自动地解决了<ul>
+<li>Smoothing是什么？smoothing通常被用来解决监督学习中某些数据非常稀疏的问题。smooth在无监督学习中也有用处，<a href="http://www.aclweb.org/anthology/N09-1012" target="_blank" rel="external">Headden et.al 2009 NAACL</a>,利用分部之间的线性插值来缓解</li>
+</ul>
+</li>
+</ul>
+<h2 id="DMV"><a href="#DMV" class="headerlink" title="DMV"></a>DMV</h2><h3 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h3><p>DMV是一个UDP的生成模型，具体细节可以参考这一篇文章<a href="/2018/08/05/DMV/">DMV</a><br>先说一些notations</p>
+<ul>
+<li>$dec$ STOP or COND 是否继续生成parse tree</li>
+<li>$h$ head POS</li>
+<li>$dir$ LEFT or RIGHT</li>
+<li>$c$ child POS</li>
+<li>$val$ boolean | whether current head POS already has a child in current direction<br>简单来说呢就是，这个模型有三种类型的rules:</li>
+<li><strong>CHILD</strong> $P_{CHILD}(c|h,dir,val)$ 已知head和val,往给定方向生成儿子的概率</li>
+<li><strong>DECISION</strong> $P_{DECISION}(dec|h,dir,val)$ …是否继续生成的概率</li>
+<li><strong>ROOT</strong> $P_{ROOT}(c|root)$ …root生成某个儿子的概率</li>
+</ul>
+<h3 id="Drawbacks"><a href="#Drawbacks" class="headerlink" title="Drawbacks"></a>Drawbacks</h3><p>DMV模型还有不少缺点</p>
+<ul>
+<li>模型过度简化 <a href="http://www.aclweb.org/anthology/N09-1012" target="_blank" rel="external">Headden et.al 2009 NAACL</a>使用 <a href="https://blog.csdn.net/u013515273/article/details/78273342" target="_blank" rel="external">lexicalization</a> 来解决</li>
+<li><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-8/47430962.jpg" alt=""></li>
+<li><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-8/76592145.jpg" alt=""></li>
+</ul>
+<h3 id="Learning"><a href="#Learning" class="headerlink" title="Learning"></a>Learning</h3><ul>
+<li>EM 算法来 learning DMV model (Inside-Outside)<ul>
+<li>E-step: Learn expected counts - 求出后验概率 $p(y | \theta, x^{(i)})$</li>
+<li>M-step: Normalize parameters - <img src="http://oj4pv4f25.bkt.clouddn.com/18-8-9/60137963.jpg" alt=""></li>
+</ul>
+</li>
+<li>但是EM算法是有缺陷的<ul>
+<li>比如 non-convex 容易收敛到local optimal</li>
+<li>initialization matters</li>
+</ul>
+</li>
+</ul>
+<h2 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h2><p>接下来就是最关键的 Model 了。<br><strong>我们希望用神经网络来替代M-step中的新参数估计阶段</strong></p>
+<h3 id="E-step"><a href="#E-step" class="headerlink" title="E-step"></a>E-step</h3><p>E-step保持不变，和原本的算法类似，我们可以通过计算inside-outside score来获得我们的expected counts这我们计算出了三种类型的rules在每个句子中$x \in X$中的出现的expected counts</p>
+<ul>
+<li>$e_c(x_i)$ CHILD rule 在该句子中的expected counts, $p_c$ CHILD rule在整个corpus中出现的分布parameter(概率)</li>
+<li>$e_d(x_i)$ DECISION rule 在该句子中的expected counts, $p_d$ CHILD rule在整个corpus中出现的分布parameter(概率)</li>
+<li>$e_r(x_i)$ ROOT rule 在该句子中的expected counts, $p_r$ CHILD rule在整个corpus中出现的分布parameter(概率)<br>我们通过<a href="/2018/08/05/Inside-Outside-Algorithm/">Insode-outside</a>计算出了这些量，也就是所谓的expected count</li>
+</ul>
+<h3 id="原本的M-step"><a href="#原本的M-step" class="headerlink" title="原本的M-step"></a>原本的M-step</h3><p>原本的M-step其实是优化一个expected log likelihood，找的最优的参数,只不过我们面临的通常是一个 multinomial 的分布，所以我们可以通过数学方法证明，参数的更新其实就是一个normalize。如图：如果对证明方法感兴趣的话，可以去看这个M. Collins大佬 <a href="http://www.cs.columbia.edu/~mcollins/em.pdf" target="_blank" rel="external">note</a> 的最后一部分<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-9/60137963.jpg" alt=""><br>我们这篇文章的$ELL(\theta)$便是</p>
+<script type="math/tex; mode=display">ELL(\theta)=\sum_{\alpha=1}^N(\sum_c e_c(x_i)\log{p_c}+\sum_d e_d(x_i)\log{p_d}+\sum_r e_r(x_i)\log{p_r})</script><p>这里这个式子的最优解按照往常normalize一下即可<br>但是这里我们不直接normalize,而是通过训练一个神经网络来学会通过POS,direction,valence等信息来predict出这个rule在这个corpus中的概率!所以这个神经网络的objective function可以就看做事这个$ELL(\theta)$，不过这里面$\theta$的含义就加上了神经网络的权重参数了。而之前的各种correlation我们通过了POS的embedding融合进进了模型中间，所以作者认为这个神经网络可以被看做是在M-step的优化过程中加上了一个regulation项，这个regulation项encode进了POS之间的correlation.</p>
+<h2 id="Network"><a href="#Network" class="headerlink" title="Network"></a>Network</h2><p>我们用一个神经网络来建模每个rule的概率的predict,拿child rule来举例</p>
+<ul>
+<li>$P_{CHILD}(c|h,dir,val)$</li>
+<li>神经网络的输入就是 $h,dir,val$</li>
+<li>输出就是$P_{CHILD}(c|h,dir,val)$<h3 id="Detail"><a href="#Detail" class="headerlink" title="Detail"></a>Detail</h3>需要能够将离散的POS tag输入神经网络进行计算，我们需要把它转化为离散表示，和word2vec的目的是一致的，我们也许可以叫他POS2Vec。</li>
+<li>我们记所有的POS tag的集合为$T$</li>
+<li>所有的head tag as a d-dim vector $v_h \in R^d$</li>
+<li>val as a $d’$-dim vector</li>
+<li>input layer: $[(d+d’) \times 1]$ vector。<ul>
+<li>我们把 val 和某一个要预测的 head pos tag concat起来作为输入 $[v_h;v_{val}]$</li>
+</ul>
+</li>
+<li>hidden layer: <ul>
+<li>我们把输入的vector通过一个矩阵$W_{dir}, [d_h \times (d+d’)]$的transform。<ul>
+<li>注意这里的$W_{dir} \in W_{left}, W_{right}$这两个是分开独立的，对不同的方向我们有一个不同的神经网络。</li>
+</ul>
+</li>
+<li>然后通过一个Relu的non-linear</li>
+<li>hidden layer output: $f = ReLU(W_{dir}[v_h;v_{val}])$ <ul>
+<li>$[d_h \times 1]$ vector</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>softmax layer:<ul>
+<li>经过了隐层的变换之后我们需要把这个vector map到概率！</li>
+<li>我们的Embedding matrix隆重登场了！$W^{|T| \times d_h}$</li>
+<li>然后我们过一个softmax就有了我们最终的概率结果！</li>
+<li>$[p_{c_1}, \cdots, p_{c_{|T|}}] = Softmax(W^Tf)$</li>
+<li>output: $[|T| \times 1]$ vector!<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-9/53439112.jpg" alt=""></li>
+</ul>
+</li>
+</ul>
+<h3 id="emmmm"><a href="#emmmm" class="headerlink" title="emmmm"></a>emmmm</h3><p>一些别的注意点</p>
+<ul>
+<li>Decision rule 的学习和 Child rule 使用一个结构，只不过output改变一下</li>
+<li>$W_{dir}$和在Decision/Child中是共享参数的</li>
+<li>embedding size $d_h$ 是个很重要的hyper parameter</li>
+</ul>
+<h3 id="Learning-Procedure"><a href="#Learning-Procedure" class="headerlink" title="Learning Procedure"></a>Learning Procedure</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-10/51173510.jpg" alt=""></p>
+<h2 id="results"><a href="#results" class="headerlink" title="results"></a>results</h2><p>效果自然是不错滴<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-10/89507397.jpg" alt=""><br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-10/98180433.jpg" alt=""></p>
+<h2 id="summary"><a href="#summary" class="headerlink" title="summary"></a>summary</h2><p>这篇文章的一个优势是用神经网络来替代DMV中的M-step。<br>在效果很不错的基础上<br>用一个很简单的网络结构解决了通常需要很复杂模型才能解决的问题<br>这一点是非常有意义的。<br>同时作者比较细心得讨论并且可视化了神经网络学习到的一些结果，<br>很好地证明了这篇工作Smooth correlate POS的Motivation得到了解决。（关于这部分不难，直接看原文吧）</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/10/Correlate-and-dependent/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/10/Correlate-and-dependent/" itemprop="url">Correlation and Dependence</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-10T15:31:21+08:00">
+                2018-08-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/10/Correlate-and-dependent/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/10/Correlate-and-dependent/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Correlation"><a href="#Correlation" class="headerlink" title="Correlation"></a>Correlation</h3><ul>
+<li>两个随机变量$X,Y$相关通常指的是<strong>线性相关</strong>，直观上理解就是，一个变大另一个也相应变大（或反向）</li>
+<li>$Corr(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var(X)}\sqrt{Var(Y)}} = 0$表示线性无关</li>
+<li>线性无关 $Corr(X,Y)=0$不推出独立，因为可能会有非线性的关系</li>
+</ul>
+<h3 id="Dependence"><a href="#Dependence" class="headerlink" title="Dependence"></a>Dependence</h3><ul>
+<li>两个随机变量$X,Y$如果独立</li>
+<li>$P(X)P(Y)=P(X,Y), \ \ P(X|Y)=P(X)$</li>
+<li>独立推出无关</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/08/Inductive-Bias/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -414,181 +841,6 @@
 <li>最小描述长度（Minimum description length）：当构成一个假设时，试图去最小化其假设的描述长度。假设越简单，越可能为真的。见奥卡姆剃刀。</li>
 <li>最少特征数（Minimum features）：除非有充分的证据显示一个特征是有效用的，否则它应当被删除。这是特征选择（feature selection）算法背后所使用的假设。</li>
 <li>最近邻居：假设在特征空间（feature space）中一小区域内大部分的样本是同属一类。给一个未知类别的样本，猜测它与它最紧接的大部分邻居是同属一类。这是用于最近邻居法的偏置。这个假设是相近的样本应倾向同属于一类别。</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/08/Unsupervised-Neural-Dependency-Parsing/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Chiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeff-Chiang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/08/Unsupervised-Neural-Dependency-Parsing/" itemprop="url">Neural Unsupervided Dependency Parsing</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-08T23:31:21+08:00">
-                2018-08-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NLP/" itemprop="url" rel="index">
-                    <span itemprop="name">NLP</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NLP/Paper/" itemprop="url" rel="index">
-                    <span itemprop="name">Paper</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/08/Unsupervised-Neural-Dependency-Parsing/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/08/Unsupervised-Neural-Dependency-Parsing/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Unsupervised-Neural-Dependency-Parsing-Y-Jiang-et-al"><a href="#Unsupervised-Neural-Dependency-Parsing-Y-Jiang-et-al" class="headerlink" title="Unsupervised Neural Dependency Parsing[Y. Jiang et. al]"></a>Unsupervised Neural Dependency Parsing[Y. Jiang et. al]</h2><p>今天介绍的论文是 Unsupervised Neural Dependency Parsing <a href="https://aclweb.org/anthology/D16-1073" target="_blank" rel="external">Y. Jiang et. al</a>的中文提要</p>
-<h3 id="什么是无Unsupervised-Dependency-Parsing？这篇文章的主要工作"><a href="#什么是无Unsupervised-Dependency-Parsing？这篇文章的主要工作" class="headerlink" title="什么是无Unsupervised Dependency Parsing？这篇文章的主要工作"></a>什么是无Unsupervised Dependency Parsing？这篇文章的主要工作</h3><p><a href="/2018/08/05/DMV/">Unsupervised Dependency Parsing</a><br>再简要总结一下Unsupervided Dependency Parsing的特点</p>
-<ul>
-<li>输入是带有POS的句子，但是不带有具体的parse tree</li>
-<li>通常使用基于<a href="/2018/08/04/EM/">EM</a>算法的方法来估计每个”grammar rules”的参数(概率)</li>
-<li>传统模型通常使用特征(features)和归纳偏置(inductive bias)来将一些有用的先验信息incorporate进模型中，比如grammar rules的correlation使得模型达到更好的效果。通常是一些手动design的featue和特别的prior distribution。</li>
-<li>这篇文章创新地使用了神经网络来自动地在预测 grammars rules 的参数，基于对POS tags的离散表示，而这些离散表示是自动地从corpus中间学习得到的。这些离散表示可以很好地将POS之间的correlation 进去。这里有一些类似word2vec模型？</li>
-<li>最终这篇文章的模型达到了非常好的效果</li>
-</ul>
-<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><ul>
-<li>之前大多做Unsupervised Dependency Parsing（以下简称UDP）的工作多是基于<a href="2018/08/05/DMV/">DMV</a>,在DMV的基础上添加多种inductive bias,或者handcrafted features来将先验知识encode进模型之中。</li>
 </ul>
 
           
@@ -1950,161 +2202,6 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/03/07/LeetCode-26-Remove-Duplicates/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Chiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeff-Chiang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/07/LeetCode-26-Remove-Duplicates/" itemprop="url">LeetCode-26-Remove Duplicates from Sorted Array</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-07T18:44:10+08:00">
-                2018-03-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Code/" itemprop="url" rel="index">
-                    <span itemprop="name">Code</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/03/07/LeetCode-26-Remove-Duplicates/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/03/07/LeetCode-26-Remove-Duplicates/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>[LeetCode #26 Remove Duplicates from Sorted Array]</p>
-<p>太简单,强行用一下指针<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">removeDuplicates</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (!numsSize)&#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> length = <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> temp;</div><div class="line">    <span class="keyword">int</span> *iter = nums;</div><div class="line"></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; numsSize<span class="number">-1</span>; i++)&#123;</div><div class="line">        <span class="keyword">if</span> (nums[<span class="number">1</span>] != iter[length<span class="number">-1</span>])&#123;</div><div class="line">            temp = iter[length];</div><div class="line">            iter[length] = iter[i+<span class="number">1</span>];</div><div class="line">            iter[i+<span class="number">1</span>] = temp;</div><div class="line">            length ++;</div><div class="line">        &#125;</div><div class="line">        nums = nums + <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> length;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeDuplicates</span><span class="params">(self, nums)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line"><span class="string">        :type nums: List[int]</span></div><div class="line"><span class="string">        :rtype: int</span></div><div class="line"><span class="string">        """</span></div><div class="line">        l = len(nums)</div><div class="line">        <span class="keyword">if</span> l == <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></div><div class="line"></div><div class="line">        length = <span class="number">1</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(l<span class="number">-1</span>):</div><div class="line">            current = nums[length<span class="number">-1</span>]</div><div class="line">            _next = nums[i+<span class="number">1</span>]</div><div class="line"></div><div class="line">            <span class="keyword">if</span> current != _next:</div><div class="line">                temp = nums[length]</div><div class="line">                nums[length] = nums[i+<span class="number">1</span>]</div><div class="line">                nums[i+<span class="number">1</span>] = temp</div><div class="line"></div><div class="line">                length += <span class="number">1</span></div><div class="line"></div><div class="line">        <span class="keyword">return</span> length</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2157,7 +2254,7 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-count">46</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2168,7 +2265,7 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2179,7 +2276,7 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
