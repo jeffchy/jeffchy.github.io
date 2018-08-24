@@ -299,6 +299,207 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/24/XiaoIce-Band-论文解读/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/24/XiaoIce-Band-论文解读/" itemprop="url">XiaoIce Band 论文解读</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-24T10:33:22+08:00">
+                2018-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/24/XiaoIce-Band-论文解读/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/24/XiaoIce-Band-论文解读/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近小冰一波论文疯狂刷屏,是深度学习的工程应用的良好例子,也看起来非常有趣.这些论文解决的问题都不简单,通过看他们应该可以受到一些解决问题上的启发.今天看的论文是KDD 2018上的Best Student Paper,<br><a href="https://dl.acm.org/authorize.cfm?key=N665888" target="_blank" rel="external">“XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music”</a>,再牢骚两句,觉得这论文有趣其实还是因为身边有一个想做音乐生成的朋友,同时在AI的课上有一个小组的项目使用LSTM做了简单的音乐生成(其实挺基础的),没有融合乐理的很多constraint,她们只用了midi,当成单轨,当时我就在底下提问了,多轨的效果试过么?这篇文章训练了多个音轨,同时用了乐理作为约束,我觉得和我当时想的一样,这才是music generation该有的样子hhhh,这个任务想必也挺困难的,我们简要看一下它是怎么做的吧😄<br>笔者想做的是NLP,但是看这篇文章应该也有不少启发.</p>
+<h3 id="Contribution"><a href="#Contribution" class="headerlink" title="Contribution"></a>Contribution</h3><ul>
+<li>这篇文章考虑了 <strong><em>和弦走向</em></strong>, 做音乐的朋友们会知道,写歌中和弦走向是很重要的一部分.什么 4536啊6415啊这些,现在的流行歌曲大都会采用一种好听的和弦的走向.</li>
+<li>这篇文章考虑了 multi-track, 多轨,以及之间的和谐</li>
+<li>这篇文章考虑了节奏和旋律的和谐 针对单轨  </li>
+<li>这篇文章考虑了编曲 针对多轨</li>
+</ul>
+<p>所以本文提出了两个模型</p>
+<ul>
+<li>Chord based Rhythm and Melody Cross-Generation Model (CRMCG)</li>
+<li>Multi-Instrument Co-Arrangement Model (MICA)<br>分别做旋律节奏(根据和弦走向)的生成和编曲</li>
+</ul>
+<h3 id="整体模型结构-PIPILELINE"><a href="#整体模型结构-PIPILELINE" class="headerlink" title="整体模型结构 PIPILELINE"></a>整体模型结构 PIPILELINE</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/39386920.jpg" alt=""></p>
+<ul>
+<li>数据预处理, 把训练的歌曲提取出必要的元素</li>
+<li>单轨生成模型CRMCG</li>
+<li>多轨生成模型MICA</li>
+<li>生成音乐</li>
+</ul>
+<h2 id="CRMCG"><a href="#CRMCG" class="headerlink" title="CRMCG"></a>CRMCG</h2><p>CRMCG是单轨生成模型,它的主要逻辑是这样的,是一个seq2seq</p>
+<ul>
+<li>INPUT: 人为给定和弦 $C = \{ c_1, c_2, \cdots, c_N \}$</li>
+<li>OUTPUT: 生成对应小节(一个和弦走向的和弦通常对应一个小节)  $P = \{ p_1, p_2, \cdots, p_N \}$</li>
+<li>因此每个小节的旋律$M_i$都和$C$有关</li>
+</ul>
+<h3 id="Notation"><a href="#Notation" class="headerlink" title="Notation"></a>Notation</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/38082880.jpg" alt=""></p>
+<h3 id="Chord"><a href="#Chord" class="headerlink" title="Chord"></a>Chord</h3><p>我们对输入的和弦序列$C$做Embedding,并且输入GRU,得到每个序列中和弦的隐藏层表示.<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/4830501.jpg" alt=""><br>用这个来encode 我们的和弦输入</p>
+<h3 id="Rhythm-amp-Melody-Encoder"><a href="#Rhythm-amp-Melody-Encoder" class="headerlink" title="Rhythm &amp; Melody Encoder"></a>Rhythm &amp; Melody Encoder</h3><p>这个的生成也类似,首先拿到embedding vector<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/64572589.jpg" alt=""><br>然后,通过一个GRU来得到<strong>每个小节中的对应Rhythm序列和Melody序列的</strong>encoding表示<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/94700231.jpg" alt=""></p>
+<h3 id="Rhythm-Decoder"><a href="#Rhythm-Decoder" class="headerlink" title="Rhythm Decoder"></a>Rhythm Decoder</h3><p>Encoder讲完了,接着开始讲decoder, Rhythm与Chord没什么关系,但是由于要与旋律和谐,它与前一时刻的自己和Melody是有关的,所以我们把之前得到的隐藏层concat到一起(这是非常常用的合并信息的操作),然后过一个Dense Layer,然后再过一个 Relu 的Activation, 最后输入另外一个GRU作为decoder,接一个Softmax表示成生成Rhythm的概率分布,condition on已知的小节信息.<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/49026522.jpg" alt=""></p>
+<h3 id="Melody-Decoder"><a href="#Melody-Decoder" class="headerlink" title="Melody Decoder"></a>Melody Decoder</h3><p>Melody的Decoder与Rhythm的类似,区别就是我们需要考虑chord进来,因为她们是相关的<br>这一时刻的Melody与现在时刻的Rhythm,Chord以及前一时刻的自己有关<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/15181689.jpg" alt=""><br>然后类似:<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/62267076.jpg" alt=""></p>
+<h3 id="Summary-of-CRMCG"><a href="#Summary-of-CRMCG" class="headerlink" title="Summary of CRMCG"></a>Summary of CRMCG</h3><p>这张图还是总结地很好的.<br>CRMCG是一个标准的的Encoder-Decoder模型,在一个有趣场景中的使用例子,值得学习.<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/47136008.jpg" alt=""><br>Encoder-Decoder的基本框架<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/50085942.jpg" alt=""></p>
+<h2 id="MICA-这个模型笔者也没有完全看懂-只能稍作解释-最好自己看文辩证理解一下…"><a href="#MICA-这个模型笔者也没有完全看懂-只能稍作解释-最好自己看文辩证理解一下…" class="headerlink" title="MICA 这个模型笔者也没有完全看懂,只能稍作解释,最好自己看文辩证理解一下…."></a>MICA 这个模型笔者也没有完全看懂,只能稍作解释,最好自己看文辩证理解一下….</h2><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/18460744.jpg" alt=""><br>这篇文章最强也是最难的地方是MICA的建模.如何把这样一个问题建模成end2end模型,非常有技术含量…<br>每个音轨,我们通过CRMCG生成的单轨信息(拿的是input的hidden state?),然后利用attention机制建模tracks之间的相互关系,然后修改了GRU门控单元joint地生成.<br>什么事attention机制?看看这个<a href="https://zhuanlan.zhihu.com/p/31547842" target="_blank" rel="external">知乎链接</a>,会有一个比较直观的了解.</p>
+<p>原本的GRU<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/4063736.jpg" alt=""></p>
+<h3 id="Attention-Cell-建模track之间的关系-模型图中竖着的方框"><a href="#Attention-Cell-建模track之间的关系-模型图中竖着的方框" class="headerlink" title="Attention Cell 建模track之间的关系[模型图中竖着的方框]"></a>Attention Cell 建模track之间的关系[模型图中竖着的方框]</h3><p>Attention<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/98664645.jpg" alt=""><br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/9770713.jpg" alt=""></p>
+<h3 id="MLP-Cell-建模某个track-的-hidden-state在-整个音乐-中的重要性"><a href="#MLP-Cell-建模某个track-的-hidden-state在-整个音乐-中的重要性" class="headerlink" title="MLP Cell 建模某个track 的 hidden state在[整个音乐]中的重要性"></a>MLP Cell 建模某个track 的 hidden state在[整个音乐]中的重要性</h3><p>我的理解就是每一次都把这个时间段所有task的隐藏层考虑进来,并且通过一个$W^i,b^i$(最后一行)的参数来建模每个track对整体音乐的重要性<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/74231115.jpg" alt=""></p>
+<h2 id="Loss"><a href="#Loss" class="headerlink" title="Loss"></a>Loss</h2><p>loss 其实是 conditional log-likelyhood<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/8433169.jpg" alt=""></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>四个字:很能折腾….<br>它的处理多个track协同训练的方法也许值得借鉴?<br>同时音乐的生成部分也可圈可点,作为一个encoder decoder的生动例子…</p>
+<p>但是我总觉得这个模型可能只有微软能调出来…</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/22/word2vec-introduction/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2008,198 +2209,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/04/EM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Chiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeff-Chiang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/04/EM/" itemprop="url">Expectation-Maximization Algorithm</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T20:31:21+08:00">
-                2018-08-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NLP/" itemprop="url" rel="index">
-                    <span itemprop="name">NLP</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NLP/Note/" itemprop="url" rel="index">
-                    <span itemprop="name">Note</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/04/EM/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/04/EM/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.<br><a href="http://www.cs.columbia.edu/~mcollins/" target="_blank" rel="external">http://www.cs.columbia.edu/~mcollins/</a></p>
-<h3 id="Expectation-Maximization-Algorithm"><a href="#Expectation-Maximization-Algorithm" class="headerlink" title="Expectation Maximization Algorithm"></a>Expectation Maximization Algorithm</h3><p>EM 算法是无监督学习(Unsupervised Learning)中的重要算法。Collins大佬的notes中先用我们之前提到的Naive Bayes进行举例，所以如果之前的notes没有看的话，先看一下呗? <a href="/2018/08/04/Naive-Bayes/">Naive-Bayes</a></p>
-<h3 id="如果Naive-Bayes的training-data中没有label了怎么办？"><a href="#如果Naive-Bayes的training-data中没有label了怎么办？" class="headerlink" title="如果Naive Bayes的training data中没有label了怎么办？"></a>如果Naive Bayes的training data中没有label了怎么办？</h3><p>首先简单回忆一下Naive Bayes模型。在Supervised，即有(feature, label) pairs 的情况下，我们可以通过统计出$p(y),p(x|y)$计算出一个classifier，之前我们说过！统计出$p(y),p(x|y)$的过程虽然简单，数个数就完事了，但是这实际上是一个<a href="/2018/08/04/MLE/">Maximum Likelihood Estimation</a>的过程！我们通过我们手上的(feature,label) pair，计算出生成这组数据可能性最大的分布的参数！也就是最终计算出了生成这组数据的概率分布，也就是$p(y),p(x|y)$. 为什么要这么麻烦？因为理解MLE的过程是对理解EM算法非常重要的。</p>
-<p>没有label是无监督学习的一个常见的设定。如果没有label，那么我们就没有办法通过最大似然估计MLE计算出$p(y),p(x|y)$等一系列概率了。</p>
-<h3 id="无监督学习的怪圈"><a href="#无监督学习的怪圈" class="headerlink" title="无监督学习的怪圈"></a>无监督学习的怪圈</h3><p>所以现在出现了严重的问题</p>
-<ul>
-<li>如果没有label, 我们不可能估计出分布的参数, NB模型中即$p(y),p(x|y)$</li>
-<li>如果我们有了分布$p(y),p(x|y)$，我们就可以通过计算联合分布来产生一个NB classifier, 并且可以用它来判别新的数据的label.</li>
-</ul>
-<h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><p>怎么解决呢？我们没有参数，那么我们就假设一个合理的呗？</p>
-<ul>
-<li>随机初始化$p(y),p(x|y)$，并且满足他们是合理的概率就行了，概率和条件概率都大于零小于一，并且加起来等于一。现在我们就有我们计算classifier所需要的$p(y),p(x|y)$了。</li>
-<li>那么我们就计算classifier呗 <span>$p(y, x_1, x_2, \cdots, x_n) = p(y) \prod_{j=1}^n p(x_j | y)$</span><!-- Has MathJax --></li>
-<li>我们可以通过这个classifier计算出每个样本点的feature集合使得样本点表现为不同label的概率，这里的$\theta$指得是我们上一次嘉定的参数。即$p(y|x^{(i)}, \theta^{t-1})=\frac{p(y,x_1,x_2,\cdots,x_n)}{p(x_1,x_2,\cdots,x_n)}=\frac{p(y,x_1,x_2,\cdots,x_n)}{\sum_j p(y_j, x_1,x_2,\cdots,x_n)}$, 这一步就是普通的条件概率的计算。分母marginalize掉所有可能的label.</li>
-<li>我们通过我们这个暂时的classifier得到了所有的样本点的label的条件概率分布之后，我们就可对通过计算获得最新的参数了，$p(y),p(x|y)$，反复迭代</li>
-<li>整个算法的具体过程如下图<img src="http://oj4pv4f25.bkt.clouddn.com/18-8-4/36887730.jpg" alt=""></li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li>EM 算法通常用在无监督学习，没有label的任务中</li>
-<li>input: Data样本和最终准备归为的几类 output: 每个样本被明确assign</li>
-<li>EM 算法的具体步骤<ul>
-<li>随机初始化模型分布的参数 $\theta$</li>
-<li>已知参数计算出每个样本的label的分布$p(y|x^{(i)},\theta)$</li>
-<li>用类似MLE的方法更新参数 $\theta$</li>
-<li>回到第二步，不断迭代。</li>
-</ul>
-</li>
-<li>EM 中更新参数与 MLE 的关系：如果EM中的y的分布非0即1的话那么久等同于MLE,但是EM中的y是一个分布,比如$p(y=y^{(i)})=0.3$</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2252,7 +2261,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">48</span>
+                <span class="site-state-item-count">49</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2274,7 +2283,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

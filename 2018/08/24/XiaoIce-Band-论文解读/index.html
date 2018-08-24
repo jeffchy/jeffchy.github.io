@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="dXyzlo70j3" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Probability Theory,Natual Languate Processing,Paper,Music Generation," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="最近小冰一波论文疯狂刷屏,是深度学习的工程应用的良好例子,也看起来非常有趣.这些论文解决的问题都不简单,通过看他们应该可以受到一些解决问题上的启发.今天看的论文是KDD 2018上的Best Student Paper,“XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music”,再牢骚两句,觉得这论文有趣其">
+<meta name="keywords" content="Probability Theory,Natual Languate Processing,Paper,Music Generation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XiaoIce Band 论文解读">
+<meta property="og:url" content="https://jeffchy.github.io/2018/08/24/XiaoIce-Band-论文解读/index.html">
+<meta property="og:site_name" content="Jeff-Chiang">
+<meta property="og:description" content="最近小冰一波论文疯狂刷屏,是深度学习的工程应用的良好例子,也看起来非常有趣.这些论文解决的问题都不简单,通过看他们应该可以受到一些解决问题上的启发.今天看的论文是KDD 2018上的Best Student Paper,“XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music”,再牢骚两句,觉得这论文有趣其">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-24/39386920.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-24/38082880.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-24/4830501.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-24/64572589.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-24/94700231.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-24/49026522.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-24/15181689.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-24/62267076.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-24/47136008.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-24/50085942.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-24/18460744.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-24/4063736.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-24/98664645.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-24/9770713.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-24/74231115.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-24/8433169.jpg">
+<meta property="og:updated_time" content="2018-08-24T08:35:34.570Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="XiaoIce Band 论文解读">
+<meta name="twitter:description" content="最近小冰一波论文疯狂刷屏,是深度学习的工程应用的良好例子,也看起来非常有趣.这些论文解决的问题都不简单,通过看他们应该可以受到一些解决问题上的启发.今天看的论文是KDD 2018上的Best Student Paper,“XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music”,再牢骚两句,觉得这论文有趣其">
+<meta name="twitter:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-24/39386920.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://jeffchy.github.io/2018/08/24/XiaoIce-Band-论文解读/"/>
+
+
+
+
+
+  <title>XiaoIce Band 论文解读 | Jeff-Chiang</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-123760763-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d6324a63a8be2ad81d8f3e82174037f4";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jeff-Chiang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Tech and Life</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/24/XiaoIce-Band-论文解读/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">XiaoIce Band 论文解读</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-24T10:33:22+08:00">
+                2018-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/24/XiaoIce-Band-论文解读/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/24/XiaoIce-Band-论文解读/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近小冰一波论文疯狂刷屏,是深度学习的工程应用的良好例子,也看起来非常有趣.这些论文解决的问题都不简单,通过看他们应该可以受到一些解决问题上的启发.今天看的论文是KDD 2018上的Best Student Paper,<br><a href="https://dl.acm.org/authorize.cfm?key=N665888" target="_blank" rel="external">“XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music”</a>,再牢骚两句,觉得这论文有趣其实还是因为身边有一个想做音乐生成的朋友,同时在AI的课上有一个小组的项目使用LSTM做了简单的音乐生成(其实挺基础的),没有融合乐理的很多constraint,她们只用了midi,当成单轨,当时我就在底下提问了,多轨的效果试过么?这篇文章训练了多个音轨,同时用了乐理作为约束,我觉得和我当时想的一样,这才是music generation该有的样子hhhh,这个任务想必也挺困难的,我们简要看一下它是怎么做的吧😄<br>笔者想做的是NLP,但是看这篇文章应该也有不少启发.</p>
+<h3 id="Contribution"><a href="#Contribution" class="headerlink" title="Contribution"></a>Contribution</h3><ul>
+<li>这篇文章考虑了 <strong><em>和弦走向</em></strong>, 做音乐的朋友们会知道,写歌中和弦走向是很重要的一部分.什么 4536啊6415啊这些,现在的流行歌曲大都会采用一种好听的和弦的走向.</li>
+<li>这篇文章考虑了 multi-track, 多轨,以及之间的和谐</li>
+<li>这篇文章考虑了节奏和旋律的和谐 针对单轨  </li>
+<li>这篇文章考虑了编曲 针对多轨</li>
+</ul>
+<p>所以本文提出了两个模型</p>
+<ul>
+<li>Chord based Rhythm and Melody Cross-Generation Model (CRMCG)</li>
+<li>Multi-Instrument Co-Arrangement Model (MICA)<br>分别做旋律节奏(根据和弦走向)的生成和编曲</li>
+</ul>
+<h3 id="整体模型结构-PIPILELINE"><a href="#整体模型结构-PIPILELINE" class="headerlink" title="整体模型结构 PIPILELINE"></a>整体模型结构 PIPILELINE</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/39386920.jpg" alt=""></p>
+<ul>
+<li>数据预处理, 把训练的歌曲提取出必要的元素</li>
+<li>单轨生成模型CRMCG</li>
+<li>多轨生成模型MICA</li>
+<li>生成音乐</li>
+</ul>
+<h2 id="CRMCG"><a href="#CRMCG" class="headerlink" title="CRMCG"></a>CRMCG</h2><p>CRMCG是单轨生成模型,它的主要逻辑是这样的,是一个seq2seq</p>
+<ul>
+<li>INPUT: 人为给定和弦 $C = \{ c_1, c_2, \cdots, c_N \}$</li>
+<li>OUTPUT: 生成对应小节(一个和弦走向的和弦通常对应一个小节)  $P = \{ p_1, p_2, \cdots, p_N \}$</li>
+<li>因此每个小节的旋律$M_i$都和$C$有关</li>
+</ul>
+<h3 id="Notation"><a href="#Notation" class="headerlink" title="Notation"></a>Notation</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/38082880.jpg" alt=""></p>
+<h3 id="Chord"><a href="#Chord" class="headerlink" title="Chord"></a>Chord</h3><p>我们对输入的和弦序列$C$做Embedding,并且输入GRU,得到每个序列中和弦的隐藏层表示.<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/4830501.jpg" alt=""><br>用这个来encode 我们的和弦输入</p>
+<h3 id="Rhythm-amp-Melody-Encoder"><a href="#Rhythm-amp-Melody-Encoder" class="headerlink" title="Rhythm &amp; Melody Encoder"></a>Rhythm &amp; Melody Encoder</h3><p>这个的生成也类似,首先拿到embedding vector<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/64572589.jpg" alt=""><br>然后,通过一个GRU来得到<strong>每个小节中的对应Rhythm序列和Melody序列的</strong>encoding表示<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/94700231.jpg" alt=""></p>
+<h3 id="Rhythm-Decoder"><a href="#Rhythm-Decoder" class="headerlink" title="Rhythm Decoder"></a>Rhythm Decoder</h3><p>Encoder讲完了,接着开始讲decoder, Rhythm与Chord没什么关系,但是由于要与旋律和谐,它与前一时刻的自己和Melody是有关的,所以我们把之前得到的隐藏层concat到一起(这是非常常用的合并信息的操作),然后过一个Dense Layer,然后再过一个 Relu 的Activation, 最后输入另外一个GRU作为decoder,接一个Softmax表示成生成Rhythm的概率分布,condition on已知的小节信息.<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/49026522.jpg" alt=""></p>
+<h3 id="Melody-Decoder"><a href="#Melody-Decoder" class="headerlink" title="Melody Decoder"></a>Melody Decoder</h3><p>Melody的Decoder与Rhythm的类似,区别就是我们需要考虑chord进来,因为她们是相关的<br>这一时刻的Melody与现在时刻的Rhythm,Chord以及前一时刻的自己有关<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/15181689.jpg" alt=""><br>然后类似:<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/62267076.jpg" alt=""></p>
+<h3 id="Summary-of-CRMCG"><a href="#Summary-of-CRMCG" class="headerlink" title="Summary of CRMCG"></a>Summary of CRMCG</h3><p>这张图还是总结地很好的.<br>CRMCG是一个标准的的Encoder-Decoder模型,在一个有趣场景中的使用例子,值得学习.<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/47136008.jpg" alt=""><br>Encoder-Decoder的基本框架<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/50085942.jpg" alt=""></p>
+<h2 id="MICA-这个模型笔者也没有完全看懂-只能稍作解释-最好自己看文辩证理解一下…"><a href="#MICA-这个模型笔者也没有完全看懂-只能稍作解释-最好自己看文辩证理解一下…" class="headerlink" title="MICA 这个模型笔者也没有完全看懂,只能稍作解释,最好自己看文辩证理解一下…."></a>MICA 这个模型笔者也没有完全看懂,只能稍作解释,最好自己看文辩证理解一下….</h2><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/18460744.jpg" alt=""><br>这篇文章最强也是最难的地方是MICA的建模.如何把这样一个问题建模成end2end模型,非常有技术含量…<br>每个音轨,我们通过CRMCG生成的单轨信息(拿的是input的hidden state?),然后利用attention机制建模tracks之间的相互关系,然后修改了GRU门控单元joint地生成.<br>什么事attention机制?看看这个<a href="https://zhuanlan.zhihu.com/p/31547842" target="_blank" rel="external">知乎链接</a>,会有一个比较直观的了解.</p>
+<p>原本的GRU<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/4063736.jpg" alt=""></p>
+<h3 id="Attention-Cell-建模track之间的关系-模型图中竖着的方框"><a href="#Attention-Cell-建模track之间的关系-模型图中竖着的方框" class="headerlink" title="Attention Cell 建模track之间的关系[模型图中竖着的方框]"></a>Attention Cell 建模track之间的关系[模型图中竖着的方框]</h3><p>Attention<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/98664645.jpg" alt=""><br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/9770713.jpg" alt=""></p>
+<h3 id="MLP-Cell-建模某个track-的-hidden-state在-整个音乐-中的重要性"><a href="#MLP-Cell-建模某个track-的-hidden-state在-整个音乐-中的重要性" class="headerlink" title="MLP Cell 建模某个track 的 hidden state在[整个音乐]中的重要性"></a>MLP Cell 建模某个track 的 hidden state在[整个音乐]中的重要性</h3><p>我的理解就是每一次都把这个时间段所有task的隐藏层考虑进来,并且通过一个$W^i,b^i$(最后一行)的参数来建模每个track对整体音乐的重要性<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/74231115.jpg" alt=""></p>
+<h2 id="Loss"><a href="#Loss" class="headerlink" title="Loss"></a>Loss</h2><p>loss 其实是 conditional log-likelyhood<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/8433169.jpg" alt=""></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>四个字:很能折腾….<br>它的处理多个track协同训练的方法也许值得借鉴?<br>同时音乐的生成部分也可圈可点,作为一个encoder decoder的生动例子…</p>
+<p>但是我总觉得这个模型可能只有微软能调出来…</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Probability-Theory/" rel="tag"># Probability Theory</a>
+          
+            <a href="/tags/Natual-Languate-Processing/" rel="tag"># Natual Languate Processing</a>
+          
+            <a href="/tags/Paper/" rel="tag"># Paper</a>
+          
+            <a href="/tags/Music-Generation/" rel="tag"># Music Generation</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/22/word2vec-introduction/" rel="next" title="word2vec-introduction">
+                <i class="fa fa-chevron-left"></i> word2vec-introduction
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Jeff Chiang" />
+          <p class="site-author-name" itemprop="name">Jeff Chiang</p>
+           
+              <p class="site-description motion-element" itemprop="description">Personal portal for Sharing Computer Science Technology and some petty things in my life</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/jeffchy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="jiangchy@shanghaitech.edu.cn" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/jeffchiang/" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                    
+                      微博
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Contribution"><span class="nav-number">1.</span> <span class="nav-text">Contribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整体模型结构-PIPILELINE"><span class="nav-number">2.</span> <span class="nav-text">整体模型结构 PIPILELINE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CRMCG"><span class="nav-number"></span> <span class="nav-text">CRMCG</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Notation"><span class="nav-number">1.</span> <span class="nav-text">Notation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chord"><span class="nav-number">2.</span> <span class="nav-text">Chord</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rhythm-amp-Melody-Encoder"><span class="nav-number">3.</span> <span class="nav-text">Rhythm & Melody Encoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rhythm-Decoder"><span class="nav-number">4.</span> <span class="nav-text">Rhythm Decoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Melody-Decoder"><span class="nav-number">5.</span> <span class="nav-text">Melody Decoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary-of-CRMCG"><span class="nav-number">6.</span> <span class="nav-text">Summary of CRMCG</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MICA-这个模型笔者也没有完全看懂-只能稍作解释-最好自己看文辩证理解一下…"><span class="nav-number"></span> <span class="nav-text">MICA 这个模型笔者也没有完全看懂,只能稍作解释,最好自己看文辩证理解一下….</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Attention-Cell-建模track之间的关系-模型图中竖着的方框"><span class="nav-number">1.</span> <span class="nav-text">Attention Cell 建模track之间的关系[模型图中竖着的方框]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MLP-Cell-建模某个track-的-hidden-state在-整个音乐-中的重要性"><span class="nav-number">2.</span> <span class="nav-text">MLP Cell 建模某个track 的 hidden state在[整个音乐]中的重要性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Loss"><span class="nav-number"></span> <span class="nav-text">Loss</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeff Chiang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://https-jeffchy-github-io.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://jeffchy.github.io/2018/08/24/XiaoIce-Band-论文解读/';
+          this.page.identifier = '2018/08/24/XiaoIce-Band-论文解读/';
+          this.page.title = 'XiaoIce Band 论文解读';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://https-jeffchy-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
