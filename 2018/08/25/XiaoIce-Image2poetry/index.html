@@ -81,7 +81,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Probability Theory,Natual Languate Processing,Algorithm," />
+  <meta name="keywords" content="Probability Theory,Natual Languate Processing,Paper,Music Generation," />
 
 
 
@@ -97,20 +97,21 @@
 
 
 
-<meta name="description" content="这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.http://www.cs.columbia.edu/~mcollins/ Naive Bayes TheoryNaive Bayes (之后简称NB) 是一个常用于分类问题的概率模型. 先说模型的输入输出,输入的是features,输出是分类的">
-<meta name="keywords" content="Probability Theory,Natual Languate Processing,Algorithm">
+<meta name="description" content="今天继续介绍好玩的小冰系列, 简要介绍一下模型.论文的地址是:Image Inspired Poetry Generation in XiaoIce再啰嗦一下,说这篇文章的原因是笔者最近在做Image-Captioning,但是却觉得End2end的模型的表现一般,对训练数据的质量以及数量比较敏感.在寻思着有没有更好的方法. Introduction这篇文章的主要目的是通过图片生成现代诗使用的方法">
+<meta name="keywords" content="Probability Theory,Natual Languate Processing,Paper,Music Generation">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Naive Bayes">
-<meta property="og:url" content="https://jeffchy.github.io/2018/08/04/Naive-Bayes/index.html">
+<meta property="og:title" content="XiaoIce Image to Poetry 论文解读">
+<meta property="og:url" content="https://jeffchy.github.io/2018/08/25/XiaoIce-Image2poetry/index.html">
 <meta property="og:site_name" content="Jeff-Chiang">
-<meta property="og:description" content="这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.http://www.cs.columbia.edu/~mcollins/ Naive Bayes TheoryNaive Bayes (之后简称NB) 是一个常用于分类问题的概率模型. 先说模型的输入输出,输入的是features,输出是分类的">
+<meta property="og:description" content="今天继续介绍好玩的小冰系列, 简要介绍一下模型.论文的地址是:Image Inspired Poetry Generation in XiaoIce再啰嗦一下,说这篇文章的原因是笔者最近在做Image-Captioning,但是却觉得End2end的模型的表现一般,对训练数据的质量以及数量比较敏感.在寻思着有没有更好的方法. Introduction这篇文章的主要目的是通过图片生成现代诗使用的方法">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-4/31561909.jpg">
-<meta property="og:updated_time" content="2018-08-04T09:32:07.682Z">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-26/79659149.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-26/50361494.jpg">
+<meta property="og:updated_time" content="2018-08-26T09:47:10.877Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Naive Bayes">
-<meta name="twitter:description" content="这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.http://www.cs.columbia.edu/~mcollins/ Naive Bayes TheoryNaive Bayes (之后简称NB) 是一个常用于分类问题的概率模型. 先说模型的输入输出,输入的是features,输出是分类的">
-<meta name="twitter:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-4/31561909.jpg">
+<meta name="twitter:title" content="XiaoIce Image to Poetry 论文解读">
+<meta name="twitter:description" content="今天继续介绍好玩的小冰系列, 简要介绍一下模型.论文的地址是:Image Inspired Poetry Generation in XiaoIce再啰嗦一下,说这篇文章的原因是笔者最近在做Image-Captioning,但是却觉得End2end的模型的表现一般,对训练数据的质量以及数量比较敏感.在寻思着有没有更好的方法. Introduction这篇文章的主要目的是通过图片生成现代诗使用的方法">
+<meta name="twitter:image" content="http://oj4pv4f25.bkt.clouddn.com/18-8-26/79659149.jpg">
 
 
 
@@ -140,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="https://jeffchy.github.io/2018/08/04/Naive-Bayes/"/>
+  <link rel="canonical" href="https://jeffchy.github.io/2018/08/25/XiaoIce-Image2poetry/"/>
 
 
 
 
 
-  <title>Naive Bayes | Jeff-Chiang</title>
+  <title>XiaoIce Image to Poetry 论文解读 | Jeff-Chiang</title>
   
 
 
@@ -302,7 +303,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/04/Naive-Bayes/">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/25/XiaoIce-Image2poetry/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeff Chiang">
@@ -319,7 +320,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Naive Bayes</h1>
+          <h1 class="post-title" itemprop="name headline">XiaoIce Image to Poetry 论文解读</h1>
         
 
         <div class="post-meta">
@@ -331,8 +332,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T13:31:21+08:00">
-                2018-08-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-25T14:57:37+08:00">
+                2018-08-25
               </time>
             
 
@@ -365,8 +366,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NLP/Note/" itemprop="url" rel="index">
-                    <span itemprop="name">Note</span>
+                  <a href="/categories/NLP/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
                   </a>
                 </span>
 
@@ -383,9 +384,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/04/Naive-Bayes/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/25/XiaoIce-Image2poetry/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/04/Naive-Bayes/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/25/XiaoIce-Image2poetry/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -413,27 +414,19 @@
       
 
       
-        <p>这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.<br><a href="http://www.cs.columbia.edu/~mcollins/" target="_blank" rel="external">http://www.cs.columbia.edu/~mcollins/</a></p>
-<h3 id="Naive-Bayes-Theory"><a href="#Naive-Bayes-Theory" class="headerlink" title="Naive Bayes Theory"></a>Naive Bayes Theory</h3><p>Naive Bayes (之后简称NB) 是一个常用于分类问题的概率模型. 先说模型的输入输出,输入的是features,输出是分类的结果.<br><span>$$\begin{aligned}
-input: features\  \{x_1, x_2, \cdots, x_n \} \\
-output:\ class\ y \in \{ y_1, y_2, \cdots, y_m \}
-\end{aligned}$$</span><!-- Has MathJax --><br>这是分类问题的基本形式,classification有很多种方法,比如regression,SVM,等等,而NB用概率来建模他. NB 基于一个很重要的假设: </p>
+        <p>今天继续介绍好玩的小冰系列, 简要介绍一下模型.论文的地址是:<br><a href="https://arxiv.org/abs/1808.03090" target="_blank" rel="external">Image Inspired Poetry Generation in XiaoIce</a><br>再啰嗦一下,说这篇文章的原因是笔者最近在做Image-Captioning,但是却觉得End2end的模型的表现一般,对训练数据的质量以及数量比较敏感.在寻思着有没有更好的方法.</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>这篇文章的主要目的是通过图片生成<strong>现代诗</strong><br>使用的方法简单来说有以下几步</p>
 <ul>
-<li><strong>给定类别,features是条件独立的</strong>,</li>
-<li>$P(x_1|y)*P(x_2|y) = P(x_1, x_2 | y)$</li>
-<li>比如判别垃圾邮件问题,垃圾邮件中,出现“会所”与出现“保健”之间是独立的事情,一方的出现不会影响另一方.虽然这个例子中“会所”与“保健”之间似乎是有某种神秘的联系,但是NB模型一律假设这些“特征”是条件独立的.</li>
-<li>用一张图来说的话是这样的 <img src="http://oj4pv4f25.bkt.clouddn.com/18-8-4/31561909.jpg" alt=""></li>
+<li>keyword and sentiment extraction from image</li>
+<li>keywords expands to poetry-like words</li>
+<li>using RNN to generate verse</li>
 </ul>
-<h3 id="概率建模"><a href="#概率建模" class="headerlink" title="概率建模"></a>概率建模</h3><p>基于我们之前的那个假设,条件独立的性质,我们用feature与label<strong>联合概率分布</strong>来建模整个bayes classifier.<br><span>$p(y, x_1, x_2, \cdots, x_n) = p(y) \prod_{j=1}^n p(x_j | y)$</span><!-- Has MathJax --><br>那么最有可能的label $y$ 自然是与所有feature联合概率分布最大的那个.即</p>
-<span>$$arg\ max_{y \in \{ 1 \cdots m \}} p(y, x_1, x_2, \cdots, x_n) = 
-arg\ max_{y \in \{ 1 \cdots m \}} p(y) \prod_{i=1}^n p(x_i | y)$$</span><!-- Has MathJax -->
-<h3 id="如何计算"><a href="#如何计算" class="headerlink" title="如何计算"></a>如何计算</h3><p>这样 Naive Bayes Model的理论就基本上讲清楚啦.<br>那么如何计算上一个等式中右边的各项呢?假设我们的训练数据是$N$个pair of $(x_i, y_i)$<br>那简单啊,数一下不就成了么<br><span>$$p(y=i) = \frac{count(y=i)}{N} \\
-p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br>看待概率有两种角度,一种是frequency的角度,这样看这两个式子很容易倒出,<br>还有一个是从bayes的角度,那么这两个式子的倒出就要好好斟酌一下了,我们可以用MLE(Maximum Likelihood Estimation),来倒出这两个count.<br>具体的证明细节不多说了,可以看之前的链接.</p>
-<blockquote>
-<p><strong>MLE的思路用一句人话来说就是:</strong> 我们拿到了一堆数据,我们不知道生成这个数据的概率分布是什么,(我们不知道某个分布的参数)那么我们就用手上的数据,以这个参数为未知数把生成这个数据的结果的概率给求出来,然后求这个概率最大的时候参数的值就可以了!</p>
-<p><strong>Naive Bayes 用一句人话来说就是:</strong><br>特征之间条件独立, 我么用足够的数据来求得必要的概率,然后用最大的feature和label的联合概率分布来判断新的数据的label是什么.</p>
-</blockquote>
-<h3 id="如果还是不觉得是人话那就万分抱歉了"><a href="#如果还是不觉得是人话那就万分抱歉了" class="headerlink" title="如果还是不觉得是人话那就万分抱歉了."></a>如果还是不觉得是人话那就万分抱歉了.</h3>
+<h2 id="Keyword-extraction"><a href="#Keyword-extraction" class="headerlink" title="Keyword extraction"></a>Keyword extraction</h2><p>第一步是对一张图片做keyword extraction,用的是很常用的做法,用一个pretrained的CNN(如VGG16),我们得到一个能够表示图片feature的vector,比如4096维,通常的做法是我们接着跟一个fully-connected layer做一个分类,然后用一个softmax把数值转化为概率,这是一个非常常用的做法,就不细说,所以假设<br>$I$是给定的图片,我们有一个category,$C$,我们的目标是求出$P(C|I)$,其中针对名次Noun和Adj两种磁性的词分别做了两个神经网络来train并且predict.</p>
+<h2 id="Sentence-Model"><a href="#Sentence-Model" class="headerlink" title="Sentence Model"></a>Sentence Model</h2><p>我们通过RNN来构造一个Language Mode,这个模型叫RNNLM<br>$w_i = argmax_{w} P(w|w_{1:i-1})$</p>
+<h2 id="Recursive-Generation"><a href="#Recursive-Generation" class="headerlink" title="Recursive Generation"></a>Recursive Generation</h2><p>我们做了keword extraction之后,我们需要通过一个keyword作为seed,生成一个句子,但是如果之后forward的RNNLM的话,我们只能往后生成,但是<strong>我们的关键词不一定在句首啊</strong>,所以解决办法也很简单,弄一个反过来的language model<br>$w_i = argmax_{w} P(w|w_{n:i+1})$然后分别向前向后生成就完事啦<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-26/79659149.jpg" alt=""></p>
+<h2 id="Generation-With-Previous-Line"><a href="#Generation-With-Previous-Line" class="headerlink" title="Generation With Previous Line"></a>Generation With Previous Line</h2><p>我们在生成的时候把之前的一行的信息也Encode了并且作为input<br>$w_i = argmax_{w} P(w|w_{1:i, l_{j-1}})$</p>
+<h2 id="Hierarchy-Poem-Model"><a href="#Hierarchy-Poem-Model" class="headerlink" title="Hierarchy Poem Model"></a>Hierarchy Poem Model</h2><p>$w_i = argmax_{w} P(w|w_{1:i, l_{1:j-1}})$<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-26/50361494.jpg" alt=""></p>
+
       
     </div>
     
@@ -454,7 +447,9 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
           
             <a href="/tags/Natual-Languate-Processing/" rel="tag"># Natual Languate Processing</a>
           
-            <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+            <a href="/tags/Paper/" rel="tag"># Paper</a>
+          
+            <a href="/tags/Music-Generation/" rel="tag"># Music Generation</a>
           
         </div>
       
@@ -467,8 +462,8 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/07/LeetCode-26-Remove-Duplicates/" rel="next" title="LeetCode-26-Remove Duplicates from Sorted Array">
-                <i class="fa fa-chevron-left"></i> LeetCode-26-Remove Duplicates from Sorted Array
+              <a href="/2018/08/24/XiaoIce-Band-论文解读/" rel="next" title="XiaoIce Band 论文解读">
+                <i class="fa fa-chevron-left"></i> XiaoIce Band 论文解读
               </a>
             
           </div>
@@ -476,10 +471,6 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/04/MLE/" rel="prev" title="Maximum Likelihood Estimation">
-                Maximum Likelihood Estimation <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -663,7 +654,7 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Naive-Bayes-Theory"><span class="nav-number">1.</span> <span class="nav-text">Naive Bayes Theory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#概率建模"><span class="nav-number">2.</span> <span class="nav-text">概率建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何计算"><span class="nav-number">3.</span> <span class="nav-text">如何计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果还是不觉得是人话那就万分抱歉了"><span class="nav-number">4.</span> <span class="nav-text">如果还是不觉得是人话那就万分抱歉了.</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Keyword-extraction"><span class="nav-number">2.</span> <span class="nav-text">Keyword extraction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sentence-Model"><span class="nav-number">3.</span> <span class="nav-text">Sentence Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recursive-Generation"><span class="nav-number">4.</span> <span class="nav-text">Recursive Generation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generation-With-Previous-Line"><span class="nav-number">5.</span> <span class="nav-text">Generation With Previous Line</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hierarchy-Poem-Model"><span class="nav-number">6.</span> <span class="nav-text">Hierarchy Poem Model</span></a></li></ol></div>
             
 
           </div>
@@ -813,9 +804,9 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://jeffchy.github.io/2018/08/04/Naive-Bayes/';
-          this.page.identifier = '2018/08/04/Naive-Bayes/';
-          this.page.title = 'Naive Bayes';
+          this.page.url = 'https://jeffchy.github.io/2018/08/25/XiaoIce-Image2poetry/';
+          this.page.identifier = '2018/08/25/XiaoIce-Image2poetry/';
+          this.page.title = 'XiaoIce Image to Poetry 论文解读';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://https-jeffchy-github-io.disqus.com/embed.js';

@@ -299,6 +299,231 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/05/Inside-Outside-Algorithm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/05/Inside-Outside-Algorithm/" itemprop="url">Inside-Outside-Algorithm</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-05T13:31:21+08:00">
+                2018-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Note/" itemprop="url" rel="index">
+                    <span itemprop="name">Note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/05/Inside-Outside-Algorithm/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/05/Inside-Outside-Algorithm/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.<br><a href="http://www.cs.columbia.edu/~mcollins/" target="_blank" rel="external">http://www.cs.columbia.edu/~mcollins/</a></p>
+<h3 id="Inside-Outside-Algorithm"><a href="#Inside-Outside-Algorithm" class="headerlink" title="Inside Outside Algorithm"></a>Inside Outside Algorithm</h3><p>Inside Outside 算法是 PCFG grammar induction (Unsupervised Learning)中的重要算法。Collins大佬的notes中的<a href="/2018/08/04/EM/">EM</a>算法是本notes的基础。<br>Inside Outside 算法被誉为是NLP中最难的算法，如果彻底搞懂NLP就没什么好怕的了！</p>
+<h3 id="什么是PCFG"><a href="#什么是PCFG" class="headerlink" title="什么是PCFG"></a>什么是PCFG</h3><p>Probability Context-free Grammars</p>
+<ul>
+<li>$N$ is finite sets of non-terminals</li>
+<li>$\sum$ is finite sets of ternminals</li>
+<li>$R$ is finite set of rules, the grammar is in Chomsky normal form, $A \to BC , A \to x$</li>
+<li>$S \in N$ is a distinguished start symbol</li>
+</ul>
+<p>对于每一条rule，我们定义rule spanning，如下。一个parse tree可以被定义为多个rule production的势函数的乘积。</p>
+<ul>
+<li>$(A \to B,C,i,k,j)$表示non-ternminal $A$ span 出了 $w_i \cdots w_j$,  $B$ span 出了 $w_i \cdots w_k$, $C$ span 出了 $w_k \cdots w_j$</li>
+<li>$(A \to i)$ 表示 non-terminal $A$ span 出了最底层的word i</li>
+<li>举一个例子<img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/92426943.jpg" alt=""></li>
+<li>上面两种rules 都有其对应的 potential function $\phi(r)$, 所以一整棵树的势函数就是所有rule的势函数的乘积<img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/74502801.jpg" alt=""></li>
+<li>通常我们对于每一种rule我们可以直接定义它的势函数为，看见这一条rule的概率，或者说这一条rule在这个corpus中出现的概率。所以我们将$\phi(A \to BC,i,k,j)=q(A\to BC)$,这个概率就是我们针对每个grammar rule assign的参数</li>
+</ul>
+<h3 id="Inside-Outside-算法用作grammar-learning的Input-Output是什么"><a href="#Inside-Outside-算法用作grammar-learning的Input-Output是什么" class="headerlink" title="Inside-Outside 算法用作grammar learning的Input Output是什么"></a>Inside-Outside 算法用作grammar learning的Input Output是什么</h3><p>Input</p>
+<ul>
+<li>很多个句子的集合 $X$, 每一个句子$x \in X$, 我们有$x_1 \cdots x_n$, $x_i$是词</li>
+<li>一个CFG $(N,\sum, R,S)$ in Chomsky Normal Form，注意!这里的每个$r \in R$是没有概率的，也就是这里不是PCFG,如果我们知道每个gramma rules的概率的话，我们就是一个完整的PCFG的设定了！我们就可以用 <strong>CYK</strong> 算法，在$O(n^3G)$动态规划得把整棵树parse出来。</li>
+</ul>
+<p>Output</p>
+<ul>
+<li>每个grammar rules的概率，也就是我们对每个语法的$\phi$</li>
+</ul>
+<h2 id="Inside-Outside-算法的基本设定就讲完了，下面我们就讲一下细节"><a href="#Inside-Outside-算法的基本设定就讲完了，下面我们就讲一下细节" class="headerlink" title="Inside Outside 算法的基本设定就讲完了，下面我们就讲一下细节"></a>Inside Outside 算法的基本设定就讲完了，下面我们就讲一下细节</h2><p>接下来的资料是根据 prof. Kewei Tu 在Shanghaitech CS181课程中的slice #17进行概括<br>这个更加图文并茂一些</p>
+<h3 id="EM算法的设定"><a href="#EM算法的设定" class="headerlink" title="EM算法的设定"></a>EM算法的设定</h3><p>看了前面的input,output是不是很熟悉呢？因为我们拿到是一个POS sequence而不是整个parse-tree,也就是说我们没有办法通过统计的方法来通过corpus得到每个grammar rules的参数（也就是概率）了，我们也因此没有办法用 CYK 算法进行parsing了。所以这个时候就该用EM算法了。</p>
+<h3 id="sketch-of-Inside-outside-人话版本"><a href="#sketch-of-Inside-outside-人话版本" class="headerlink" title="sketch of Inside-outside 人话版本"></a>sketch of Inside-outside 人话版本</h3><ul>
+<li>随机初始化 grammar rules 的概率</li>
+<li>利用这个概率计算出每个 grammar rules 的 <strong>expected counts</strong></li>
+<li>利用我们的expected counts 我们就能重新更新我们 grammar rules 的概率了！</li>
+<li>进入step2, 反复迭代。</li>
+</ul>
+<h3 id="sketch-of-Inside-outside-数学版本"><a href="#sketch-of-Inside-outside-数学版本" class="headerlink" title="sketch of Inside-outside 数学版本"></a>sketch of Inside-outside 数学版本</h3><ul>
+<li>随机初始化 grammar rules 的概率 $\theta^0$</li>
+<li>E-step: 利用这个概率计算出每个 grammar rules 的 <strong>expected counts</strong> $C(N^j\to N^r N^s \ used | X, \theta^t)$, $X$是句子，没有parse的，$N^j$表示第j个non-terminal</li>
+<li>M-step: 利用我们的expected counts 我们就能重新更新我们 grammar rules 的概率了！$\theta^{t+1}_{jrs}=P(N^j \to N^r N^s)=\frac{C(N^j\to N^r N^s \ used | X, \theta^t)}{C(N^j \ used | X, \theta^t)}$</li>
+<li>进入step2, 反复迭代。</li>
+</ul>
+<h3 id="最关键的问题-如何计算expected-count"><a href="#最关键的问题-如何计算expected-count" class="headerlink" title="最关键的问题: 如何计算expected count?"></a>最关键的问题: 如何计算expected count?</h3><script type="math/tex; mode=display">C(N^j\to N^r N^s \ used | X, \theta^t) = \sum_{(w_1 \cdots w_m) \in X} E_{p(t|w_1 \cdots w_m)} C(N^j\to N^r N^s \ used\ in\ t)</script><p>这一句话的意思是：对于一句话的每一个parse tree $t$, 我们都能够数出对于这个parse tree某个rule $N^j\to N^r N^s$的使用的次数，于是如果我们枚举出了所有的parse trees以及其对应的概率,那么我们就可以求出这个rule出现在这句话里面的次数的期望，也就是我们这句话的expected counts!最后对于每一句话$x \in X$都加起来，就得到了我们整个corpus的expected counts.但是一个句子的parse tree可能有很多，所以我们是无法枚举的。</p>
+<h3 id="所以我们通过计算inside-outside-probability来计算出expected-counts"><a href="#所以我们通过计算inside-outside-probability来计算出expected-counts" class="headerlink" title="所以我们通过计算inside-outside probability来计算出expected counts"></a><strong>所以我们通过计算inside-outside probability来计算出expected counts</strong></h3><p>expected count 可以这样表示，给定一个rule: $(N^j \to N^r \ N^s ,p,d,q)$(见最开始的定义)，对于每一个句子，我们可以通过枚举所有的$p,d,q$,加起来得到这个句子的这个grammar rule的expected counts,并且对每个句子加起来，最终得到这个corpus的expected counts<br>这里的$P$写清楚一点的话是$P(N^j \to N^r \ N^s ,p,d,q|w_{1,m},\theta^t)$<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/49723064.jpg" alt=""></p>
+<h2 id="那么我们如何计算-P-N-j-to-N-r-N-s-p-d-q-w-1-m-theta-t"><a href="#那么我们如何计算-P-N-j-to-N-r-N-s-p-d-q-w-1-m-theta-t" class="headerlink" title="那么我们如何计算 $P(N^j \to N^r \ N^s ,p,d,q|w_{1,m},\theta^t)$"></a>那么我们如何计算 $P(N^j \to N^r \ N^s ,p,d,q|w_{1,m},\theta^t)$</h2><p>我们通过计算inside probability 和 outside probability 来计算。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/71696567.jpg" alt=""></p>
+<h3 id="Inside-Probability"><a href="#Inside-Probability" class="headerlink" title="Inside Probability"></a>Inside Probability</h3><p>Inside score $\beta_j(p,q)$是non-terminal $N^j$ 生成terminal $w_p \cdots w_q$的概率,也就是$P(w_{pq}|N^j_{pq},G)$, 我们可以通过动态规划(Dynamic Programming)来计算。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/44133812.jpg" alt=""><br>我们可以把原问题划分为这样的子问题。$N^j$的spanning可以分解为$N^j \to N^r, N^s$，并且$N^r$ spanning成$w_p \cdots w_d$, $N^s$ spanning成$w_{d+1} \cdots w_q$, 我们只要枚举不同的split $d$ 并且加起来就行了。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/23219939.jpg" alt=""><br>Base case<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/79155619.jpg" alt=""><br><strong>这个过程就等同于CYK parsing,只不过把max换成了sum</strong></p>
+<h3 id="Outside-Probability"><a href="#Outside-Probability" class="headerlink" title="Outside Probability"></a>Outside Probability</h3><p>Outside score $\alpha_j(p,q)$是non-terminal $N^j$ 生成terminal $w_p \cdots w_q$<strong>之外</strong>的所有的non-ternimal的概率,也就是$P(w_{1(p-1)},N^j_{pq},w_{(q+1)m}|G)$, 我们可以通过动态规划(Dynamic Programming)来计算。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/53921346.jpg" alt=""><br>怎么分解成子问题呢？如果是$N^f \to N^g, N^j$我们需要计算的是$w_1 \cdots w_{(p-1)}, w_q \cdots w_{m}$这两段的概率，那我们可以通过计算$N^f$的outside score乘上$N^g$的inside score来计算，如果是$N^f \to N^j, N^g$那么与之前类似，我们需要这两种情况。最终我们得到。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/73296021.jpg" alt=""></p>
+<h3 id="用-Inside-Outside-score-来表示-P-N-j-to-N-r-N-s-p-d-q-w-1-m-theta-t"><a href="#用-Inside-Outside-score-来表示-P-N-j-to-N-r-N-s-p-d-q-w-1-m-theta-t" class="headerlink" title="用 Inside+Outside score 来表示 $P(N^j \to N^r \ N^s ,p,d,q|w_{1,m},\theta^t)$"></a>用 Inside+Outside score 来表示 $P(N^j \to N^r \ N^s ,p,d,q|w_{1,m},\theta^t)$</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-5/77178935.jpg" alt=""><br>这个就很直观啦，$N^j \to N^r, N^s$并且生成$w_{1,m}$的概率$P(N^j \to N^r \ N^s ,p,d,q|w_{1,m},\theta^t)$ 可以表示为：$N^r$的inside score 乘上 $N^s$的 Inside Score 乘上$N^j$的outside score 乘上$N^j \to N^r, N^s$的概率在 condition on (除以得到条件概率) $S$的inside score!</p>
+<h3 id="用人话总结-Inside-Outside"><a href="#用人话总结-Inside-Outside" class="headerlink" title="用人话总结 Inside-Outside"></a>用人话总结 Inside-Outside</h3><ul>
+<li>我们没有parse tree 的标注(annotation)，所以我么希望通过EM算法进行无监督学习</li>
+<li>EM Algorithm<ul>
+<li>Initialize parameters (每个grammar rules $r$在corpus$X$中出现的概率)</li>
+<li>E-step: 计算Expected Count (grammar rules $r$在corpus$X$中出现的次数的期望)<ul>
+<li>计算Inside Score (DP)</li>
+<li>计算Outside Score (DP)</li>
+<li>得到用Inside/Outside Score表示Expected Count</li>
+</ul>
+</li>
+<li>M-step: Update Probabilities Use expected counts</li>
+<li>跳到E-step, 迭代</li>
+</ul>
+</li>
+<li>最终我们得到了每个grammar rules的概率，于是我们可以用类似<strong>CYK</strong>的算法进行语法树的parsing了。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/04/EM/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1768,174 +1993,6 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2017/02/01/Django-Project-Simple-Gallery-一/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Chiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeff-Chiang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/02/01/Django-Project-Simple-Gallery-一/" itemprop="url">Django Project: Simple Gallery(二)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-01T21:01:08+08:00">
-                2017-02-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tech/" itemprop="url" rel="index">
-                    <span itemprop="name">Tech</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tech/Note/" itemprop="url" rel="index">
-                    <span itemprop="name">Note</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/02/01/Django-Project-Simple-Gallery-一/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/02/01/Django-Project-Simple-Gallery-一/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>大家好久不见，我把gallery部署了，不过先没有部署在阿里云上，而是在pythonanywhere上，说一下如何在上面部署吧。<br>链接：<a href="http://jeffchiang.pythonanywhere.com/gallery/" target="_blank" rel="external">http://jeffchiang.pythonanywhere.com/gallery/</a><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/01/Django-Project-Simple-Gallery-一/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1988,7 +2045,7 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
