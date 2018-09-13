@@ -299,6 +299,196 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/07/GenDis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/07/GenDis/" itemprop="url">Generative Model and Discriminative Model</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T12:31:21+08:00">
+                2018-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Note/" itemprop="url" rel="index">
+                    <span itemprop="name">Note</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Note/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/07/GenDis/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/07/GenDis/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>余今日偶得屠师爷天书《Unsupervised Dependency Parsing本录》，有两词无法参透。谷歌搜索罢，略知一二，故在今日饭前稍作记录。</p>
+<h3 id="壹"><a href="#壹" class="headerlink" title="壹"></a>壹</h3><p>生成方法、判别方法乃是机器学习只根本方法，重中之重，余之前所学多为判别方法，今开始对生成方法多加关注，与各位同道分享一二。</p>
+<p>Notation: $X$ data, $Y$ label</p>
+<h3 id="贰-Generative-Approach"><a href="#贰-Generative-Approach" class="headerlink" title="贰 Generative Approach"></a>贰 Generative Approach</h3><ul>
+<li>learn $P(X,Y)$</li>
+<li>marginailze to $P(X|Y)$ to classify</li>
+<li>reflect the <strong>similarity</strong> of data</li>
+<li>can be used to learn latent variable</li>
+<li>Naive Bayes、EM based GMM、DMV</li>
+</ul>
+<h3 id="叁-Discriminative-Approach"><a href="#叁-Discriminative-Approach" class="headerlink" title="叁 Discriminative Approach"></a>叁 Discriminative Approach</h3><ul>
+<li>learn $P(X|Y)$ drirect from <strong>features</strong></li>
+<li>reflect the <strong>distinction</strong> of data margin</li>
+<li>can not be used to learn latent variable</li>
+<li>KNN, regression, SVM, CRF</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/06/DMV/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1866,164 +2056,6 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2017/02/04/Machine-Learning-Note-ii/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Chiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeff-Chiang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/02/04/Machine-Learning-Note-ii/" itemprop="url">Machine Learning Note (ii)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-04T23:36:16+08:00">
-                2017-02-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Note/" itemprop="url" rel="index">
-                    <span itemprop="name">Note</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/02/04/Machine-Learning-Note-ii/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/02/04/Machine-Learning-Note-ii/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <a id="more"></a>
-<h3 id="Gradient-Decent的优化"><a href="#Gradient-Decent的优化" class="headerlink" title="Gradient Decent的优化"></a>Gradient Decent的优化</h3><h1 id="Feature-scaling"><a href="#Feature-scaling" class="headerlink" title="Feature scaling"></a>Feature scaling</h1><p>get every feature into approximately in -1 and 1 to make the gradient decent converge more quickly.</p>
-<h1 id="mean-normalization"><a href="#mean-normalization" class="headerlink" title="mean normalization"></a>mean normalization</h1><p>x = x - u(mean)<br>mean normalization (x - u) / (max - min)</p>
-<h1 id="how-to-judge-if-an-learning-rate-is-well-enough"><a href="#how-to-judge-if-an-learning-rate-is-well-enough" class="headerlink" title="how to judge if an learning rate is well enough"></a>how to judge if an learning rate is well enough</h1><p>plot the cost function corresponding to times of iterations.<br>alpha too small: slow converge<br>alpha too big: cannot converge</p>
-<h1 id="narmal-equations"><a href="#narmal-equations" class="headerlink" title="narmal equations"></a>narmal equations</h1><p><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/dykma6dwEea3qApInhZCFg_333df5f11086fee19c4fb81bc34d5125_Screenshot-2016-11-10-10.06.16.png?expiry=1486425600000&amp;hmac=ayW0nzCcyQm-vwcdnwgOQbQy8gRoN_IAr-54Q1qG63o" alt="alt"><br>有的数据情况下不工作。<br>就是直接用最小二乘法算出结果，不需要迭代，不需要选择learning rate。但是复杂度为O(n3),所以数据过大的时候使用梯度下降比较好。<br>method to solve for theta analytically</p>
-<h1 id="how-to-solve"><a href="#how-to-solve" class="headerlink" title="how to solve?"></a>how to solve?</h1><p>least square<br>直接算出来 A’Ax = A’b<br>注意，上图中的X’X如果没有inverse怎么办呢？<br>没有inverse说明，X本身有线性相关的列，所以删掉一些线性相关的列就可以了，或者是有太多的features，数据不够多，即m&lt;n。<br><strong>X’X is invertible if X is invertible</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2076,7 +2108,7 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
