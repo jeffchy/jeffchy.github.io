@@ -81,7 +81,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Diary,Note," />
+  <meta name="keywords" content="Note,Paper," />
 
 
 
@@ -97,18 +97,32 @@
 
 
 
-<meta name="description" content="随便写写流水账上午结束了,Jeff得找个地方吃饭.这个鬼地方很荒凉,附近没啥好吃的,走了一阵子就去重庆小面随便将就了(wtf,一点点面20块钱?) 吃面的时候,左边坐着一个老哥,胸前挂着和我一样的牌子,我和他搭讪,得知他是做云计算底层技术的,觉得没听到啥东西,太水了,很失望.Jeff表示理解,参见前一篇,“我也不想听广告”. 因为小面的分量太小了,(我终于明白了“小”面中的“小”的意思),没过一会">
-<meta name="keywords" content="Diary,Note">
+<meta name="description" content="Tree Recursive Neural Networks and Consitituency ParsingBasicly this is the summary of the stanford cs224n class lecture 14, see the youtube vedio if you have something unclear https://www.youtube.com">
+<meta name="keywords" content="Note,Paper">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HangZhou-AICUG2018-II(水)">
-<meta property="og:url" content="https://jeffchy.github.io/2018/09/16/HangZhou-AICUG2018-II/index.html">
+<meta property="og:title" content="compositional-vector-grammar">
+<meta property="og:url" content="https://jeffchy.github.io/2018/09/17/compositional-vector-grammar/index.html">
 <meta property="og:site_name" content="Jeff-Chiang">
-<meta property="og:description" content="随便写写流水账上午结束了,Jeff得找个地方吃饭.这个鬼地方很荒凉,附近没啥好吃的,走了一阵子就去重庆小面随便将就了(wtf,一点点面20块钱?) 吃面的时候,左边坐着一个老哥,胸前挂着和我一样的牌子,我和他搭讪,得知他是做云计算底层技术的,觉得没听到啥东西,太水了,很失望.Jeff表示理解,参见前一篇,“我也不想听广告”. 因为小面的分量太小了,(我终于明白了“小”面中的“小”的意思),没过一会">
+<meta property="og:description" content="Tree Recursive Neural Networks and Consitituency ParsingBasicly this is the summary of the stanford cs224n class lecture 14, see the youtube vedio if you have something unclear https://www.youtube.com">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-16T05:06:40.260Z">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-9-17/50704315.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-9-17/31919973.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-9-17/18305879.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-9-17/21223679.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-9-17/63146581.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-9-17/2774444.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-9-17/72377585.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-9-17/41043468.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-9-17/34733902.jpg">
+<meta property="og:image" content="c:/Users/Jeff/AppData/Roaming/Typora/typora-user-images/1537155769400.png">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-9-17/46113886.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-9-17/87760407.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-9-17/54331915.jpg">
+<meta property="og:updated_time" content="2018-09-17T05:41:17.223Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HangZhou-AICUG2018-II(水)">
-<meta name="twitter:description" content="随便写写流水账上午结束了,Jeff得找个地方吃饭.这个鬼地方很荒凉,附近没啥好吃的,走了一阵子就去重庆小面随便将就了(wtf,一点点面20块钱?) 吃面的时候,左边坐着一个老哥,胸前挂着和我一样的牌子,我和他搭讪,得知他是做云计算底层技术的,觉得没听到啥东西,太水了,很失望.Jeff表示理解,参见前一篇,“我也不想听广告”. 因为小面的分量太小了,(我终于明白了“小”面中的“小”的意思),没过一会">
+<meta name="twitter:title" content="compositional-vector-grammar">
+<meta name="twitter:description" content="Tree Recursive Neural Networks and Consitituency ParsingBasicly this is the summary of the stanford cs224n class lecture 14, see the youtube vedio if you have something unclear https://www.youtube.com">
+<meta name="twitter:image" content="http://oj4pv4f25.bkt.clouddn.com/18-9-17/50704315.jpg">
 
 
 
@@ -138,13 +152,13 @@
 
 
 
-  <link rel="canonical" href="https://jeffchy.github.io/2018/09/16/HangZhou-AICUG2018-II/"/>
+  <link rel="canonical" href="https://jeffchy.github.io/2018/09/17/compositional-vector-grammar/"/>
 
 
 
 
 
-  <title>HangZhou-AICUG2018-II(水) | Jeff-Chiang</title>
+  <title>compositional-vector-grammar | Jeff-Chiang</title>
   
 
 
@@ -300,7 +314,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/09/16/HangZhou-AICUG2018-II/">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/09/17/compositional-vector-grammar/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeff Chiang">
@@ -317,7 +331,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">HangZhou-AICUG2018-II(水)</h1>
+          <h1 class="post-title" itemprop="name headline">compositional-vector-grammar</h1>
         
 
         <div class="post-meta">
@@ -329,8 +343,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-16T12:47:03+08:00">
-                2018-09-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-17T13:40:47+08:00">
+                2018-09-17
               </time>
             
 
@@ -348,9 +362,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/09/16/HangZhou-AICUG2018-II/#comments" itemprop="discussionUrl">
+                <a href="/2018/09/17/compositional-vector-grammar/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/09/16/HangZhou-AICUG2018-II/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/09/17/compositional-vector-grammar/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -378,12 +392,33 @@
       
 
       
-        <h3 id="随便写写流水账"><a href="#随便写写流水账" class="headerlink" title="随便写写流水账"></a>随便写写流水账</h3><p>上午结束了,Jeff得找个地方吃饭.<br>这个鬼地方很荒凉,附近没啥好吃的,走了一阵子就去重庆小面随便将就了<br>(wtf,一点点面20块钱?)</p>
-<p>吃面的时候,左边坐着一个老哥,胸前挂着和我一样的牌子,我和他搭讪,得知他是做云计算底层技术的,觉得没听到啥东西,太水了,很失望.Jeff表示理解,参见前一篇,“我也不想听广告”.</p>
-<p>因为小面的分量太小了,(我终于明白了“小”面中的“小”的意思),没过一会儿他就吃完了,谈话结束,我还剩一点.突然对面的大龄美女问我,“下午几点开始啊?”,我一看,霍,没挂牌子,但是拎了个AICUG的手提袋.</p>
-<p>我们聊了一会儿,她在杭州做人工智能和医疗,我们开始了对话,<br>“现在计算机视觉和医疗结合地很🔥啊!”<br>“没有啦,现在还是很表面”<br>(我不确定她的表面是指现有的人工智能技术只用上了很少的一部分,还是指现在的人工智能的技术本身还很表面)<br>“我是学生,准备在上海读自然语言的研究生”<br>“嗯,自然语言在医疗也有应用,电子病例什么的”<br>“哈哈,想想是这样”<br>“上海的依图科技很不错”<br>“对的,还有联影”</p>
-<h1 id="有缘千里来吃面-感谢AICUG"><a href="#有缘千里来吃面-感谢AICUG" class="headerlink" title="有缘千里来吃面 感谢AICUG"></a>有缘千里来吃面 感谢AICUG</h1><p>中午有点时间,从格林豪泰借了个共享充电宝,准备听下午场了,还有点时间,继续读一读paper.</p>
-<h1 id="和这些AI从业者说完话-我觉得我仿佛也年薪几十万了"><a href="#和这些AI从业者说完话-我觉得我仿佛也年薪几十万了" class="headerlink" title="和这些AI从业者说完话,我觉得我仿佛也年薪几十万了."></a>和这些AI从业者说完话,我觉得我仿佛也年薪几十万了.</h1><h2 id="梦醒了-么的钱"><a href="#梦醒了-么的钱" class="headerlink" title="(梦醒了,么的钱)"></a>(梦醒了,么的钱)</h2>
+        <h1 id="Tree-Recursive-Neural-Networks-and-Consitituency-Parsing"><a href="#Tree-Recursive-Neural-Networks-and-Consitituency-Parsing" class="headerlink" title="Tree Recursive Neural Networks and Consitituency Parsing"></a>Tree Recursive Neural Networks and Consitituency Parsing</h1><p>Basicly this is the summary of the stanford cs224n class lecture 14, see the youtube vedio if you have something unclear</p>
+<p><a href="https://www.youtube.com/watch?v=RfwgqPkWZ1w&amp;index=15&amp;list=PL3FW7Lu3i5Jsnh1rnUwq_TcylNr7EkRe6" target="_blank" rel="external">https://www.youtube.com/watch?v=RfwgqPkWZ1w&amp;index=15&amp;list=PL3FW7Lu3i5Jsnh1rnUwq_TcylNr7EkRe6</a></p>
+<h3 id="Recursion-is-Natural-for-describing-language"><a href="#Recursion-is-Natural-for-describing-language" class="headerlink" title="Recursion is Natural for describing language"></a>Recursion is Natural for describing language</h3><p>example: [the man from [the company that you spoke with about [the project ] yesterday ]]</p>
+<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/50704315.jpg" alt=""></p>
+<h3 id="Why-Recursive？"><a href="#Why-Recursive？" class="headerlink" title="Why Recursive？"></a>Why Recursive？</h3><p><img src="" alt=""></p>
+<p>We have word vectors to encode the similarity of the words, but can we project longer phrase into the word vector space?</p>
+<p>Because of the recursive structure of language, [the country of my birth] also “merged” into a “NP” noun phrase in the constituent parsing, and that’s natural to think that it should represent “country”, so it should be next to “China, Germany” in the same vector space. which are also “NP”s.</p>
+<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/31919973.jpg" alt=""></p>
+<p>To calculate it from bottom to up,  and we can use some technics which we will describe below.</p>
+<h3 id="why-we-want-to-represent-the-“long-phrase”-or-“Non-terminal”"><a href="#why-we-want-to-represent-the-“long-phrase”-or-“Non-terminal”" class="headerlink" title="why we want to represent the “long phrase” or “Non-terminal”?"></a>why we want to represent the “long phrase” or “Non-terminal”?</h3><p>We can use it to refine the grammar! In other words, we can compute the subtypes of the CFGs, which will increasing the parsing accuracy</p>
+<p><strong><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/18305879.jpg" alt=""></strong></p>
+<p>See that? we can assign a vector to the nonterminal! which means we can assign a meaningful vector representation TO the non-terminals.</p>
+<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/21223679.jpg" alt=""></p>
+<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/63146581.jpg" alt=""></p>
+<p>The CNN for Natural language, and Recursive Neural Network for Natural Language, the Recursive one seems more natural</p>
+<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/2774444.jpg" alt=""></p>
+<p>The Recursive Neural Network take two child (CNF) as an input and use it to predict and output two things, one is the vector representation of the parent non-terminal node, the other is a <strong>score telling you how reasonable the combination is</strong>, we can concat the children’s vector representations, feed into a small neural network layer, (linear transform and non-linearity), and output the predicted parent vector, <strong>p</strong>, and use the p, multiplied it with another trained vector <strong>U</strong>  to get the score.</p>
+<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/72377585.jpg" alt=""></p>
+<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/41043468.jpg" alt=""></p>
+<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/34733902.jpg" alt=""></p>
+<p>Loss Function</p>
+<p><img src="C:\Users\Jeff\AppData\Roaming\Typora\typora-user-images\1537155769400.png" alt="1537155769400"></p>
+<p><strong>It’s Greedy, we can’t explore all the parses, because we cannot use DP,(the vector representation varies)</strong></p>
+<h3 id="Training-Backprop-through-structure"><a href="#Training-Backprop-through-structure" class="headerlink" title="Training: Backprop through structure"></a>Training: Backprop through structure</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/46113886.jpg" alt=""></p>
+<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/87760407.jpg" alt=""></p>
+<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/54331915.jpg" alt=""></p>
+
       
     </div>
     
@@ -400,9 +435,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Diary/" rel="tag"># Diary</a>
-          
             <a href="/tags/Note/" rel="tag"># Note</a>
+          
+            <a href="/tags/Paper/" rel="tag"># Paper</a>
           
         </div>
       
@@ -415,8 +450,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/16/HangZhou-AICUG2018/" rel="next" title="HangZhou-AICUG2018-I">
-                <i class="fa fa-chevron-left"></i> HangZhou-AICUG2018-I
+              <a href="/2018/09/16/HangZhou-AICUG-III/" rel="next" title="HangZhou-AICUG-III">
+                <i class="fa fa-chevron-left"></i> HangZhou-AICUG-III
               </a>
             
           </div>
@@ -424,10 +459,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/16/HangZhou-AICUG-III/" rel="prev" title="HangZhou-AICUG-III">
-                HangZhou-AICUG-III <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -611,7 +642,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#随便写写流水账"><span class="nav-number">1.</span> <span class="nav-text">随便写写流水账</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#有缘千里来吃面-感谢AICUG"><span class="nav-number"></span> <span class="nav-text">有缘千里来吃面 感谢AICUG</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#和这些AI从业者说完话-我觉得我仿佛也年薪几十万了"><span class="nav-number"></span> <span class="nav-text">和这些AI从业者说完话,我觉得我仿佛也年薪几十万了.</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#梦醒了-么的钱"><span class="nav-number"></span> <span class="nav-text">(梦醒了,么的钱)</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Tree-Recursive-Neural-Networks-and-Consitituency-Parsing"><span class="nav-number">1.</span> <span class="nav-text">Tree Recursive Neural Networks and Consitituency Parsing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Recursion-is-Natural-for-describing-language"><span class="nav-number">1.0.1.</span> <span class="nav-text">Recursion is Natural for describing language</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-Recursive？"><span class="nav-number">1.0.2.</span> <span class="nav-text">Why Recursive？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#why-we-want-to-represent-the-“long-phrase”-or-“Non-terminal”"><span class="nav-number">1.0.3.</span> <span class="nav-text">why we want to represent the “long phrase” or “Non-terminal”?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Training-Backprop-through-structure"><span class="nav-number">1.0.4.</span> <span class="nav-text">Training: Backprop through structure</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -761,9 +792,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://jeffchy.github.io/2018/09/16/HangZhou-AICUG2018-II/';
-          this.page.identifier = '2018/09/16/HangZhou-AICUG2018-II/';
-          this.page.title = 'HangZhou-AICUG2018-II(水)';
+          this.page.url = 'https://jeffchy.github.io/2018/09/17/compositional-vector-grammar/';
+          this.page.identifier = '2018/09/17/compositional-vector-grammar/';
+          this.page.title = 'compositional-vector-grammar';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://https-jeffchy-github-io.disqus.com/embed.js';
