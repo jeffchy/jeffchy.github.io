@@ -299,6 +299,189 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/04/Naive-Bayes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/04/Naive-Bayes/" itemprop="url">Naive Bayes</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T13:31:21+08:00">
+                2018-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Note/" itemprop="url" rel="index">
+                    <span itemprop="name">Note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/04/Naive-Bayes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/04/Naive-Bayes/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.<br><a href="http://www.cs.columbia.edu/~mcollins/" target="_blank" rel="external">http://www.cs.columbia.edu/~mcollins/</a></p>
+<h3 id="Naive-Bayes-Theory"><a href="#Naive-Bayes-Theory" class="headerlink" title="Naive Bayes Theory"></a>Naive Bayes Theory</h3><p>Naive Bayes (之后简称NB) 是一个常用于分类问题的概率模型. 先说模型的输入输出,输入的是features,输出是分类的结果.<br><span>$$\begin{aligned}
+input: features\  \{x_1, x_2, \cdots, x_n \} \\
+output:\ class\ y \in \{ y_1, y_2, \cdots, y_m \}
+\end{aligned}$$</span><!-- Has MathJax --><br>这是分类问题的基本形式,classification有很多种方法,比如regression,SVM,等等,而NB用概率来建模他. NB 基于一个很重要的假设: </p>
+<ul>
+<li><strong>给定类别,features是条件独立的</strong>,</li>
+<li>$P(x_1|y)*P(x_2|y) = P(x_1, x_2 | y)$</li>
+<li>比如判别垃圾邮件问题,垃圾邮件中,出现“会所”与出现“保健”之间是独立的事情,一方的出现不会影响另一方.虽然这个例子中“会所”与“保健”之间似乎是有某种神秘的联系,但是NB模型一律假设这些“特征”是条件独立的.</li>
+<li>用一张图来说的话是这样的 <img src="http://oj4pv4f25.bkt.clouddn.com/18-8-4/31561909.jpg" alt=""></li>
+</ul>
+<h3 id="概率建模"><a href="#概率建模" class="headerlink" title="概率建模"></a>概率建模</h3><p>基于我们之前的那个假设,条件独立的性质,我们用feature与label<strong>联合概率分布</strong>来建模整个bayes classifier.<br><span>$p(y, x_1, x_2, \cdots, x_n) = p(y) \prod_{j=1}^n p(x_j | y)$</span><!-- Has MathJax --><br>那么最有可能的label $y$ 自然是与所有feature联合概率分布最大的那个.即</p>
+<span>$$arg\ max_{y \in \{ 1 \cdots m \}} p(y, x_1, x_2, \cdots, x_n) = 
+arg\ max_{y \in \{ 1 \cdots m \}} p(y) \prod_{i=1}^n p(x_i | y)$$</span><!-- Has MathJax -->
+<h3 id="如何计算"><a href="#如何计算" class="headerlink" title="如何计算"></a>如何计算</h3><p>这样 Naive Bayes Model的理论就基本上讲清楚啦.<br>那么如何计算上一个等式中右边的各项呢?假设我们的训练数据是$N$个pair of $(x_i, y_i)$<br>那简单啊,数一下不就成了么<br><span>$$p(y=i) = \frac{count(y=i)}{N} \\
+p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br>看待概率有两种角度,一种是frequency的角度,这样看这两个式子很容易倒出,<br>还有一个是从bayes的角度,那么这两个式子的倒出就要好好斟酌一下了,我们可以用MLE(Maximum Likelihood Estimation),来倒出这两个count.<br>具体的证明细节不多说了,可以看之前的链接.</p>
+<blockquote>
+<p><strong>MLE的思路用一句人话来说就是:</strong> 我们拿到了一堆数据,我们不知道生成这个数据的概率分布是什么,(我们不知道某个分布的参数)那么我们就用手上的数据,以这个参数为未知数把生成这个数据的结果的概率给求出来,然后求这个概率最大的时候参数的值就可以了!</p>
+<p><strong>Naive Bayes 用一句人话来说就是:</strong><br>特征之间条件独立, 我么用足够的数据来求得必要的概率,然后用最大的feature和label的联合概率分布来判断新的数据的label是什么.</p>
+</blockquote>
+<h3 id="如果还是不觉得是人话那就万分抱歉了"><a href="#如果还是不觉得是人话那就万分抱歉了" class="headerlink" title="如果还是不觉得是人话那就万分抱歉了."></a>如果还是不觉得是人话那就万分抱歉了.</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/03/07/LeetCode-26-Remove-Duplicates/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1713,180 +1896,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2017/01/23/Django-Part-IV-staticfiles/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Chiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeff-Chiang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/01/23/Django-Part-IV-staticfiles/" itemprop="url">Django Part IV staticfiles</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-23T18:38:20+08:00">
-                2017-01-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tech/" itemprop="url" rel="index">
-                    <span itemprop="name">Tech</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tech/Note/" itemprop="url" rel="index">
-                    <span itemprop="name">Note</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/01/23/Django-Part-IV-staticfiles/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/01/23/Django-Part-IV-staticfiles/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Django 1.10.5 + python 3.5.3<br>简要总结一下如何设置static files，如图片，CSS，JS</p>
-<p>首先,<a href="https://docs.djangoproject.com/en/1.10/howto/static-files/" target="_blank" rel="external">官方文档</a>比较权威<br>总结几点：</p>
-<ul>
-<li>在app的subdir中创建folder：static,确保static和templates在同一个目录下</li>
-<li>自动生成的project和app中已经将<strong>django.contrib.staticfiles</strong>加入settings.py中的INSTALLED_APPS,如果因为一些原因没有添加，补上</li>
-<li>同样，应该已经有<code>STATIC_URL = &#39;/static/&#39;</code>在settings.py中。</li>
-<li>在你的templates文件中确保做到两件事，第一，在文件头部加入load static，自动脑补花括号和百分号</li>
-<li><code>src=&quot; static &quot;images/example.jpg&quot;</code>自动脑补花括号和百分号，hexo禁止提交这些字符</li>
-</ul>
-<p>官方文档中有其他功能，如自行指定不在app中的static路径等等，祝好。</p>
-<p>官方文档的坑真的好多啊啊啊啊啊！</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1939,7 +1948,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-count">57</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
