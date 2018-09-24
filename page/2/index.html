@@ -299,6 +299,195 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/22/word2vec-introduction/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/22/word2vec-introduction/" itemprop="url">word2vec-introduction</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-22T11:21:54+08:00">
+                2018-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Note/" itemprop="url" rel="index">
+                    <span itemprop="name">Note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/22/word2vec-introduction/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/22/word2vec-introduction/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>This Note is based on the Ng’s <strong>sequential model</strong> class in <a href="deeplearning.ai">deeplearning.ai</a>, along with some of my understandings.<br>Most of the images below are screenshots of the Ng’s class, I strongly recommend taking this sequential model class, it’s a pretty well introduction.</p>
+<h2 id="Word-representation"><a href="#Word-representation" class="headerlink" title="Word representation"></a>Word representation</h2><h3 id="One-hot"><a href="#One-hot" class="headerlink" title="One hot"></a>One hot</h3><p>one traditional way to represent word is through one-hot vectors.<br>If you have 100k vocabulary, your 1-hot vector size will be dim 1x100k, with the specific represented word setting to 1 and all the other elements set to 0s. This is an example:<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-22/28049823.jpg" alt=""></p>
+<p>What will be the drawbacks of one-hot vectors?</p>
+<ul>
+<li>computational and memory expensive when vocabulary size is really large</li>
+<li>word vectors are independent with each other, $v_1={China}, v_2={America}$, they are both country, so they are <em>correlated</em>, but the one-hot vectors says that $v_1 \cdot v_2 = 0$, they are perpendicular, thus independent and uncorrelated, so one-hot vector is easy to get but we lose some information.</li>
+</ul>
+<h3 id="feature-representation-word2vec"><a href="#feature-representation-word2vec" class="headerlink" title="feature representation - word2vec"></a>feature representation - word2vec</h3><p>So to solve the problems, we want a vector representation like the following<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-22/986348.jpg" alt=""><br>Each word vector is 128 dim, in continous vector space, a word can be represented by it, and the similarity of word can be encoded into it.<br>And we can do operations on the learned representations like this:</p>
+<blockquote>
+<p>$v_{queen} - v_{king} == v_{woman} - v_{man}$</p>
+</blockquote>
+<p>We often use a embedding matrix, it multiply a one-hot vector, can returns a current embedding<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-22/1375136.jpg" alt=""></p>
+<p>How can we do this?</p>
+<h3 id="How-we-use-word-embeddings"><a href="#How-we-use-word-embeddings" class="headerlink" title="How we use word embeddings?"></a>How we use word embeddings?</h3><p>Using word embedding is like transfer learning, we train it on big corpus unsupervisedly, and apply it onto a particular problem (usually smaller sized), as the prior knowledge.<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-22/2581072.jpg" alt=""></p>
+<blockquote>
+<p>Intuition:<br>We predict target word by given context words, and the by-product of it are word embedding $P(t|c)$</p>
+</blockquote>
+<h2 id="How-to-do-learn-word-embedding"><a href="#How-to-do-learn-word-embedding" class="headerlink" title="How to do learn word embedding"></a>How to do learn word embedding</h2><h3 id="V1-use-previous-few-words-by-product-of-learning-language-model"><a href="#V1-use-previous-few-words-by-product-of-learning-language-model" class="headerlink" title="V1 use previous few words (by-product of learning language model)"></a>V1 use previous few words (by-product of learning language model)</h3><p>given sentences, retreive the corresponding word embeddings from embedding matrix $E$, and feed the feched word vectors into a fully conneted hidden layer, and then feed into a softmax with parameter matrix, (first map the vector dim into vocabulary size, than take softmax, equivalent to a fully connected layer and a softmax operation), after softmax, we can get the word by argmax, and the embedding matrix weights learned can be used as word embeddings.<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-22/72304825.jpg" alt=""></p>
+<h3 id="other-context-center-pair-to-learn-word-embedding"><a href="#other-context-center-pair-to-learn-word-embedding" class="headerlink" title="other (context / center) pair to learn word embedding"></a>other (context / center) pair to learn word embedding</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-22/42202177.jpg" alt=""><br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-22/61894626.jpg" alt=""></p>
+<h3 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h3><ul>
+<li>one-hot vectors</li>
+<li>$E$ embedding matrix</li>
+<li>retrived embedding vectors $e$</li>
+<li>softmax layer (fully connected hidden layer + softmax operation), map to size of $|V|$</li>
+<li>NLL loss</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/20/Image-Data-Augmentation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2011,182 +2200,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/04/MLE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Chiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeff-Chiang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/04/MLE/" itemprop="url">Maximum Likelihood Estimation</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T16:50:21+08:00">
-                2018-08-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NLP/" itemprop="url" rel="index">
-                    <span itemprop="name">NLP</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NLP/Note/" itemprop="url" rel="index">
-                    <span itemprop="name">Note</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/04/MLE/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/04/MLE/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.<br><a href="http://www.cs.columbia.edu/~mcollins/" target="_blank" rel="external">http://www.cs.columbia.edu/~mcollins/</a></p>
-<h3 id="Maximum-Likelihood-Estimation"><a href="#Maximum-Likelihood-Estimation" class="headerlink" title="Maximum Likelihood Estimation"></a>Maximum Likelihood Estimation</h3><p>MLE, 先说人话</p>
-<blockquote>
-<p><strong>MLE的思路用一句人话来说就是:</strong> 我们拿到了一堆数据，这些数据观察的概率是独立同分布的$i.i.d$,我们不知道生成这个数据的概率分布是什么,(我们不知道某个分布的参数)那么我们就用手上的数据,以这个参数为未知数把生成这个数据的结果的概率给求出来,然后求这个概率最大的时候参数的值就可以了!</p>
-</blockquote>
-<h3 id="来点数学玩意"><a href="#来点数学玩意" class="headerlink" title="来点数学玩意"></a>来点数学玩意</h3><p>MLE的general的数学表示是啥呢?一行就够了</p>
-<script type="math/tex; mode=display">\mathop{argmax} \limits_{\theta} P(D|\theta)</script><p>$D$ 是data, $\theta$ 是未知概率分布的参数,我们的目标是找到最好的$\theta$,结合前面的人话看,很简单的对吧.</p>
-<p>值得一题的是,我们通常在外面取一个$\log$因为这个operation不会改变函数的单调性,因为概率多位连乘,加上log以后变为连加,容易求导.</p>
-<script type="math/tex; mode=display">\mathop{argmax} \limits_{\theta} \log{P(D|\theta)}</script><h3 id="一个栗子"><a href="#一个栗子" class="headerlink" title="一个栗子"></a>一个栗子</h3><p>一个畸形硬币,有两面$H,T$, $P(H)=\theta, P(T)=1-\theta$, 这里 $\theta$ 就是我们的参数啦, 假设我们获取了一份数据$D$, 为 HHTTHHT, 那么,生成这一份数据的概率是多少呢? 连乘起来得到（因为数据是独立同分布）</p>
-<script type="math/tex; mode=display">\log{P(D|\theta)} = \log{\theta^4 (1-\theta)^3} = 4 \log{\theta} + 3 \log{(1-\theta)}</script><p>要求</p>
-<script type="math/tex; mode=display">\mathop{argmax} \limits_{\theta} \log{P(D|\theta)}</script><p>我们只要求导即可</p>
-<script type="math/tex; mode=display">\frac{d \log{P(D|\theta)}}{d \theta}=\frac{4}{\theta}-\frac{3}{1-\theta}=0</script><script type="math/tex; mode=display">\theta=\frac47</script><h3 id="两个栗子"><a href="#两个栗子" class="headerlink" title="两个栗子"></a>两个栗子</h3><p>M. Collins 的原文章中是拿 Multinomial 来举例子的,而上一个栗子中硬币的分布式 Binomial. 他们两个本质没有区别…<br>一个超级畸形硬币,有<strong>三</strong>面$H,T,M$, $P(H)=\theta_1, P(T)=\theta_2, P(M) = 1- \theta_1 - \theta_2$, 这里 $\theta_1, \theta_2$ 就是我们的参数啦, 其他步骤都是一样的,只不过最后一步改成求偏导即可</p>
-<script type="math/tex; mode=display">\frac{d \log{P(D|\theta_1, \theta_2)}}{d \theta_1}=0</script><script type="math/tex; mode=display">\frac{d \log{P(D|\theta_1, \theta_2)}}{d \theta_2}=0</script><p>M.Collins原文中使用了拉格朗日乘子法转换为convex问题来求解，结果应该是一样的。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2239,7 +2252,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

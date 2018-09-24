@@ -299,6 +299,191 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/09/24/论文笔记：End-to-End-Sequence-Labeling-via-Bi-directional-LSTM-CNN-CRF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/24/论文笔记：End-to-End-Sequence-Labeling-via-Bi-directional-LSTM-CNN-CRF/" itemprop="url">论文笔记：End-to-End Sequence Labeling via Bi-directional LSTM-CNN-CRF</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-24T14:57:37+08:00">
+                2018-09-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/24/论文笔记：End-to-End-Sequence-Labeling-via-Bi-directional-LSTM-CNN-CRF/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/09/24/论文笔记：End-to-End-Sequence-Labeling-via-Bi-directional-LSTM-CNN-CRF/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="论文摘要-End-to-end-Sequence-Labeling-via-Bi-directional-LSTM-CNN-CRF"><a href="#论文摘要-End-to-end-Sequence-Labeling-via-Bi-directional-LSTM-CNN-CRF" class="headerlink" title="论文摘要 End-to-end Sequence Labeling via Bi-directional LSTM-CNN-CRF"></a>论文摘要 End-to-end Sequence Labeling via Bi-directional LSTM-CNN-CRF</h1><p>今天来将一些 End-to-end Sequence Labeling via Bi-directional LSTM-CNN-CRF 这篇文章吧，这是一篇CMU的工作。简单来说就是用一个完全End-to-end的模型来解决sequence labeling的问题，在NER和POStagging的问题上做了测试，达到了state-of-the-art，亮点在于不需要繁琐的feature engineering了。</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>在Introduction中，作者就大概阐述了整个End-to-end model的architecture。</p>
+<blockquote>
+<p>We first use convolutional<br>neural networks (CNNs) (LeCun et al.,<br>1989) to encode character-level information of a<br>word into its character-level representation. Then<br>we combine character- and word-level representations<br>and feed them into bi-directional LSTM<br>(BLSTM) to model context information of each<br>word. On top of BLSTM, we use a sequential<br>CRF to jointly decode labels for the whole sentence.</p>
+</blockquote>
+<p>用CNN去得到char-level representation，然后结合char-level和word-level（word vectors）输入一个Bi-LSTM在建模上下文信息，最后我们再用一个sequential的CRF去decode label。</p>
+<h2 id="Model-Architecture"><a href="#Model-Architecture" class="headerlink" title="Model Architecture"></a>Model Architecture</h2><h3 id="CNN-for-char-level-representation"><a href="#CNN-for-char-level-representation" class="headerlink" title="CNN for char-level representation"></a>CNN for char-level representation</h3><p>为什么我们需要CNN来encode char-level的信息？因为char-level可以比较好的表示一些词的一些构词特性。比如一些前缀后缀，pre-，post-，un-，im，或者ing、ed等等。</p>
+<p>基本的结构和图像的有</p>
+<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-24/56895944.jpg" alt=""></p>
+<p>分享一个github里面开源的Keras实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">_build_model</span><span class="params">(self)</span>:</span></div><div class="line">       <span class="string">"""</span></div><div class="line"><span class="string">       Build and compile the Character Level CNN model</span></div><div class="line"><span class="string">       Returns: None</span></div><div class="line"><span class="string">       """</span></div><div class="line">       <span class="comment"># Input layer</span></div><div class="line">       inputs = Input(shape=(self.input_size,), name=<span class="string">'sent_input'</span>, dtype=<span class="string">'int64'</span>)</div><div class="line">       <span class="comment"># Embedding layers</span></div><div class="line">       x = Embedding(self.alphabet_size + <span class="number">1</span>, self.embedding_size, input_length=self.input_size)(inputs)</div><div class="line">       <span class="comment"># Convolution layers</span></div><div class="line">       <span class="keyword">for</span> cl <span class="keyword">in</span> self.conv_layers:</div><div class="line">           x = Convolution1D(cl[<span class="number">0</span>], cl[<span class="number">1</span>])(x)</div><div class="line">           x = ThresholdedReLU(self.threshold)(x)</div><div class="line">           <span class="keyword">if</span> cl[<span class="number">2</span>] != <span class="number">-1</span>:</div><div class="line">               x = MaxPooling1D(cl[<span class="number">2</span>])(x)</div><div class="line">       x = Flatten()(x)</div><div class="line">       <span class="comment"># Fully connected layers</span></div><div class="line">       <span class="keyword">for</span> fl <span class="keyword">in</span> self.fully_connected_layers:</div><div class="line">           x = Dense(fl)(x)</div><div class="line">           x = ThresholdedReLU(self.threshold)(x)</div><div class="line">           x = Dropout(self.dropout_p)(x)</div><div class="line">       <span class="comment"># Output layer</span></div><div class="line">       predictions = Dense(self.num_of_classes, activation=<span class="string">'softmax'</span>)(x)</div><div class="line">       <span class="comment"># Build and compile model</span></div><div class="line">       model = Model(inputs=inputs, outputs=predictions)</div><div class="line">       model.compile(optimizer=self.optimizer, loss=self.loss)</div><div class="line">       self.model = model</div><div class="line">       print(<span class="string">"CharCNNZhang model built: "</span>)</div><div class="line">       self.model.summary()</div></pre></td></tr></table></figure>
+<p>参考<a href="https://github.com/chaitjo/character-level-cnn/blob/master/models/char_cnn_zhang.py" target="_blank" rel="external">https://github.com/chaitjo/character-level-cnn/blob/master/models/char_cnn_zhang.py</a></p>
+<p>CharCNN的其他的一些原理以及技术分享</p>
+<p><a href="https://blog.csdn.net/liuchonge/article/details/70947995" target="_blank" rel="external">https://blog.csdn.net/liuchonge/article/details/70947995</a></p>
+<h3 id="BI-LSTM-to-Encode-Context-Information"><a href="#BI-LSTM-to-Encode-Context-Information" class="headerlink" title="BI-LSTM to Encode Context Information"></a>BI-LSTM to Encode Context Information</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-24/50364748.jpg" alt=""></p>
+<p>LSTM unit不需要过多介绍了，简单来说通过构造一个gradient的highway以及与forget、output、input gate之间的互动来解决一部分vanishing gradient的问题。</p>
+<p>至于Bidirectional RNN，<a href="https://www.youtube.com/watch?v=uRFegQXnY54" target="_blank" rel="external">https://www.youtube.com/watch?v=uRFegQXnY54</a></p>
+<p>这个有介绍。因为LSTM只能通过过去predict未来，但是有的时候我们也需要知道句子后面的context，这个时候用Bi-directional RNN会有不错的效果。</p>
+<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-24/74031804.jpg" alt=""></p>
+<p>Bi-directional RNN 用人话来讲就是，除了forward的一个LSTM，再加一个backward的LSTM，神经网络的forward pass就是上图中紫色的$a^{<1>},a^{<2>},a^{<3>}，a^{<4>}$，然后绿色的$a^{<4>},a^{<3>},a^{<2>}，a^{<1>}$，backward pass就是反过来。最后每一个time slot都会得到两个hidden state，一个紫色的一个绿色的，一般来说把他们的表示concat然后输入一个activation function(比如softmax)或者当做feature输入别的判别函数即可。</1></2></3></4></4></3></2></1></p>
+<h3 id="CRF"><a href="#CRF" class="headerlink" title="CRF"></a>CRF</h3><p>我们融合了char、word-level的representation，再加上了context information，通过Bi-LSTM得到了一个隐藏层的表示。接下来我们将这个表示输入一个CRF进行predict。<br>我们令$z = \{z_1, \cdots, z_n \}$表示我们之前影藏层得到的vector（feature vector）<br>我们用$y = \{ y_1, \cdots, y_n \}$表示我们生成的对应的每一个label<br>我们用$Y(z)$来表示可能的label的集合。<br>所以我们的条件概率可以这样表示$P(y | z; W,b)$<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-24/39346110.jpg" alt=""><br>最后训练的目标就是得到最大的Maximum Likelihood<br>$L(W,b) = \sum_i log p(y | z; W,b)$<br>最后在做Decoding的时候我们只要search label sequence $y^{\star}$，是的他条件概率最大就可以了！<br>$y^{\star} = argmax_{y \in Y(z)} p(y | z; W, b)$</p>
+<h3 id="最后整体的模型"><a href="#最后整体的模型" class="headerlink" title="最后整体的模型"></a>最后整体的模型</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-24/77056616.jpg" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/09/19/Natual-Language-Parsing-Supervised-Paper-list/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1682,195 +1867,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/22/word2vec-introduction/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Chiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeff-Chiang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/22/word2vec-introduction/" itemprop="url">word2vec-introduction</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-22T11:21:54+08:00">
-                2018-08-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NLP/" itemprop="url" rel="index">
-                    <span itemprop="name">NLP</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NLP/Note/" itemprop="url" rel="index">
-                    <span itemprop="name">Note</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/22/word2vec-introduction/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/22/word2vec-introduction/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>This Note is based on the Ng’s <strong>sequential model</strong> class in <a href="deeplearning.ai">deeplearning.ai</a>, along with some of my understandings.<br>Most of the images below are screenshots of the Ng’s class, I strongly recommend taking this sequential model class, it’s a pretty well introduction.</p>
-<h2 id="Word-representation"><a href="#Word-representation" class="headerlink" title="Word representation"></a>Word representation</h2><h3 id="One-hot"><a href="#One-hot" class="headerlink" title="One hot"></a>One hot</h3><p>one traditional way to represent word is through one-hot vectors.<br>If you have 100k vocabulary, your 1-hot vector size will be dim 1x100k, with the specific represented word setting to 1 and all the other elements set to 0s. This is an example:<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-22/28049823.jpg" alt=""></p>
-<p>What will be the drawbacks of one-hot vectors?</p>
-<ul>
-<li>computational and memory expensive when vocabulary size is really large</li>
-<li>word vectors are independent with each other, $v_1={China}, v_2={America}$, they are both country, so they are <em>correlated</em>, but the one-hot vectors says that $v_1 \cdot v_2 = 0$, they are perpendicular, thus independent and uncorrelated, so one-hot vector is easy to get but we lose some information.</li>
-</ul>
-<h3 id="feature-representation-word2vec"><a href="#feature-representation-word2vec" class="headerlink" title="feature representation - word2vec"></a>feature representation - word2vec</h3><p>So to solve the problems, we want a vector representation like the following<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-22/986348.jpg" alt=""><br>Each word vector is 128 dim, in continous vector space, a word can be represented by it, and the similarity of word can be encoded into it.<br>And we can do operations on the learned representations like this:</p>
-<blockquote>
-<p>$v_{queen} - v_{king} == v_{woman} - v_{man}$</p>
-</blockquote>
-<p>We often use a embedding matrix, it multiply a one-hot vector, can returns a current embedding<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-22/1375136.jpg" alt=""></p>
-<p>How can we do this?</p>
-<h3 id="How-we-use-word-embeddings"><a href="#How-we-use-word-embeddings" class="headerlink" title="How we use word embeddings?"></a>How we use word embeddings?</h3><p>Using word embedding is like transfer learning, we train it on big corpus unsupervisedly, and apply it onto a particular problem (usually smaller sized), as the prior knowledge.<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-22/2581072.jpg" alt=""></p>
-<blockquote>
-<p>Intuition:<br>We predict target word by given context words, and the by-product of it are word embedding $P(t|c)$</p>
-</blockquote>
-<h2 id="How-to-do-learn-word-embedding"><a href="#How-to-do-learn-word-embedding" class="headerlink" title="How to do learn word embedding"></a>How to do learn word embedding</h2><h3 id="V1-use-previous-few-words-by-product-of-learning-language-model"><a href="#V1-use-previous-few-words-by-product-of-learning-language-model" class="headerlink" title="V1 use previous few words (by-product of learning language model)"></a>V1 use previous few words (by-product of learning language model)</h3><p>given sentences, retreive the corresponding word embeddings from embedding matrix $E$, and feed the feched word vectors into a fully conneted hidden layer, and then feed into a softmax with parameter matrix, (first map the vector dim into vocabulary size, than take softmax, equivalent to a fully connected layer and a softmax operation), after softmax, we can get the word by argmax, and the embedding matrix weights learned can be used as word embeddings.<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-22/72304825.jpg" alt=""></p>
-<h3 id="other-context-center-pair-to-learn-word-embedding"><a href="#other-context-center-pair-to-learn-word-embedding" class="headerlink" title="other (context / center) pair to learn word embedding"></a>other (context / center) pair to learn word embedding</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-22/42202177.jpg" alt=""><br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-22/61894626.jpg" alt=""></p>
-<h3 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h3><ul>
-<li>one-hot vectors</li>
-<li>$E$ embedding matrix</li>
-<li>retrived embedding vectors $e$</li>
-<li>softmax layer (fully connected hidden layer + softmax operation), map to size of $|V|$</li>
-<li>NLL loss</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1923,7 +1919,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
