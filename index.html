@@ -299,6 +299,181 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/09/25/ELMo-论文解读/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/25/ELMo-论文解读/" itemprop="url">ELMo-论文解读</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-25T15:02:54+08:00">
+                2018-09-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/25/ELMo-论文解读/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/09/25/ELMo-论文解读/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天来讲一讲这一篇论文啦. Deep contextualized word representations, 也就是最近火的不行的ELMo. <a href="https://arxiv.org/pdf/1802.05365.pdf" target="_blank" rel="external">https://arxiv.org/pdf/1802.05365.pdf</a><br>文章提出了一种新型的word embedding,使用它可以提高NLP很多任务的精度.<br>扔一篇很好的中文知乎介绍先, <a href="https://zhuanlan.zhihu.com/p/38254332" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/38254332</a> (抛玉引砖?)<br>这篇文章讲得相当好…我不知道我能讲啥了.<br>我尽量补充一些吧</p>
+<p>首先默认大家看了前面的那个知乎专栏,其实里面有一个比较容易让人疑惑的点,那就是ELMo到底是怎么用的.<br>下面引用一篇博客的内容,我也是如此理解的.</p>
+<blockquote>
+<p>具体来讲如何使用ElMo产生的表征呢？对于一个supervised NLP任务，可以分以下三步:<br>1.产生pre-trained biLM模型。模型由两层bi-LSTM组成，之间用residual connection连接起来。<br>2.在任务语料上(注意是语料，忽略label)fine-tuning上一步得到的biLM模型。可以把这一步看为biLM的domain transfer。<br>3.利用ELMo的word embedding来对任务进行训练。通常的做法是把它们作为输入加到已有的模型中，一般能够明显的提高原模型的表现。</p>
+</blockquote>
+<hr>
+<p>本文来自 triplemeng 的CSDN 博客 ，全文地址请点击：<a href="https://blog.csdn.net/triplemeng/article/details/82380202?utm_source=copy" target="_blank" rel="external">https://blog.csdn.net/triplemeng/article/details/82380202?utm_source=copy</a> </p>
+<p>而加到已知模型中的方法就如知乎专栏那一篇所说</p>
+<blockquote>
+<p>（1）直接将ELMo词向量 ELMo_k 与普通的词向量 x_k拼接（concat）[ $x_k$;$ELMo_k$ ]。<br> （2) 直接将ELMo词向量ELMo_k 与隐层输出向量 h_k 拼接[ $h_k$;$ELMo_k$ ]，在SNLI,SQuAD上都有提升。</p>
+</blockquote>
+<p>finetune应该还是比较慢的…之前的finetune,或者说对不同的语料来说,每个词之间的contextual information是不一样的,所以在此之前还是最好过一遍BiLSTM模型,得到针对这个语料库的隐藏表示,而这个部分是非常慢的.即便不finetune,我们也要根据我们拿来的pretrained的BiLSTM跑一下整个语料库,一句一句跑(因为我们需要得到hidden layer),然后把所有的词的hidden layer和embedding dump下来存起来.整个encoding的过程还是有点慢的…反正会比pretrained wordvec 要慢不少咯</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/09/24/论文笔记：End-to-End-Sequence-Labeling-via-Bi-directional-LSTM-CNN-CRF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1666,207 +1841,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/24/XiaoIce-Band-论文解读/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Chiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeff-Chiang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/24/XiaoIce-Band-论文解读/" itemprop="url">XiaoIce Band 论文解读</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-24T10:33:22+08:00">
-                2018-08-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NLP/" itemprop="url" rel="index">
-                    <span itemprop="name">NLP</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NLP/Paper/" itemprop="url" rel="index">
-                    <span itemprop="name">Paper</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/24/XiaoIce-Band-论文解读/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/24/XiaoIce-Band-论文解读/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近小冰一波论文疯狂刷屏,是深度学习的工程应用的良好例子,也看起来非常有趣.这些论文解决的问题都不简单,通过看他们应该可以受到一些解决问题上的启发.今天看的论文是KDD 2018上的Best Student Paper,<br><a href="https://dl.acm.org/authorize.cfm?key=N665888" target="_blank" rel="external">“XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music”</a>,再牢骚两句,觉得这论文有趣其实还是因为身边有一个想做音乐生成的朋友,同时在AI的课上有一个小组的项目使用LSTM做了简单的音乐生成(其实挺基础的),没有融合乐理的很多constraint,她们只用了midi,当成单轨,当时我就在底下提问了,多轨的效果试过么?这篇文章训练了多个音轨,同时用了乐理作为约束,我觉得和我当时想的一样,这才是music generation该有的样子hhhh,这个任务想必也挺困难的,我们简要看一下它是怎么做的吧😄<br>笔者想做的是NLP,但是看这篇文章应该也有不少启发.</p>
-<h3 id="Contribution"><a href="#Contribution" class="headerlink" title="Contribution"></a>Contribution</h3><ul>
-<li>这篇文章考虑了 <strong><em>和弦走向</em></strong>, 做音乐的朋友们会知道,写歌中和弦走向是很重要的一部分.什么 4536啊6415啊这些,现在的流行歌曲大都会采用一种好听的和弦的走向.</li>
-<li>这篇文章考虑了 multi-track, 多轨,以及之间的和谐</li>
-<li>这篇文章考虑了节奏和旋律的和谐 针对单轨  </li>
-<li>这篇文章考虑了编曲 针对多轨</li>
-</ul>
-<p>所以本文提出了两个模型</p>
-<ul>
-<li>Chord based Rhythm and Melody Cross-Generation Model (CRMCG)</li>
-<li>Multi-Instrument Co-Arrangement Model (MICA)<br>分别做旋律节奏(根据和弦走向)的生成和编曲</li>
-</ul>
-<h3 id="整体模型结构-PIPILELINE"><a href="#整体模型结构-PIPILELINE" class="headerlink" title="整体模型结构 PIPILELINE"></a>整体模型结构 PIPILELINE</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/39386920.jpg" alt=""></p>
-<ul>
-<li>数据预处理, 把训练的歌曲提取出必要的元素</li>
-<li>单轨生成模型CRMCG</li>
-<li>多轨生成模型MICA</li>
-<li>生成音乐</li>
-</ul>
-<h2 id="CRMCG"><a href="#CRMCG" class="headerlink" title="CRMCG"></a>CRMCG</h2><p>CRMCG是单轨生成模型,它的主要逻辑是这样的,是一个seq2seq</p>
-<ul>
-<li>INPUT: 人为给定和弦 $C = \{ c_1, c_2, \cdots, c_N \}$</li>
-<li>OUTPUT: 生成对应小节(一个和弦走向的和弦通常对应一个小节)  $P = \{ p_1, p_2, \cdots, p_N \}$</li>
-<li>因此每个小节的旋律$M_i$都和$C$有关</li>
-</ul>
-<h3 id="Notation"><a href="#Notation" class="headerlink" title="Notation"></a>Notation</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/38082880.jpg" alt=""></p>
-<h3 id="Chord"><a href="#Chord" class="headerlink" title="Chord"></a>Chord</h3><p>我们对输入的和弦序列$C$做Embedding,并且输入GRU,得到每个序列中和弦的隐藏层表示.<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/4830501.jpg" alt=""><br>用这个来encode 我们的和弦输入</p>
-<h3 id="Rhythm-amp-Melody-Encoder"><a href="#Rhythm-amp-Melody-Encoder" class="headerlink" title="Rhythm &amp; Melody Encoder"></a>Rhythm &amp; Melody Encoder</h3><p>这个的生成也类似,首先拿到embedding vector<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/64572589.jpg" alt=""><br>然后,通过一个GRU来得到<strong>每个小节中的对应Rhythm序列和Melody序列的</strong>encoding表示<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/94700231.jpg" alt=""></p>
-<h3 id="Rhythm-Decoder"><a href="#Rhythm-Decoder" class="headerlink" title="Rhythm Decoder"></a>Rhythm Decoder</h3><p>Encoder讲完了,接着开始讲decoder, Rhythm与Chord没什么关系,但是由于要与旋律和谐,它与前一时刻的自己和Melody是有关的,所以我们把之前得到的隐藏层concat到一起(这是非常常用的合并信息的操作),然后过一个Dense Layer,然后再过一个 Relu 的Activation, 最后输入另外一个GRU作为decoder,接一个Softmax表示成生成Rhythm的概率分布,condition on已知的小节信息.<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/49026522.jpg" alt=""></p>
-<h3 id="Melody-Decoder"><a href="#Melody-Decoder" class="headerlink" title="Melody Decoder"></a>Melody Decoder</h3><p>Melody的Decoder与Rhythm的类似,区别就是我们需要考虑chord进来,因为她们是相关的<br>这一时刻的Melody与现在时刻的Rhythm,Chord以及前一时刻的自己有关<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/15181689.jpg" alt=""><br>然后类似:<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/62267076.jpg" alt=""></p>
-<h3 id="Summary-of-CRMCG"><a href="#Summary-of-CRMCG" class="headerlink" title="Summary of CRMCG"></a>Summary of CRMCG</h3><p>这张图还是总结地很好的.<br>CRMCG是一个标准的的Encoder-Decoder模型,在一个有趣场景中的使用例子,值得学习.<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/47136008.jpg" alt=""><br>Encoder-Decoder的基本框架<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/50085942.jpg" alt=""></p>
-<h2 id="MICA-这个模型笔者也没有完全看懂-只能稍作解释-最好自己看文辩证理解一下…"><a href="#MICA-这个模型笔者也没有完全看懂-只能稍作解释-最好自己看文辩证理解一下…" class="headerlink" title="MICA 这个模型笔者也没有完全看懂,只能稍作解释,最好自己看文辩证理解一下…."></a>MICA 这个模型笔者也没有完全看懂,只能稍作解释,最好自己看文辩证理解一下….</h2><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/18460744.jpg" alt=""><br>这篇文章最强也是最难的地方是MICA的建模.如何把这样一个问题建模成end2end模型,非常有技术含量…<br>每个音轨,我们通过CRMCG生成的单轨信息(拿的是input的hidden state?),然后利用attention机制建模tracks之间的相互关系,然后修改了GRU门控单元joint地生成.<br>什么事attention机制?看看这个<a href="https://zhuanlan.zhihu.com/p/31547842" target="_blank" rel="external">知乎链接</a>,会有一个比较直观的了解.</p>
-<p>原本的GRU<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/4063736.jpg" alt=""></p>
-<h3 id="Attention-Cell-建模track之间的关系-模型图中竖着的方框"><a href="#Attention-Cell-建模track之间的关系-模型图中竖着的方框" class="headerlink" title="Attention Cell 建模track之间的关系[模型图中竖着的方框]"></a>Attention Cell 建模track之间的关系[模型图中竖着的方框]</h3><p>Attention<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/98664645.jpg" alt=""><br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/9770713.jpg" alt=""></p>
-<h3 id="MLP-Cell-建模某个track-的-hidden-state在-整个音乐-中的重要性"><a href="#MLP-Cell-建模某个track-的-hidden-state在-整个音乐-中的重要性" class="headerlink" title="MLP Cell 建模某个track 的 hidden state在[整个音乐]中的重要性"></a>MLP Cell 建模某个track 的 hidden state在[整个音乐]中的重要性</h3><p>我的理解就是每一次都把这个时间段所有task的隐藏层考虑进来,并且通过一个$W^i,b^i$(最后一行)的参数来建模每个track对整体音乐的重要性<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/74231115.jpg" alt=""></p>
-<h2 id="Loss"><a href="#Loss" class="headerlink" title="Loss"></a>Loss</h2><p>loss 其实是 conditional log-likelyhood<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-8-24/8433169.jpg" alt=""></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>四个字:很能折腾….<br>它的处理多个track协同训练的方法也许值得借鉴?<br>同时音乐的生成部分也可圈可点,作为一个encoder decoder的生动例子…</p>
-<p>但是我总觉得这个模型可能只有微软能调出来…</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1919,7 +1893,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">59</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1941,7 +1915,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

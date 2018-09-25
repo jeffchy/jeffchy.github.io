@@ -299,6 +299,198 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/04/EM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/04/EM/" itemprop="url">Expectation-Maximization Algorithm</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T20:31:21+08:00">
+                2018-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Note/" itemprop="url" rel="index">
+                    <span itemprop="name">Note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/04/EM/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/04/EM/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这是M.Collins的Notes中文笔记,内容跟着Notes走,但是笔者会融合一些笔者平时积累的其他资料,Notes原版在M.Collins大神的主页.<br><a href="http://www.cs.columbia.edu/~mcollins/" target="_blank" rel="external">http://www.cs.columbia.edu/~mcollins/</a></p>
+<h3 id="Expectation-Maximization-Algorithm"><a href="#Expectation-Maximization-Algorithm" class="headerlink" title="Expectation Maximization Algorithm"></a>Expectation Maximization Algorithm</h3><p>EM 算法是无监督学习(Unsupervised Learning)中的重要算法。Collins大佬的notes中先用我们之前提到的Naive Bayes进行举例，所以如果之前的notes没有看的话，先看一下呗? <a href="/2018/08/04/Naive-Bayes/">Naive-Bayes</a></p>
+<h3 id="如果Naive-Bayes的training-data中没有label了怎么办？"><a href="#如果Naive-Bayes的training-data中没有label了怎么办？" class="headerlink" title="如果Naive Bayes的training data中没有label了怎么办？"></a>如果Naive Bayes的training data中没有label了怎么办？</h3><p>首先简单回忆一下Naive Bayes模型。在Supervised，即有(feature, label) pairs 的情况下，我们可以通过统计出$p(y),p(x|y)$计算出一个classifier，之前我们说过！统计出$p(y),p(x|y)$的过程虽然简单，数个数就完事了，但是这实际上是一个<a href="/2018/08/04/MLE/">Maximum Likelihood Estimation</a>的过程！我们通过我们手上的(feature,label) pair，计算出生成这组数据可能性最大的分布的参数！也就是最终计算出了生成这组数据的概率分布，也就是$p(y),p(x|y)$. 为什么要这么麻烦？因为理解MLE的过程是对理解EM算法非常重要的。</p>
+<p>没有label是无监督学习的一个常见的设定。如果没有label，那么我们就没有办法通过最大似然估计MLE计算出$p(y),p(x|y)$等一系列概率了。</p>
+<h3 id="无监督学习的怪圈"><a href="#无监督学习的怪圈" class="headerlink" title="无监督学习的怪圈"></a>无监督学习的怪圈</h3><p>所以现在出现了严重的问题</p>
+<ul>
+<li>如果没有label, 我们不可能估计出分布的参数, NB模型中即$p(y),p(x|y)$</li>
+<li>如果我们有了分布$p(y),p(x|y)$，我们就可以通过计算联合分布来产生一个NB classifier, 并且可以用它来判别新的数据的label.</li>
+</ul>
+<h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><p>怎么解决呢？我们没有参数，那么我们就假设一个合理的呗？</p>
+<ul>
+<li>随机初始化$p(y),p(x|y)$，并且满足他们是合理的概率就行了，概率和条件概率都大于零小于一，并且加起来等于一。现在我们就有我们计算classifier所需要的$p(y),p(x|y)$了。</li>
+<li>那么我们就计算classifier呗 <span>$p(y, x_1, x_2, \cdots, x_n) = p(y) \prod_{j=1}^n p(x_j | y)$</span><!-- Has MathJax --></li>
+<li>我们可以通过这个classifier计算出每个样本点的feature集合使得样本点表现为不同label的概率，这里的$\theta$指得是我们上一次嘉定的参数。即$p(y|x^{(i)}, \theta^{t-1})=\frac{p(y,x_1,x_2,\cdots,x_n)}{p(x_1,x_2,\cdots,x_n)}=\frac{p(y,x_1,x_2,\cdots,x_n)}{\sum_j p(y_j, x_1,x_2,\cdots,x_n)}$, 这一步就是普通的条件概率的计算。分母marginalize掉所有可能的label.</li>
+<li>我们通过我们这个暂时的classifier得到了所有的样本点的label的条件概率分布之后，我们就可对通过计算获得最新的参数了，$p(y),p(x|y)$，反复迭代</li>
+<li>整个算法的具体过程如下图<img src="http://oj4pv4f25.bkt.clouddn.com/18-8-4/36887730.jpg" alt=""></li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>EM 算法通常用在无监督学习，没有label的任务中</li>
+<li>input: Data样本和最终准备归为的几类 output: 每个样本被明确assign</li>
+<li>EM 算法的具体步骤<ul>
+<li>随机初始化模型分布的参数 $\theta$</li>
+<li>已知参数计算出每个样本的label的分布$p(y|x^{(i)},\theta)$</li>
+<li>用类似MLE的方法更新参数 $\theta$</li>
+<li>回到第二步，不断迭代。</li>
+</ul>
+</li>
+<li>EM 中更新参数与 MLE 的关系：如果EM中的y的分布非0即1的话那么久等同于MLE,但是EM中的y是一个分布,比如$p(y=y^{(i)})=0.3$</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/04/MLE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -966,160 +1158,6 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/03/06/LeetCode-48-Rotate-Image/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Chiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeff-Chiang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/06/LeetCode-48-Rotate-Image/" itemprop="url">LeetCode-48 Rotate Image</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T18:44:10+08:00">
-                2018-03-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Code/" itemprop="url" rel="index">
-                    <span itemprop="name">Code</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/03/06/LeetCode-48-Rotate-Image/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/03/06/LeetCode-48-Rotate-Image/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://leetcode.com/problems/rotate-image/description/" target="_blank" rel="external">LeetCode #48 Rotate Image</a></p>
-<p>可以四个四个来<br>也可以transpose + flip(X)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rotate</span><span class="params">(self, matrix)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line"><span class="string">        :type matrix: List[List[int]]</span></div><div class="line"><span class="string">        :rtype: void Do not return anything, modify matrix in-place instead.</span></div><div class="line"><span class="string">        """</span></div><div class="line">        n = len(matrix)</div><div class="line">        print(n)</div><div class="line">        <span class="keyword">if</span> n == <span class="number">0</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">None</span></div><div class="line"></div><div class="line">        <span class="comment"># transpose</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</div><div class="line">                <span class="keyword">if</span> i &gt; j:</div><div class="line">                    temp = matrix[i][j]</div><div class="line">                    matrix[i][j] = matrix[j][i]</div><div class="line">                    matrix[j][i] = temp</div><div class="line"></div><div class="line">        print(<span class="number">1</span>)</div><div class="line">        <span class="comment"># flip</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(n//<span class="number">2</span>):</div><div class="line">                temp = matrix[i][j]</div><div class="line">                matrix[i][j] = matrix[i][n-j<span class="number">-1</span>]</div><div class="line">                matrix[i][n-j<span class="number">-1</span>] = temp</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/03/06/LeetCode-794-Tic-Tac-Toe/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1226,6 +1264,160 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
           
             <p><a href="https://leetcode.com/problems/valid-tic-tac-toe-state/description/" target="_blank" rel="external">LeetCode #794 Valid Tic-Tac-Toe State</a></p>
 <p>基本思路:统计基本信息+检查。<br>根据谁赢来分成两类，考察编码者思维条理性，代码难度不难，思维难度中等。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">validTicTacToe</span><span class="params">(self, board)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line"><span class="string">        :type board: List[str]</span></div><div class="line"><span class="string">        :rtype: bool</span></div><div class="line"><span class="string">        """</span></div><div class="line">        <span class="comment"># count part</span></div><div class="line">        O = <span class="number">0</span></div><div class="line">        X = <span class="number">0</span></div><div class="line">        OOO = <span class="number">0</span></div><div class="line">        XXX = <span class="number">0</span></div><div class="line"></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">            <span class="comment"># check row</span></div><div class="line">            <span class="keyword">if</span> board[i] == <span class="string">"OOO"</span>:</div><div class="line">                O += <span class="number">3</span></div><div class="line">                OOO += <span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> board[i] == <span class="string">"XXX"</span>:</div><div class="line">                X += <span class="number">3</span></div><div class="line">                XXX += <span class="number">1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">                    <span class="keyword">if</span> board[i][j] == <span class="string">"O"</span>:</div><div class="line">                        O += <span class="number">1</span></div><div class="line">                    <span class="keyword">if</span> board[i][j] == <span class="string">"X"</span>:</div><div class="line">                        X += <span class="number">1</span></div><div class="line"></div><div class="line">            <span class="comment"># check column</span></div><div class="line">            <span class="keyword">if</span> (board[<span class="number">0</span>][i] == board[<span class="number">1</span>][i]) <span class="keyword">and</span> (board[<span class="number">2</span>][i] == board[<span class="number">1</span>][i]):</div><div class="line">                <span class="keyword">if</span> board[<span class="number">0</span>][i] == <span class="string">"X"</span>:</div><div class="line">                    XXX += <span class="number">1</span></div><div class="line">                <span class="keyword">if</span> board[<span class="number">0</span>][i] == <span class="string">"O"</span>:</div><div class="line">                    OOO += <span class="number">1</span></div><div class="line"></div><div class="line">        <span class="comment"># check diagnal                </span></div><div class="line">        <span class="keyword">if</span> (board[<span class="number">0</span>][<span class="number">0</span>] == board[<span class="number">1</span>][<span class="number">1</span>]) <span class="keyword">and</span>  (board[<span class="number">1</span>][<span class="number">1</span>] == board[<span class="number">2</span>][<span class="number">2</span>]):</div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"X"</span>) :</div><div class="line">                XXX += <span class="number">1</span></div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"O"</span>) :</div><div class="line">                OOO += <span class="number">1</span></div><div class="line">        <span class="keyword">if</span> (board[<span class="number">2</span>][<span class="number">0</span>] == board[<span class="number">1</span>][<span class="number">1</span>]) <span class="keyword">and</span>  (board[<span class="number">1</span>][<span class="number">1</span>] == board[<span class="number">0</span>][<span class="number">2</span>]):</div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"X"</span>) :</div><div class="line">                XXX += <span class="number">1</span></div><div class="line">            <span class="keyword">if</span>(board[<span class="number">1</span>][<span class="number">1</span>] == <span class="string">"O"</span>) :</div><div class="line">                OOO += <span class="number">1</span></div><div class="line"></div><div class="line">        print(X,O,XXX,OOO)</div><div class="line">        <span class="comment"># key check part</span></div><div class="line">        <span class="keyword">if</span> XXX + OOO &gt; <span class="number">1</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> (O &gt; X) <span class="keyword">or</span> (X &gt; O + <span class="number">1</span>):</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> XXX == <span class="number">1</span>:</div><div class="line">            <span class="keyword">if</span> X != O + <span class="number">1</span>:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> OOO == <span class="number">1</span>:</div><div class="line">            <span class="keyword">if</span> X != O:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">True</span></div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/03/06/LeetCode-48-Rotate-Image/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/06/LeetCode-48-Rotate-Image/" itemprop="url">LeetCode-48 Rotate Image</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T18:44:10+08:00">
+                2018-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Code/" itemprop="url" rel="index">
+                    <span itemprop="name">Code</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/06/LeetCode-48-Rotate-Image/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/03/06/LeetCode-48-Rotate-Image/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://leetcode.com/problems/rotate-image/description/" target="_blank" rel="external">LeetCode #48 Rotate Image</a></p>
+<p>可以四个四个来<br>也可以transpose + flip(X)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rotate</span><span class="params">(self, matrix)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line"><span class="string">        :type matrix: List[List[int]]</span></div><div class="line"><span class="string">        :rtype: void Do not return anything, modify matrix in-place instead.</span></div><div class="line"><span class="string">        """</span></div><div class="line">        n = len(matrix)</div><div class="line">        print(n)</div><div class="line">        <span class="keyword">if</span> n == <span class="number">0</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">None</span></div><div class="line"></div><div class="line">        <span class="comment"># transpose</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</div><div class="line">                <span class="keyword">if</span> i &gt; j:</div><div class="line">                    temp = matrix[i][j]</div><div class="line">                    matrix[i][j] = matrix[j][i]</div><div class="line">                    matrix[j][i] = temp</div><div class="line"></div><div class="line">        print(<span class="number">1</span>)</div><div class="line">        <span class="comment"># flip</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(n//<span class="number">2</span>):</div><div class="line">                temp = matrix[i][j]</div><div class="line">                matrix[i][j] = matrix[i][n-j<span class="number">-1</span>]</div><div class="line">                matrix[i][n-j<span class="number">-1</span>] = temp</div></pre></td></tr></table></figure></p>
 
           
         
@@ -1744,166 +1936,6 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2017/01/27/Machine-Learning-Note-一/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeff Chiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeff-Chiang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/01/27/Machine-Learning-Note-一/" itemprop="url">Machine Learning Note(一)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-27T16:04:09+08:00">
-                2017-01-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Note/" itemprop="url" rel="index">
-                    <span itemprop="name">Note</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/01/27/Machine-Learning-Note-一/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/01/27/Machine-Learning-Note-一/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <a id="more"></a>
-<h3 id="Supervised-Learning"><a href="#Supervised-Learning" class="headerlink" title="Supervised Learning"></a>Supervised Learning</h3><p>supervised learning algorithm：知道正确的结果，并且借此计算出更多的正确结果。是一种<strong>回归问题</strong><br>classification：分类问题，用来解决Discrete valued output，如通过一个已经有的肿瘤大小-肿瘤类型的数据来估算出他为恶性、非恶性肿瘤的概率<br>feature：衡量数据的特征，一个角度下的数据<br>support vector machine： deal with infinite number of feature.</p>
-<h1 id="关于监督学习-Supervised-learning：摘自Coursera课程材料："><a href="#关于监督学习-Supervised-learning：摘自Coursera课程材料：" class="headerlink" title="关于监督学习 Supervised learning：摘自Coursera课程材料："></a>关于监督学习 Supervised learning：摘自Coursera课程材料：</h1><p>In supervised learning, we are given a data set and already know what our correct output should look like, having the idea that there is a relationship between the input and the output.<br>Supervised learning problems are categorized into “regression” and “classification” problems.</p>
-<h3 id="Unsupervisor-Learing"><a href="#Unsupervisor-Learing" class="headerlink" title="Unsupervisor Learing"></a>Unsupervisor Learing</h3><p>并没有在一开始给一个明确的数据。应用于，市场细分，社交网络分析<br>Unsupervised learning allows us to approach problems with little or no idea what our results should look like. We can derive structure from data where we don’t necessarily know the effect of the variables.<br>We can derive this structure by <strong>clustering</strong> the data based on relationships among the variables in the data.</p>
-<h3 id="Linear-regression"><a href="#Linear-regression" class="headerlink" title="Linear regression"></a>Linear regression</h3><p>监督学习的过程：通过一个<strong>Learning Algorithm</strong>学习一个<strong>training set</strong>，得到一个方法，将input转化为最符合的output</p>
-<p>cost function(square error function),一个能够表示数据的回归程度(拟合程度)的目标函数，We can measure the accuracy of our hypothesis function by using a cost function.<br>hypothesis&amp;cost function</p>
-<h3 id="CONTOUR-PLOT"><a href="#CONTOUR-PLOT" class="headerlink" title="CONTOUR PLOT"></a>CONTOUR PLOT</h3><p>A contour plot is a graph that contains many contour lines. A contour line of a two variable function has a constant value at all points of the same line. An example of such a graph is the one to the right below.<br>Plotting those values on our graph to the right seems to put our point in the center of the inner most ‘circle’.</p>
-<h3 id="Gradient-Descent-梯度下降法"><a href="#Gradient-Descent-梯度下降法" class="headerlink" title="Gradient Descent(梯度下降法)"></a>Gradient Descent(梯度下降法)</h3><p><a href="https://www.coursera.org/learn/machine-learning/supplement/2GnUg/gradient-descent" target="_blank" rel="external">coursera</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1956,7 +1988,7 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">59</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1978,7 +2010,7 @@ p(x_i=k | y) = \frac{count(x_i=k | y)}{count(y)}$$</span><!-- Has MathJax --><br
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
