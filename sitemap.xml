@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jeffchy.github.io/2018/10/08/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0:%20Recurrent-Neural-Network-Grammars/</loc>
+    
+    <lastmod>2018-10-08T16:03:05.371Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jeffchy.github.io/2018/09/25/ELMo-%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/</loc>
     
-    <lastmod>2018-09-25T09:31:01.191Z</lastmod>
+    <lastmod>2018-10-08T04:03:15.449Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://jeffchy.github.io/2018/09/24/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%EF%BC%9AEnd-to-End-Sequence-Labeling-via-Bi-directional-LSTM-CNN-CRF/</loc>
     
-    <lastmod>2018-09-24T07:41:27.202Z</lastmod>
+    <lastmod>2018-10-08T04:03:03.434Z</lastmod>
     
   </url>
   
@@ -233,7 +240,7 @@
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2016/12/02/hello-hexo/</loc>
+    <loc>https://jeffchy.github.io/2016/12/09/DW-Bootstrap-%E5%88%B6%E4%BD%9C%E5%93%8D%E5%BA%94%E5%BC%8F%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
@@ -247,7 +254,7 @@
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-222-Count-Complete-Binary-Tree-Element/</loc>
+    <loc>https://jeffchy.github.io/2016/12/31/2016/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
@@ -261,14 +268,7 @@
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-203-Remove-Linked-List-Element/</loc>
-    
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jeffchy.github.io/2017/02/04/LeetCode-2-Add-Two-Num/</loc>
+    <loc>https://jeffchy.github.io/2017/01/17/Django-PART-I/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
@@ -276,6 +276,20 @@
   
   <url>
     <loc>https://jeffchy.github.io/2017/01/27/Machine-Learning-Note-%E4%B8%80/</loc>
+    
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jeffchy.github.io/2016/12/10/Macro-Economics-Review/</loc>
+    
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jeffchy.github.io/2017/01/18/Django-PART-III/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
@@ -296,28 +310,7 @@
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-1-Two-Sum/</loc>
-    
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jeffchy.github.io/2016/12/03/Hello-Cocos/</loc>
-    
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jeffchy.github.io/2016/12/04/Hello-Cocos-%E7%89%A2%E9%AA%9A%E7%AF%87/</loc>
-    
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jeffchy.github.io/2016/12/03/Hello-Cocos-iii-%E9%87%8D%E8%A6%81%E6%93%8D%E4%BD%9C%E5%8F%8A%E4%B8%80%E4%BA%9B%E5%9D%91/</loc>
+    <loc>https://jeffchy.github.io/2017/01/18/Django-Part-II/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
@@ -338,6 +331,27 @@
   </url>
   
   <url>
+    <loc>https://jeffchy.github.io/2016/12/04/Hello-Cocos-%E7%89%A2%E9%AA%9A%E7%AF%87/</loc>
+    
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jeffchy.github.io/2017/01/23/Django-Part-IV-staticfiles/</loc>
+    
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jeffchy.github.io/2016/12/03/Hello-Cocos-iii-%E9%87%8D%E8%A6%81%E6%93%8D%E4%BD%9C%E5%8F%8A%E4%B8%80%E4%BA%9B%E5%9D%91/</loc>
+    
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jeffchy.github.io/2016/12/30/balabala/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
@@ -345,14 +359,7 @@
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2017/01/12/2016%E7%A7%8B%E5%AD%A6%E6%9C%9F%E6%80%BB%E7%BB%93/</loc>
-    
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jeffchy.github.io/2017/01/13/Django-useful-learning-materials/</loc>
+    <loc>https://jeffchy.github.io/2016/12/02/hello-hexo/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
@@ -366,7 +373,35 @@
   </url>
   
   <url>
+    <loc>https://jeffchy.github.io/2016/12/03/Hello-Cocos/</loc>
+    
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jeffchy.github.io/2017/01/15/python3-module-and-namespaces/</loc>
+    
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-1-Two-Sum/</loc>
+    
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jeffchy.github.io/2017/02/01/Django-Project-Simple-Gallery-%E4%B8%80/</loc>
+    
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jeffchy.github.io/2017/01/26/Django-Project-Simple-Gallery/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
@@ -387,63 +422,35 @@
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2017/01/26/Django-Project-Simple-Gallery/</loc>
+    <loc>https://jeffchy.github.io/2017/01/13/Django-useful-learning-materials/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2017/02/01/Django-Project-Simple-Gallery-%E4%B8%80/</loc>
+    <loc>https://jeffchy.github.io/2017/02/04/LeetCode-2-Add-Two-Num/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2016/12/10/Macro-Economics-Review/</loc>
+    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-203-Remove-Linked-List-Element/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2017/01/23/Django-Part-IV-staticfiles/</loc>
+    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-222-Count-Complete-Binary-Tree-Element/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2017/01/18/Django-PART-III/</loc>
-    
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jeffchy.github.io/2017/01/18/Django-Part-II/</loc>
-    
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jeffchy.github.io/2017/01/17/Django-PART-I/</loc>
-    
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jeffchy.github.io/2016/12/09/DW-Bootstrap-%E5%88%B6%E4%BD%9C%E5%93%8D%E5%BA%94%E5%BC%8F%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/</loc>
-    
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jeffchy.github.io/2016/12/31/2016/</loc>
+    <loc>https://jeffchy.github.io/2017/01/12/2016%E7%A7%8B%E5%AD%A6%E6%9C%9F%E6%80%BB%E7%BB%93/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     

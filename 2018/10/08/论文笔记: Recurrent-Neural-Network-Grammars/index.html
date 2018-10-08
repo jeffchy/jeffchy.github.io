@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="dXyzlo70j3" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Paper,Deep Learning,Natural Language Processing,Natural Language Parsing," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="今天主要来说说 NAACL16 CMU的一篇, RNNG, Recurrent Neural Network Grammars. 这篇文章提出了RNNG,可以用作Parsing和language Modeling,并且实验结果表明在EN和ZH两个语言上达到了state-of-the-art.韦阳dalao在知乎上也分享过,另外推荐他的一系列知乎专栏 - 特别是这篇 https://zhuanlan">
+<meta name="keywords" content="Paper,Deep Learning,Natural Language Processing,Natural Language Parsing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文解读:Recurrent Neural Network Grammars">
+<meta property="og:url" content="https://jeffchy.github.io/2018/10/08/论文笔记: Recurrent-Neural-Network-Grammars/index.html">
+<meta property="og:site_name" content="Jeff-Chiang">
+<meta property="og:description" content="今天主要来说说 NAACL16 CMU的一篇, RNNG, Recurrent Neural Network Grammars. 这篇文章提出了RNNG,可以用作Parsing和language Modeling,并且实验结果表明在EN和ZH两个语言上达到了state-of-the-art.韦阳dalao在知乎上也分享过,另外推荐他的一系列知乎专栏 - 特别是这篇 https://zhuanlan">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-8/76108219.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-8/49703311.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-8/50397204.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-8/39438407.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-8/19123141.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-8/4624452.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-8/42461349.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-8/8518009.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-9/54224601.jpg">
+<meta property="og:updated_time" content="2018-10-08T16:03:05.371Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="论文解读:Recurrent Neural Network Grammars">
+<meta name="twitter:description" content="今天主要来说说 NAACL16 CMU的一篇, RNNG, Recurrent Neural Network Grammars. 这篇文章提出了RNNG,可以用作Parsing和language Modeling,并且实验结果表明在EN和ZH两个语言上达到了state-of-the-art.韦阳dalao在知乎上也分享过,另外推荐他的一系列知乎专栏 - 特别是这篇 https://zhuanlan">
+<meta name="twitter:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-8/76108219.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://jeffchy.github.io/2018/10/08/论文笔记: Recurrent-Neural-Network-Grammars/"/>
+
+
+
+
+
+  <title>论文解读:Recurrent Neural Network Grammars | Jeff-Chiang</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-123760763-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d6324a63a8be2ad81d8f3e82174037f4";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jeff-Chiang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Tech and Life</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/10/08/论文笔记: Recurrent-Neural-Network-Grammars/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">论文解读:Recurrent Neural Network Grammars</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-08T11:43:13+08:00">
+                2018-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Paper/Note/" itemprop="url" rel="index">
+                    <span itemprop="name">Note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/08/论文笔记: Recurrent-Neural-Network-Grammars/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/10/08/论文笔记: Recurrent-Neural-Network-Grammars/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天主要来说说 NAACL16 CMU的一篇, RNNG, Recurrent Neural Network Grammars. 这篇文章提出了RNNG,可以用作Parsing和language Modeling,并且实验结果表明在EN和ZH两个语言上达到了state-of-the-art.<br>韦阳dalao在知乎上也分享过,另外推荐他的一系列知乎专栏 - 特别是这篇 <a href="https://zhuanlan.zhihu.com/p/45527481" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/45527481</a><br>搬运完毕,我开始说论文了. 可能还是大部分用英文吧.</p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>RNN, A sequential deep learning models solved many problems effectively these days, such as machine translation, image captioning, chatbots…But is language a sequential stuff?</p>
+<blockquote>
+<p>Despite these impressive results, sequential models are a priori inappropriate models of natural language, since re- lationships among words are largely organized in terms of latent nested structures rather than sequen- tial surface order (Chomsky, 1957).</p>
+</blockquote>
+<p>My tutor also believes that natural language cannot just be analyzed and learned by a deep learning sequential structure, because it actually contains more complex latent structure.</p>
+<p>This paper proposed RNNG, a new generative probabilistic model of sentences, which can model nested, hierarchical relationships, This grammar generate the parse tree from top-down just like transition-based parsing of CFG, but each action(decition also parameterized using RNNs, condition on the action and generating process’s history) so it also relax context-free assumption.</p>
+<p>They give two variants:</p>
+<ul>
+<li>Generative Model for parsing and language modeling</li>
+<li>Discrimitive Model for parsing (using the techniques of importance sampling)</li>
+</ul>
+<h1 id="RNN-Grammars"><a href="#RNN-Grammars" class="headerlink" title="RNN Grammars"></a>RNN Grammars</h1><p>$(N, \Sigma, \Theta)$ refers to (finite set of nonterminals, finite set of terminals which is disjoint from $\Sigma$, neural network parameters) respectively.</p>
+<p>Note that, the key difference between RNNG and PCFG is: we do not need the production rules, or we say grammar rules. But we encode it to the “action” of transiand learn it automaticly.</p>
+<h1 id="Top-down-Discriminative-Parsing-of-RNNG"><a href="#Top-down-Discriminative-Parsing-of-RNNG" class="headerlink" title="Top-down Discriminative Parsing of RNNG"></a>Top-down Discriminative Parsing of RNNG</h1><p>Parsing: given corpus of sentences $X=\{x_1, \cdots, x_n\}$ get it’s parse tree $T=\{t_1, \cdots, t_n\}$<br>We want to model $P(T|X)$</p>
+<p>As we said, the RNNG is based on top-down version of transition-based parsing.</p>
+<ul>
+<li>We have stack Buffer $B$ which contains <strong>Unprocessed terminal symbols(words,..)</strong></li>
+<li>We have stack $S$, which contains <strong>{terminal symbols, “open” nonterminal symbols, completed constituents(all its sub-constituents are found)}</strong></li>
+<li>We have a corpus which makes up the terminal sets and nonterminal sets $(N, \Sigma)$</li>
+<li>We have following actions $A$<ul>
+<li>$NT(X)$ move a nonterminal to the top of stack, thus make it “open”</li>
+<li>$SHIFT$ removes the terminal $x$ from buffer $B$ and push it to the top of stack $S$</li>
+<li>$REDUCE$ “close” the nonterminals, more detaily, keep poping the terminals until we get an “open” nonterminals, and make a complete constituents</li>
+</ul>
+</li>
+</ul>
+<p>Lets see an example. We initialize the Buffer with all the terminals(words), and stack with empty, than we use $NT(S)$ to push the root nonterminal to the top of stack, than we follow the actions to get a parse tree.<br>The Figure.1 shows the detail of three actions, Figure.2 shows an parsing example, with some of my notes.<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/76108219.jpg" alt=""></p>
+<h2 id="When-to-stop"><a href="#When-to-stop" class="headerlink" title="When to stop?"></a>When to stop?</h2><p>When there’s 1 single constituent (the parse tree) in the stack, and no word in the buffer, we complete.</p>
+<h2 id="Constraints-on-parser-transitions"><a href="#Constraints-on-parser-transitions" class="headerlink" title="Constraints on parser transitions."></a>Constraints on parser transitions.</h2><p>Denote $n$ as number of “open” nonterminals on the stack</p>
+<ul>
+<li>$NT(X)$ operation is appliable if $B$ is not empty and $n &lt; 100$,<ul>
+<li>If $B$ is empty, and we introduce a new open nonterminal, we are not able to close it and make a complete constituent</li>
+<li>If $n &gt;= 100$ to limit the nonterminal sizes of a parse tree. (This one I’m not quite sure, if you know the reason, please give me some comments.)</li>
+</ul>
+</li>
+<li>$SHIFT$ operations can only be applied if $B$ is not empty and $n \le 1$ <ul>
+<li>If $B$ is empty we cannot shift elements in it to the stack</li>
+<li>If $n = 0$, there’s only no open nonterminal, so introducing new word will not be able to include have parent</li>
+</ul>
+</li>
+<li>$REDUCE$ operation can only be applied if the top of the stack is not an open nonterminal symbol. because if the open nonterminal is on the top of stack, you need at least 1 nonterminal/constituents to be its child.</li>
+<li>$REDUCE$ can only be applied if $n \le 2$ or the buffer is empty<ul>
+<li>because if $n = 1$, it can only be $\ \ (S\ \ $ thus if buffer is not empty, it is not possible<br>$A_D(B,S,n)$</li>
+</ul>
+</li>
+</ul>
+<h1 id="Top-down-Generative-Parsing-of-RNNG"><a href="#Top-down-Generative-Parsing-of-RNNG" class="headerlink" title="Top-down Generative Parsing of RNNG"></a>Top-down Generative Parsing of RNNG</h1><p>We want to model $P(Tree,X)$, so we need to generate the parse trees, and terminals (words) at the same time, So there’s no Buffer anymore, but output buffer $T$, and we replace $SHIFT$ operation with $GEN(x)$, which generate a terminal $x$ from the vocabulary $\Sigma$, and then add it to the top of stack (just lick $SHIFT$), and we stochastically selected the actions according to the conditional distribution that depends on the current output buffer and stack(I think now it should be the stack while the paper said we samples depends on (T ,B), but B buffer does not exist anymore)?<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/49703311.jpg" alt=""></p>
+<h2 id="Constraints"><a href="#Constraints" class="headerlink" title="Constraints"></a>Constraints</h2><ul>
+<li>$GEN(x)$ operation can only be applied if $n \le 1$, just like $SHIFT$</li>
+<li>$REDUCE$ operation can only be applied if top of stack is not an open nonterminal, and $n \le 1$, $n \le 1$ here’s $n$ can be equals to 1 because when $n=1$ and reduce, we do not have input buffer, so by stopping $GEN(x)$ operation, we can end the process legally.</li>
+</ul>
+<h2 id="We-denote-the-set-of-actions-A-G-T-S-n"><a href="#We-denote-the-set-of-actions-A-G-T-S-n" class="headerlink" title="We denote the set of actions $A_G(T,S,n)$"></a>We denote the set of actions $A_G(T,S,n)$</h2><h1 id="Generative-Model-Detail"><a href="#Generative-Model-Detail" class="headerlink" title="Generative Model Detail"></a>Generative Model Detail</h1><p>Let’s denote: $y$ as the parse tree, $x$ as the terminals, we want to model $P(x,y)$, but how to model is the key problem.<br>As we are parsing from top to down, we futher denote $u_t$ as the embedding of the current parsing state, and $r_a$ as the action embedding, the sentence can be generate using the following formular using chain rule(language model)<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/50397204.jpg" alt=""></p>
+<p>How we compute $u_t$? the current state is related to the history of $S,T,A$, stack, output buffer, actions, we denote them as $o_t,s_t,h_t$ respectively, by concat them, taking a linear transform, and add a nonlinear, we can represent $u_t$, see the following figure for details.<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/39438407.jpg" alt=""><br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/19123141.jpg" alt=""></p>
+<h2 id="Represent-elements-in-stack"><a href="#Represent-elements-in-stack" class="headerlink" title="Represent elements in stack"></a>Represent elements in stack</h2><p>We use a bi-LSTM to encode the open non-terminals, terminals, closed constituents. see the figure:<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/4624452.jpg" alt=""><br>We add the parent non-terminal to the head and tail.</p>
+<h2 id="word-generation"><a href="#word-generation" class="headerlink" title="word generation"></a>word generation</h2><p>When generate a word, we first predict the action, $GEN$, and if the action is $GEN$, we predict which word $x$ it generates. To reduce the time complexity, we use a class-factored softmax, we splits the vocabulary to several classes, we first predict which class we should use, then for each class we predict the words in it. They cluster their words using brown clustering. <a href="https://en.wikipedia.org/wiki/Brown_clustering" target="_blank" rel="external">https://en.wikipedia.org/wiki/Brown_clustering</a><br>So we can reduce the time complexity of predicting a word from $O(|\Sigma|)$ to $O(\sqrt|\Sigma|)$ by split the vocabulary to $\sqrt|\Sigma|$ classes</p>
+<h2 id="Convert-to-the-discrimitive-parsing-model"><a href="#Convert-to-the-discrimitive-parsing-model" class="headerlink" title="Convert to the discrimitive parsing model"></a>Convert to the discrimitive parsing model</h2><p>Converting is easy, change the embedding of output buffer $T_t$ to the embedding of input buffer, and retrain and max the conditional likelihood, given input string.</p>
+<h1 id="Inference-the-Generative-model-via-importance-sampling"><a href="#Inference-the-Generative-model-via-importance-sampling" class="headerlink" title="Inference the Generative model via importance sampling"></a>Inference the Generative model via importance sampling</h1><p>We modeled $P(x,y)$, if we want to get a language model, we need to compute $P(x) = \sum_y P(x,y)$ by marginalize all possible parse trees $y$, however, the genarative process is not bounded, so number of parse trees will be large, it’s intractable to enumerate them all.</p>
+<p>Similarly, to use the generative model for parsing, we need to select the best parse tree, so $y = argmax_y P(x,y)$, also intractable.</p>
+<p>So we solve it by importance sampling.</p>
+<h2 id="importance-sampling"><a href="#importance-sampling" class="headerlink" title="importance sampling"></a>importance sampling</h2><p>We define a conditional proposal distribution $q(y|x)$, with following property:</p>
+<ul>
+<li>$p(x,y)&gt;0 =&gt; q(y|x)&gt;0$</li>
+<li>$y \sim q(y|x)$ can be obtained easily</li>
+<li>$q(y|x)$ are known</li>
+</ul>
+<p><strong>The Discrimitive trained parser satisfy all these property.</strong><br>So we sample from the discrimitive parser.<br>We define $w(x,y) = p(x,y)/q(y|x)$<br>Thus the $p(x)$ can be obtained by:<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/42461349.jpg" alt=""><br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/8518009.jpg" alt=""></p>
+<h1 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h1><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-9/54224601.jpg" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Paper/" rel="tag"># Paper</a>
+          
+            <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          
+            <a href="/tags/Natural-Language-Processing/" rel="tag"># Natural Language Processing</a>
+          
+            <a href="/tags/Natural-Language-Parsing/" rel="tag"># Natural Language Parsing</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/25/ELMo-论文解读/" rel="next" title="ELMo-论文解读">
+                <i class="fa fa-chevron-left"></i> ELMo-论文解读
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Jeff Chiang" />
+          <p class="site-author-name" itemprop="name">Jeff Chiang</p>
+           
+              <p class="site-description motion-element" itemprop="description">Personal portal for Sharing Computer Science Technology and some petty things in my life</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/jeffchy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="jiangchy@shanghaitech.edu.cn" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/jeffchiang/" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                    
+                      微博
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RNN-Grammars"><span class="nav-number">2.</span> <span class="nav-text">RNN Grammars</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Top-down-Discriminative-Parsing-of-RNNG"><span class="nav-number">3.</span> <span class="nav-text">Top-down Discriminative Parsing of RNNG</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#When-to-stop"><span class="nav-number">3.1.</span> <span class="nav-text">When to stop?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Constraints-on-parser-transitions"><span class="nav-number">3.2.</span> <span class="nav-text">Constraints on parser transitions.</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Top-down-Generative-Parsing-of-RNNG"><span class="nav-number">4.</span> <span class="nav-text">Top-down Generative Parsing of RNNG</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Constraints"><span class="nav-number">4.1.</span> <span class="nav-text">Constraints</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#We-denote-the-set-of-actions-A-G-T-S-n"><span class="nav-number">4.2.</span> <span class="nav-text">We denote the set of actions $A_G(T,S,n)$</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Generative-Model-Detail"><span class="nav-number">5.</span> <span class="nav-text">Generative Model Detail</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Represent-elements-in-stack"><span class="nav-number">5.1.</span> <span class="nav-text">Represent elements in stack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#word-generation"><span class="nav-number">5.2.</span> <span class="nav-text">word generation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Convert-to-the-discrimitive-parsing-model"><span class="nav-number">5.3.</span> <span class="nav-text">Convert to the discrimitive parsing model</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Inference-the-Generative-model-via-importance-sampling"><span class="nav-number">6.</span> <span class="nav-text">Inference the Generative model via importance sampling</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#importance-sampling"><span class="nav-number">6.1.</span> <span class="nav-text">importance sampling</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Experiments"><span class="nav-number">7.</span> <span class="nav-text">Experiments</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeff Chiang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://https-jeffchy-github-io.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://jeffchy.github.io/2018/10/08/论文笔记: Recurrent-Neural-Network-Grammars/';
+          this.page.identifier = '2018/10/08/论文笔记: Recurrent-Neural-Network-Grammars/';
+          this.page.title = '论文解读:Recurrent Neural Network Grammars';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://https-jeffchy-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
