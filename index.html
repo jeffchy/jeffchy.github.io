@@ -414,39 +414,16 @@
       
         
           
-            <p>我还是用回中文吧. 上一篇我们介绍了RNNG,其中为了减少softmax选择vocabulary的复杂度的时候,使用了Brown Clustering,这是一个古老但是非常有效的算法,今天我们就看看Brown Clustering是什么吧.</p>
-<p><strong>本篇主要基于M.Collins的Video Lecture <a href="https://www.youtube.com/watch?v=xGfQMrYoIx4&amp;list=PLO9y7hOkmmSEAqCc0wrNBrsoJMTmIN98M" target="_blank" rel="external">https://www.youtube.com/watch?v=xGfQMrYoIx4&amp;list=PLO9y7hOkmmSEAqCc0wrNBrsoJMTmIN98M</a></strong></p>
-<h1 id="Intruduction-什么是Brown-Clustering"><a href="#Intruduction-什么是Brown-Clustering" class="headerlink" title="Intruduction 什么是Brown Clustering"></a>Intruduction 什么是Brown Clustering</h1><p>Brown Clustering可以将单词归为不同的类,比如<br>K1: Monday, Thursday, Weekends, …<br>K2: Water, Gas, Coal, …</p>
-<p>Brown Clustering还可以将单词层级化<br>比如途中的 boy,girl,是一类,都是人,再加上apple,pear,形成了一类比如名词.我们可以用0,1表示这样的类别关系<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-9/48409628.jpg" alt=""></p>
-<h1 id="我们如何Clustering"><a href="#我们如何Clustering" class="headerlink" title="我们如何Clustering"></a>我们如何Clustering</h1><p>Intuition - similar words - similar left and right words (context)<br>比如Monday, Tuesday,他们是类似的,那么应用他们的上下文也通常比较类似. 比如I go to school on Monday / Tuesday…</p>
-<h2 id="Formulation"><a href="#Formulation" class="headerlink" title="Formulation"></a>Formulation</h2><ul>
-<li>$V$ 是数据集中的所有vocabulary</li>
-<li>$C$ Cluster,是一个把单词映射到k个类别的函数, $V \to \{1,2,3,\cdots,k\}$, 比如 $C(the)=C(a)=1, C(one)=2$</li>
-<li>与HMM非常相似,我们定义evidence $e(w_i|C(w_i))$比如$e(the|1)$ 反映了已知现在类别是1的情况下the出现的概率</li>
-<li>同样我们定义 $q(C(w_i)|C(w_{i-1}))$,表示已知前一个词的类别,那现在这个单词所属的类别的分布是什么</li>
-<li>所以我们的整个数据的产生概率为 $p(w_1,\cdots,w_n) = \prod_{i=1}^n e(w_i|C(w_i))q(C(w_i)|C(w_{i-1}))$ emm其实就是likelihood</li>
-<li>然后写成log likelihood: $log p(w_1,\cdots,w_n) = \sum_{i=1}^n log e(w_i|C(w_i))q(C(w_i)|C(w_{i-1}))$ </li>
-<li>一个例子 <img src="http://oj4pv4f25.bkt.clouddn.com/18-10-9/87807444.jpg" alt=""></li>
-</ul>
-<h2 id="小小总结一下"><a href="#小小总结一下" class="headerlink" title="小小总结一下"></a>小小总结一下</h2><p>Brown CLustering可以表示为</p>
-<ul>
-<li>输入<ul>
-<li>$V$ vocabulary</li>
-<li>$X$ corpus</li>
-</ul>
-</li>
-<li>输出<ul>
-<li>一个函数映射$C: V \to {1 \cdots k}$</li>
-<li>e分布的参数 $e(v|c)$ 对于所有的 $v \in V, c \in \{1,\cdots,k\}$</li>
-<li>q分布的$q(c|c’)$ 对于所有的 $c \in \{1,\cdots,k\}\  c’ \in \{1,\cdots,k\}$</li>
-</ul>
-</li>
-</ul>
-<h2 id="如何找到这些参数"><a href="#如何找到这些参数" class="headerlink" title="如何找到这些参数"></a>如何找到这些参数</h2><p>我们用我们前面derive的式子来衡量$C$<br>第二个等号使用互信息得到<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-9/87288170.jpg" alt=""></p>
-<h2 id="算法1"><a href="#算法1" class="headerlink" title="算法1"></a>算法1</h2><p>我们有$|V|$个vocabulary,每个自成一类，我们的目标是找到$k$个cluster,所以我们greedy地merge $|V|-k$次<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-9/3293337.jpg" alt=""><br>通过枚举所有的pair,太慢了</p>
-<h2 id="算法2"><a href="#算法2" class="headerlink" title="算法2"></a>算法2</h2><p>我们找出最常见的M=1000个单词，每个单词给一个类别。然后我们对剩下的单词中最常见的number $M+1$的单词一个类别，所以现在有$M+1$个类别，然后选出最合适的pair进行merge，变为$M$类，多所有VOCABULARY进行重复，最后我们会把所有的词归到M类上，完成以后再做M-1次merge即可得到层级表示。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-9/86185324.jpg" alt=""></p>
-
-          
+          我还是用回中文吧. 上一篇我们介绍了RNNG,其中为了减少softmax选择vocabulary的复杂度的时候,使用了Brown Clustering,这是一个古老但是非常有效的算法,今天我们就看看Brown Clustering是什么吧.
+本篇主要基于M.Collins的Video Lecture
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/09/Brown-Clustering/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -619,76 +596,15 @@
       
         
           
-            <p>今天主要来说说 NAACL16 CMU的一篇, RNNG, Recurrent Neural Network Grammars. 这篇文章提出了RNNG,可以用作Parsing和language Modeling,并且实验结果表明在EN和ZH两个语言上达到了state-of-the-art.<br>韦阳dalao在知乎上也分享过,另外推荐他的一系列知乎专栏 - 特别是这篇 <a href="https://zhuanlan.zhihu.com/p/45527481" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/45527481</a><br>搬运完毕,我开始说论文了. 可能还是大部分用英文吧.</p>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>RNN, A sequential deep learning models solved many problems effectively these days, such as machine translation, image captioning, chatbots…But is language a sequential stuff?</p>
-<blockquote>
-<p>Despite these impressive results, sequential models are a priori inappropriate models of natural language, since re- lationships among words are largely organized in terms of latent nested structures rather than sequen- tial surface order (Chomsky, 1957).</p>
-</blockquote>
-<p>My tutor also believes that natural language cannot just be analyzed and learned by a deep learning sequential structure, because it actually contains more complex latent structure.</p>
-<p>This paper proposed RNNG, a new generative probabilistic model of sentences, which can model nested, hierarchical relationships, This grammar generate the parse tree from top-down just like transition-based parsing of CFG, but each action(decition also parameterized using RNNs, condition on the action and generating process’s history) so it also relax context-free assumption.</p>
-<p>They give two variants:</p>
-<ul>
-<li>Generative Model for parsing and language modeling</li>
-<li>Discrimitive Model for parsing (using the techniques of importance sampling)</li>
-</ul>
-<h1 id="RNN-Grammars"><a href="#RNN-Grammars" class="headerlink" title="RNN Grammars"></a>RNN Grammars</h1><p>$(N, \Sigma, \Theta)$ refers to (finite set of nonterminals, finite set of terminals which is disjoint from $\Sigma$, neural network parameters) respectively.</p>
-<p>Note that, the key difference between RNNG and PCFG is: we do not need the production rules, or we say grammar rules. But we encode it to the “action” of transiand learn it automaticly.</p>
-<h1 id="Top-down-Discriminative-Parsing-of-RNNG"><a href="#Top-down-Discriminative-Parsing-of-RNNG" class="headerlink" title="Top-down Discriminative Parsing of RNNG"></a>Top-down Discriminative Parsing of RNNG</h1><p>Parsing: given corpus of sentences $X=\{x_1, \cdots, x_n\}$ get it’s parse tree $T=\{t_1, \cdots, t_n\}$<br>We want to model $P(T|X)$</p>
-<p>As we said, the RNNG is based on top-down version of transition-based parsing.</p>
-<ul>
-<li>We have stack Buffer $B$ which contains <strong>Unprocessed terminal symbols(words,..)</strong></li>
-<li>We have stack $S$, which contains <strong>{terminal symbols, “open” nonterminal symbols, completed constituents(all its sub-constituents are found)}</strong></li>
-<li>We have a corpus which makes up the terminal sets and nonterminal sets $(N, \Sigma)$</li>
-<li>We have following actions $A$<ul>
-<li>$NT(X)$ move a nonterminal to the top of stack, thus make it “open”</li>
-<li>$SHIFT$ removes the terminal $x$ from buffer $B$ and push it to the top of stack $S$</li>
-<li>$REDUCE$ “close” the nonterminals, more detaily, keep poping the terminals until we get an “open” nonterminals, and make a complete constituents</li>
-</ul>
-</li>
-</ul>
-<p>Lets see an example. We initialize the Buffer with all the terminals(words), and stack with empty, than we use $NT(S)$ to push the root nonterminal to the top of stack, than we follow the actions to get a parse tree.<br>The Figure.1 shows the detail of three actions, Figure.2 shows an parsing example, with some of my notes.<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/76108219.jpg" alt=""></p>
-<h2 id="When-to-stop"><a href="#When-to-stop" class="headerlink" title="When to stop?"></a>When to stop?</h2><p>When there’s 1 single constituent (the parse tree) in the stack, and no word in the buffer, we complete.</p>
-<h2 id="Constraints-on-parser-transitions"><a href="#Constraints-on-parser-transitions" class="headerlink" title="Constraints on parser transitions."></a>Constraints on parser transitions.</h2><p>Denote $n$ as number of “open” nonterminals on the stack</p>
-<ul>
-<li>$NT(X)$ operation is appliable if $B$ is not empty and $n &lt; 100$,<ul>
-<li>If $B$ is empty, and we introduce a new open nonterminal, we are not able to close it and make a complete constituent</li>
-<li>If $n &gt;= 100$ to limit the nonterminal sizes of a parse tree. (This one I’m not quite sure, if you know the reason, please give me some comments.)</li>
-</ul>
-</li>
-<li>$SHIFT$ operations can only be applied if $B$ is not empty and $n \le 1$ <ul>
-<li>If $B$ is empty we cannot shift elements in it to the stack</li>
-<li>If $n = 0$, there’s only no open nonterminal, so introducing new word will not be able to include have parent</li>
-</ul>
-</li>
-<li>$REDUCE$ operation can only be applied if the top of the stack is not an open nonterminal symbol. because if the open nonterminal is on the top of stack, you need at least 1 nonterminal/constituents to be its child.</li>
-<li>$REDUCE$ can only be applied if $n \le 2$ or the buffer is empty<ul>
-<li>because if $n = 1$, it can only be $\ \ (S\ \ $ thus if buffer is not empty, it is not possible<br>$A_D(B,S,n)$</li>
-</ul>
-</li>
-</ul>
-<h1 id="Top-down-Generative-Parsing-of-RNNG"><a href="#Top-down-Generative-Parsing-of-RNNG" class="headerlink" title="Top-down Generative Parsing of RNNG"></a>Top-down Generative Parsing of RNNG</h1><p>We want to model $P(Tree,X)$, so we need to generate the parse trees, and terminals (words) at the same time, So there’s no Buffer anymore, but output buffer $T$, and we replace $SHIFT$ operation with $GEN(x)$, which generate a terminal $x$ from the vocabulary $\Sigma$, and then add it to the top of stack (just lick $SHIFT$), and we stochastically selected the actions according to the conditional distribution that depends on the current output buffer and stack(I think now it should be the stack while the paper said we samples depends on (T ,B), but B buffer does not exist anymore)?<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/49703311.jpg" alt=""></p>
-<h2 id="Constraints"><a href="#Constraints" class="headerlink" title="Constraints"></a>Constraints</h2><ul>
-<li>$GEN(x)$ operation can only be applied if $n \le 1$, just like $SHIFT$</li>
-<li>$REDUCE$ operation can only be applied if top of stack is not an open nonterminal, and $n \le 1$, $n \le 1$ here’s $n$ can be equals to 1 because when $n=1$ and reduce, we do not have input buffer, so by stopping $GEN(x)$ operation, we can end the process legally.</li>
-</ul>
-<h2 id="We-denote-the-set-of-actions-A-G-T-S-n"><a href="#We-denote-the-set-of-actions-A-G-T-S-n" class="headerlink" title="We denote the set of actions $A_G(T,S,n)$"></a>We denote the set of actions $A_G(T,S,n)$</h2><h1 id="Generative-Model-Detail"><a href="#Generative-Model-Detail" class="headerlink" title="Generative Model Detail"></a>Generative Model Detail</h1><p>Let’s denote: $y$ as the parse tree, $x$ as the terminals, we want to model $P(x,y)$, but how to model is the key problem.<br>As we are parsing from top to down, we futher denote $u_t$ as the embedding of the current parsing state, and $r_a$ as the action embedding, the sentence can be generate using the following formular using chain rule(language model)<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/50397204.jpg" alt=""></p>
-<p>How we compute $u_t$? the current state is related to the history of $S,T,A$, stack, output buffer, actions, we denote them as $o_t,s_t,h_t$ respectively, by concat them, taking a linear transform, and add a nonlinear, we can represent $u_t$, see the following figure for details.<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/39438407.jpg" alt=""><br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/19123141.jpg" alt=""></p>
-<h2 id="Represent-elements-in-stack"><a href="#Represent-elements-in-stack" class="headerlink" title="Represent elements in stack"></a>Represent elements in stack</h2><p>We use a bi-LSTM to encode the open non-terminals, terminals, closed constituents. see the figure:<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/4624452.jpg" alt=""><br>We add the parent non-terminal to the head and tail.</p>
-<h2 id="word-generation"><a href="#word-generation" class="headerlink" title="word generation"></a>word generation</h2><p>When generate a word, we first predict the action, $GEN$, and if the action is $GEN$, we predict which word $x$ it generates. To reduce the time complexity, we use a class-factored softmax, we splits the vocabulary to several classes, we first predict which class we should use, then for each class we predict the words in it. They cluster their words using brown clustering. <a href="https://en.wikipedia.org/wiki/Brown_clustering" target="_blank" rel="external">https://en.wikipedia.org/wiki/Brown_clustering</a><br>So we can reduce the time complexity of predicting a word from $O(|\Sigma|)$ to $O(\sqrt|\Sigma|)$ by split the vocabulary to $\sqrt|\Sigma|$ classes</p>
-<h2 id="Convert-to-the-discrimitive-parsing-model"><a href="#Convert-to-the-discrimitive-parsing-model" class="headerlink" title="Convert to the discrimitive parsing model"></a>Convert to the discrimitive parsing model</h2><p>Converting is easy, change the embedding of output buffer $T_t$ to the embedding of input buffer, and retrain and max the conditional likelihood, given input string.</p>
-<h1 id="Inference-the-Generative-model-via-importance-sampling"><a href="#Inference-the-Generative-model-via-importance-sampling" class="headerlink" title="Inference the Generative model via importance sampling"></a>Inference the Generative model via importance sampling</h1><p>We modeled $P(x,y)$, if we want to get a language model, we need to compute $P(x) = \sum_y P(x,y)$ by marginalize all possible parse trees $y$, however, the genarative process is not bounded, so number of parse trees will be large, it’s intractable to enumerate them all.</p>
-<p>Similarly, to use the generative model for parsing, we need to select the best parse tree, so $y = argmax_y P(x,y)$, also intractable.</p>
-<p>So we solve it by importance sampling.</p>
-<h2 id="importance-sampling"><a href="#importance-sampling" class="headerlink" title="importance sampling"></a>importance sampling</h2><p>We define a conditional proposal distribution $q(y|x)$, with following property:</p>
-<ul>
-<li>$p(x,y)&gt;0 =&gt; q(y|x)&gt;0$</li>
-<li>$y \sim q(y|x)$ can be obtained easily</li>
-<li>$q(y|x)$ are known</li>
-</ul>
-<p><strong>The Discrimitive trained parser satisfy all these property.</strong><br>So we sample from the discrimitive parser.<br>We define $w(x,y) = p(x,y)/q(y|x)$<br>Thus the $p(x)$ can be obtained by:<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/42461349.jpg" alt=""><br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/8518009.jpg" alt=""></p>
-<h1 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h1><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-9/54224601.jpg" alt=""></p>
-
-          
+          今天主要来说说 NAACL16 CMU的一篇, RNNG, Recurrent Neural Network Grammars. 这篇文章提出了RNNG,可以用作Parsing和language Modeling,并且实验结果表明在EN和ZH两个语言上达到了state-of-the-art.韦阳da
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/08/论文笔记: Recurrent-Neural-Network-Grammars/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -850,20 +766,15 @@
       
         
           
-            <p>今天来讲一讲这一篇论文啦. Deep contextualized word representations, 也就是最近火的不行的ELMo. <a href="https://arxiv.org/pdf/1802.05365.pdf" target="_blank" rel="external">https://arxiv.org/pdf/1802.05365.pdf</a><br>文章提出了一种新型的word embedding,使用它可以提高NLP很多任务的精度.<br>扔一篇很好的中文知乎介绍先, <a href="https://zhuanlan.zhihu.com/p/38254332" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/38254332</a> (抛玉引砖?)<br>这篇文章讲得相当好…我不知道我能讲啥了.<br>我尽量补充一些吧</p>
-<p>首先默认大家看了前面的那个知乎专栏,其实里面有一个比较容易让人疑惑的点,那就是ELMo到底是怎么用的.<br>下面引用一篇博客的内容,我也是如此理解的.</p>
-<blockquote>
-<p>具体来讲如何使用ElMo产生的表征呢？对于一个supervised NLP任务，可以分以下三步:<br>1.产生pre-trained biLM模型。模型由两层bi-LSTM组成，之间用residual connection连接起来。<br>2.在任务语料上(注意是语料，忽略label)fine-tuning上一步得到的biLM模型。可以把这一步看为biLM的domain transfer。<br>3.利用ELMo的word embedding来对任务进行训练。通常的做法是把它们作为输入加到已有的模型中，一般能够明显的提高原模型的表现。</p>
-</blockquote>
-<hr>
-<p>本文来自 triplemeng 的CSDN 博客 ，全文地址请点击：<a href="https://blog.csdn.net/triplemeng/article/details/82380202?utm_source=copy" target="_blank" rel="external">https://blog.csdn.net/triplemeng/article/details/82380202?utm_source=copy</a> </p>
-<p>而加到已知模型中的方法就如知乎专栏那一篇所说</p>
-<blockquote>
-<p>（1）直接将ELMo词向量 ELMo_k 与普通的词向量 x_k拼接（concat）[ $x_k$;$ELMo_k$ ]。<br> （2) 直接将ELMo词向量ELMo_k 与隐层输出向量 h_k 拼接[ $h_k$;$ELMo_k$ ]，在SNLI,SQuAD上都有提升。</p>
-</blockquote>
-<p>finetune应该还是比较慢的…之前的finetune,或者说对不同的语料来说,每个词之间的contextual information是不一样的,所以在此之前还是最好过一遍BiLSTM模型,得到针对这个语料库的隐藏表示,而这个部分是非常慢的.即便不finetune,我们也要根据我们拿来的pretrained的BiLSTM跑一下整个语料库,一句一句跑(因为我们需要得到hidden layer),然后把所有的词的hidden layer和embedding dump下来存起来.整个encoding的过程还是有点慢的…反正会比pretrained wordvec 要慢不少咯</p>
-
-          
+          今天来讲一讲这一篇论文啦. Deep contextualized word representations, 也就是最近火的不行的ELMo. https://arxiv.org/pdf/1802.05365.pdf文章提出了一种新型的word embedding,使用它可以提高NLP很多任务的精度
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/25/ELMo-论文解读/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1025,30 +936,15 @@
       
         
           
-            <h1 id="论文摘要-End-to-end-Sequence-Labeling-via-Bi-directional-LSTM-CNN-CRF"><a href="#论文摘要-End-to-end-Sequence-Labeling-via-Bi-directional-LSTM-CNN-CRF" class="headerlink" title="论文摘要 End-to-end Sequence Labeling via Bi-directional LSTM-CNN-CRF"></a>论文摘要 End-to-end Sequence Labeling via Bi-directional LSTM-CNN-CRF</h1><p>今天来将一些 End-to-end Sequence Labeling via Bi-directional LSTM-CNN-CRF 这篇文章吧，这是一篇CMU的工作。简单来说就是用一个完全End-to-end的模型来解决sequence labeling的问题，在NER和POStagging的问题上做了测试，达到了state-of-the-art，亮点在于不需要繁琐的feature engineering了。</p>
-<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>在Introduction中，作者就大概阐述了整个End-to-end model的architecture。</p>
-<blockquote>
-<p>We first use convolutional<br>neural networks (CNNs) (LeCun et al.,<br>1989) to encode character-level information of a<br>word into its character-level representation. Then<br>we combine character- and word-level representations<br>and feed them into bi-directional LSTM<br>(BLSTM) to model context information of each<br>word. On top of BLSTM, we use a sequential<br>CRF to jointly decode labels for the whole sentence.</p>
-</blockquote>
-<p>用CNN去得到char-level representation，然后结合char-level和word-level（word vectors）输入一个Bi-LSTM在建模上下文信息，最后我们再用一个sequential的CRF去decode label。</p>
-<h2 id="Model-Architecture"><a href="#Model-Architecture" class="headerlink" title="Model Architecture"></a>Model Architecture</h2><h3 id="CNN-for-char-level-representation"><a href="#CNN-for-char-level-representation" class="headerlink" title="CNN for char-level representation"></a>CNN for char-level representation</h3><p>为什么我们需要CNN来encode char-level的信息？因为char-level可以比较好的表示一些词的一些构词特性。比如一些前缀后缀，pre-，post-，un-，im，或者ing、ed等等。</p>
-<p>基本的结构和图像的有</p>
-<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-24/56895944.jpg" alt=""></p>
-<p>分享一个github里面开源的Keras实现</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">_build_model</span><span class="params">(self)</span>:</span></div><div class="line">       <span class="string">"""</span></div><div class="line"><span class="string">       Build and compile the Character Level CNN model</span></div><div class="line"><span class="string">       Returns: None</span></div><div class="line"><span class="string">       """</span></div><div class="line">       <span class="comment"># Input layer</span></div><div class="line">       inputs = Input(shape=(self.input_size,), name=<span class="string">'sent_input'</span>, dtype=<span class="string">'int64'</span>)</div><div class="line">       <span class="comment"># Embedding layers</span></div><div class="line">       x = Embedding(self.alphabet_size + <span class="number">1</span>, self.embedding_size, input_length=self.input_size)(inputs)</div><div class="line">       <span class="comment"># Convolution layers</span></div><div class="line">       <span class="keyword">for</span> cl <span class="keyword">in</span> self.conv_layers:</div><div class="line">           x = Convolution1D(cl[<span class="number">0</span>], cl[<span class="number">1</span>])(x)</div><div class="line">           x = ThresholdedReLU(self.threshold)(x)</div><div class="line">           <span class="keyword">if</span> cl[<span class="number">2</span>] != <span class="number">-1</span>:</div><div class="line">               x = MaxPooling1D(cl[<span class="number">2</span>])(x)</div><div class="line">       x = Flatten()(x)</div><div class="line">       <span class="comment"># Fully connected layers</span></div><div class="line">       <span class="keyword">for</span> fl <span class="keyword">in</span> self.fully_connected_layers:</div><div class="line">           x = Dense(fl)(x)</div><div class="line">           x = ThresholdedReLU(self.threshold)(x)</div><div class="line">           x = Dropout(self.dropout_p)(x)</div><div class="line">       <span class="comment"># Output layer</span></div><div class="line">       predictions = Dense(self.num_of_classes, activation=<span class="string">'softmax'</span>)(x)</div><div class="line">       <span class="comment"># Build and compile model</span></div><div class="line">       model = Model(inputs=inputs, outputs=predictions)</div><div class="line">       model.compile(optimizer=self.optimizer, loss=self.loss)</div><div class="line">       self.model = model</div><div class="line">       print(<span class="string">"CharCNNZhang model built: "</span>)</div><div class="line">       self.model.summary()</div></pre></td></tr></table></figure>
-<p>参考<a href="https://github.com/chaitjo/character-level-cnn/blob/master/models/char_cnn_zhang.py" target="_blank" rel="external">https://github.com/chaitjo/character-level-cnn/blob/master/models/char_cnn_zhang.py</a></p>
-<p>CharCNN的其他的一些原理以及技术分享</p>
-<p><a href="https://blog.csdn.net/liuchonge/article/details/70947995" target="_blank" rel="external">https://blog.csdn.net/liuchonge/article/details/70947995</a></p>
-<h3 id="BI-LSTM-to-Encode-Context-Information"><a href="#BI-LSTM-to-Encode-Context-Information" class="headerlink" title="BI-LSTM to Encode Context Information"></a>BI-LSTM to Encode Context Information</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-24/50364748.jpg" alt=""></p>
-<p>LSTM unit不需要过多介绍了，简单来说通过构造一个gradient的highway以及与forget、output、input gate之间的互动来解决一部分vanishing gradient的问题。</p>
-<p>至于Bidirectional RNN，<a href="https://www.youtube.com/watch?v=uRFegQXnY54" target="_blank" rel="external">https://www.youtube.com/watch?v=uRFegQXnY54</a></p>
-<p>这个有介绍。因为LSTM只能通过过去predict未来，但是有的时候我们也需要知道句子后面的context，这个时候用Bi-directional RNN会有不错的效果。</p>
-<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-24/74031804.jpg" alt=""></p>
-<p>Bi-directional RNN 用人话来讲就是，除了forward的一个LSTM，再加一个backward的LSTM，神经网络的forward pass就是上图中紫色的$a^{<1>},a^{<2>},a^{<3>}，a^{<4>}$，然后绿色的$a^{<4>},a^{<3>},a^{<2>}，a^{<1>}$，backward pass就是反过来。最后每一个time slot都会得到两个hidden state，一个紫色的一个绿色的，一般来说把他们的表示concat然后输入一个activation function(比如softmax)或者当做feature输入别的判别函数即可。</1></2></3></4></4></3></2></1></p>
-<h3 id="CRF"><a href="#CRF" class="headerlink" title="CRF"></a>CRF</h3><p>我们融合了char、word-level的representation，再加上了context information，通过Bi-LSTM得到了一个隐藏层的表示。接下来我们将这个表示输入一个CRF进行predict。<br>我们令$z = \{z_1, \cdots, z_n \}$表示我们之前影藏层得到的vector（feature vector）<br>我们用$y = \{ y_1, \cdots, y_n \}$表示我们生成的对应的每一个label<br>我们用$Y(z)$来表示可能的label的集合。<br>所以我们的条件概率可以这样表示$P(y | z; W,b)$<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-24/39346110.jpg" alt=""><br>最后训练的目标就是得到最大的Maximum Likelihood<br>$L(W,b) = \sum_i log p(y | z; W,b)$<br>最后在做Decoding的时候我们只要search label sequence $y^{\star}$，是的他条件概率最大就可以了！<br>$y^{\star} = argmax_{y \in Y(z)} p(y | z; W, b)$</p>
-<h3 id="最后整体的模型"><a href="#最后整体的模型" class="headerlink" title="最后整体的模型"></a>最后整体的模型</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-24/77056616.jpg" alt=""></p>
-
-          
+          论文摘要 End-to-end Sequence Labeling via Bi-directional LSTM-CNN-CRF今天来将一些 End-to-end Sequence Labeling via Bi-directional LSTM-CNN-CRF 这篇文章吧，这是一篇CMU的工作。
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/24/论文笔记：End-to-End-Sequence-Labeling-via-Bi-directional-LSTM-CNN-CRF/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1177,12 +1073,15 @@
       
         
           
-            <h1 id="This-is-the-paper-list-about-Natual-Language-Parsing"><a href="#This-is-the-paper-list-about-Natual-Language-Parsing" class="headerlink" title="This is the paper list about Natual Language Parsing"></a>This is the paper list about Natual Language Parsing</h1><p>[Klein&amp;Manning. ACL 2003] Accurate Unlexicalized Parsing <a href="http://nlp.cs.berkeley.edu/pubs/Klein-Manning_2003_UnlexParsing_paper.pdf" target="_blank" rel="external">http://nlp.cs.berkeley.edu/pubs/Klein-Manning_2003_UnlexParsing_paper.pdf</a></p>
-<p>[Petrov et al. 2008] Learning Accurate, Compact, and Interpretable Tree Annotation<br><a href="https://pdfs.semanticscholar.org/d84b/9507ff9687a900fde451f27106d930c1b838.pdf" target="_blank" rel="external">https://pdfs.semanticscholar.org/d84b/9507ff9687a900fde451f27106d930c1b838.pdf</a></p>
-<p>[Zhao et al. ACL 2018] Gaussian Mixture Latent Vector Grammars <a href="https://arxiv.org/abs/1805.04688" target="_blank" rel="external">https://arxiv.org/abs/1805.04688</a></p>
-<p>[Socher et al. 2013] Parsing with compositional vector grammars <a href="http://aclweb.org/anthology/P/P13/P13-1045.pdf" target="_blank" rel="external">http://aclweb.org/anthology/P/P13/P13-1045.pdf</a></p>
-
-          
+          This is the paper list about Natual Language Parsing[Klein&amp;Manning. ACL 2003] Accurate Unlexicalized Parsing http://nlp.cs.berkeley.edu/pubs/Klein
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/19/Natual-Language-Parsing-Supervised-Paper-list/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1311,34 +1210,15 @@
       
         
           
-            <h1 id="Tree-Recursive-Neural-Networks-and-Consitituency-Parsing"><a href="#Tree-Recursive-Neural-Networks-and-Consitituency-Parsing" class="headerlink" title="Tree Recursive Neural Networks and Consitituency Parsing"></a>Tree Recursive Neural Networks and Consitituency Parsing</h1><p>Basicly this is the summary of the stanford cs224n class lecture 14, see the youtube vedio if you have something unclear</p>
-<p><a href="https://www.youtube.com/watch?v=RfwgqPkWZ1w&amp;index=15&amp;list=PL3FW7Lu3i5Jsnh1rnUwq_TcylNr7EkRe6" target="_blank" rel="external">https://www.youtube.com/watch?v=RfwgqPkWZ1w&amp;index=15&amp;list=PL3FW7Lu3i5Jsnh1rnUwq_TcylNr7EkRe6</a></p>
-<h3 id="Recursion-is-Natural-for-describing-language"><a href="#Recursion-is-Natural-for-describing-language" class="headerlink" title="Recursion is Natural for describing language"></a>Recursion is Natural for describing language</h3><p>example: [the man from [the company that you spoke with about [the project ] yesterday ]]</p>
-<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/50704315.jpg" alt=""></p>
-<h3 id="Why-Recursive？"><a href="#Why-Recursive？" class="headerlink" title="Why Recursive？"></a>Why Recursive？</h3><p><img src="" alt=""></p>
-<p>We have word vectors to encode the similarity of the words, but can we project longer phrase into the word vector space?</p>
-<p>Because of the recursive structure of language, [the country of my birth] also “merged” into a “NP” noun phrase in the constituent parsing, and that’s natural to think that it should represent “country”, so it should be next to “China, Germany” in the same vector space. which are also “NP”s.</p>
-<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/31919973.jpg" alt=""></p>
-<p>To calculate it from bottom to up,  and we can use some technics which we will describe below.</p>
-<h3 id="why-we-want-to-represent-the-“long-phrase”-or-“Non-terminal”"><a href="#why-we-want-to-represent-the-“long-phrase”-or-“Non-terminal”" class="headerlink" title="why we want to represent the “long phrase” or “Non-terminal”?"></a>why we want to represent the “long phrase” or “Non-terminal”?</h3><p>We can use it to refine the grammar! In other words, we can compute the subtypes of the CFGs, which will increasing the parsing accuracy</p>
-<p><strong><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/18305879.jpg" alt=""></strong></p>
-<p>See that? we can assign a vector to the nonterminal! which means we can assign a meaningful vector representation TO the non-terminals.</p>
-<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/21223679.jpg" alt=""></p>
-<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/63146581.jpg" alt=""></p>
-<p>The CNN for Natural language, and Recursive Neural Network for Natural Language, the Recursive one seems more natural</p>
-<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/2774444.jpg" alt=""></p>
-<p>The Recursive Neural Network take two child (CNF) as an input and use it to predict and output two things, one is the vector representation of the parent non-terminal node, the other is a <strong>score telling you how reasonable the combination is</strong>, we can concat the children’s vector representations, feed into a small neural network layer, (linear transform and non-linearity), and output the predicted parent vector, <strong>p</strong>, and use the p, multiplied it with another trained vector <strong>U</strong>  to get the score.</p>
-<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/72377585.jpg" alt=""></p>
-<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/41043468.jpg" alt=""></p>
-<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/34733902.jpg" alt=""></p>
-<p>Loss Function</p>
-<p><img src="C:\Users\Jeff\AppData\Roaming\Typora\typora-user-images\1537155769400.png" alt="1537155769400"></p>
-<p><strong>It’s Greedy, we can’t explore all the parses, because we cannot use DP,(the vector representation varies)</strong></p>
-<h3 id="Training-Backprop-through-structure"><a href="#Training-Backprop-through-structure" class="headerlink" title="Training: Backprop through structure"></a>Training: Backprop through structure</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/46113886.jpg" alt=""></p>
-<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/87760407.jpg" alt=""></p>
-<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/54331915.jpg" alt=""></p>
-
-          
+          Tree Recursive Neural Networks and Consitituency ParsingBasicly this is the summary of the stanford cs224n class lecture 14, see the youtube vedio if 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/17/compositional-vector-grammar/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1467,21 +1347,17 @@
       
         
           
-            <p>AICUG自然语言处理专场</p>
-<h2 id="果然分会场才是真干货啊"><a href="#果然分会场才是真干货啊" class="headerlink" title="果然分会场才是真干货啊"></a>果然分会场才是真干货啊</h2><h1 id="阿里小蜜"><a href="#阿里小蜜" class="headerlink" title="阿里小蜜"></a>阿里小蜜</h1><p>2017双十一阿里小蜜服务占比95%<br>平台介绍-skip</p>
-<p>小蜜架构<br>given query -&gt; using context 去做意图识别 -〉 不同bot分类 -》不同的话进入到不同的bot中 1.QAbot「知识类的检索问答(knowledge graph)+机器阅读理解」2. task bot(Bot framework, DRL) 3. chatbot</p>
-<p>意图识别<br>分词,POS tagging,NER,意图识别分类,生成semantic reperentation</p>
-<p>机器阅读理解<br>Squrd数据集stanford<br>场景:<br>活动规则解读<br>税务法规解读</p>
-<p>深度强化学习<br>多轮增强式导购<br>微软的工作、剑桥的工作<br>LSTM(有监督学习)+DRL (empirical sampled reward)<br>用在这个上面,有点东西的</p>
-<p>迁移学习<br>跨领域 WSDM2018<br>跨语言 Universal Semantic Space</p>
-<p>阔以的,阿里,有点干货</p>
-<h1 id="竹间智能-EMOTIBOT"><a href="#竹间智能-EMOTIBOT" class="headerlink" title="竹间智能 EMOTIBOT"></a>竹间智能 EMOTIBOT</h1><p>这个CTO…做NLP…30年了…<br>开场第一句…我28年前做NLP,一次训练20天,被当成骗子…<br>向老前辈致敬…</p>
-<h3 id="人机交互"><a href="#人机交互" class="headerlink" title="人机交互"></a>人机交互</h3><p>第一层 - NLP<br>第二层 - 意图识别<br>第三层 - 背后真正的意思</p>
-<h3 id="情感计算"><a href="#情感计算" class="headerlink" title="情感计算"></a>情感计算</h3><p>表情+语音+语言..手势<br>知识图谱</p>
-<h1 id="深度好奇"><a href="#深度好奇" class="headerlink" title="深度好奇"></a>深度好奇</h1><p>CTO是华为的前深度学习负责人<br>(牛逼的初创基本上都是大厂大佬自己出来干)</p>
-<p>Semantic Parsing<br>”神经符号系统“?<br>如何结合神经和符号<br>embedding -&gt; neural network -〉output symbols -》 symbol inference (规则的推理) -〉 new symbol -&gt; 重新嵌入embedding<br>(这真的不是玄学嘛)<br>(好多人觉得是玄学,溜了)<br>(不是玄学,有 paper)<br>Object-Oriented Neural Programming<br>一边阅读,一边理解,输入文字,生成知识图谱</p>
-
-          
+          AICUG自然语言处理专场
+果然分会场才是真干货啊阿里小蜜2017双十一阿里小蜜服务占比95%平台介绍-skip
+小蜜架构given query -&gt; using context 去做意图识别 -〉 不同bot分类 -》不同的话进入到不同的bot中 1.QAbot「知识类的检索问答(knowl
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/16/HangZhou-AICUG-III/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1610,13 +1486,16 @@
       
         
           
-            <h3 id="随便写写流水账"><a href="#随便写写流水账" class="headerlink" title="随便写写流水账"></a>随便写写流水账</h3><p>上午结束了,Jeff得找个地方吃饭.<br>这个鬼地方很荒凉,附近没啥好吃的,走了一阵子就去重庆小面随便将就了<br>(wtf,一点点面20块钱?)</p>
-<p>吃面的时候,左边坐着一个老哥,胸前挂着和我一样的牌子,我和他搭讪,得知他是做云计算底层技术的,觉得没听到啥东西,太水了,很失望.Jeff表示理解,参见前一篇,“我也不想听广告”.</p>
-<p>因为小面的分量太小了,(我终于明白了“小”面中的“小”的意思),没过一会儿他就吃完了,谈话结束,我还剩一点.突然对面的大龄美女问我,“下午几点开始啊?”,我一看,霍,没挂牌子,但是拎了个AICUG的手提袋.</p>
-<p>我们聊了一会儿,她在杭州做人工智能和医疗,我们开始了对话,<br>“现在计算机视觉和医疗结合地很🔥啊!”<br>“没有啦,现在还是很表面”<br>(我不确定她的表面是指现有的人工智能技术只用上了很少的一部分,还是指现在的人工智能的技术本身还很表面)<br>“我是学生,准备在上海读自然语言的研究生”<br>“嗯,自然语言在医疗也有应用,电子病例什么的”<br>“哈哈,想想是这样”<br>“上海的依图科技很不错”<br>“对的,还有联影”</p>
-<h1 id="有缘千里来吃面-感谢AICUG"><a href="#有缘千里来吃面-感谢AICUG" class="headerlink" title="有缘千里来吃面 感谢AICUG"></a>有缘千里来吃面 感谢AICUG</h1><p>中午有点时间,从格林豪泰借了个共享充电宝,准备听下午场了,还有点时间,继续读一读paper.</p>
-<h1 id="和这些AI从业者说完话-我觉得我仿佛也年薪几十万了"><a href="#和这些AI从业者说完话-我觉得我仿佛也年薪几十万了" class="headerlink" title="和这些AI从业者说完话,我觉得我仿佛也年薪几十万了."></a>和这些AI从业者说完话,我觉得我仿佛也年薪几十万了.</h1><h2 id="梦醒了-么的钱"><a href="#梦醒了-么的钱" class="headerlink" title="(梦醒了,么的钱)"></a>(梦醒了,么的钱)</h2>
-          
+          随便写写流水账上午结束了,Jeff得找个地方吃饭.这个鬼地方很荒凉,附近没啥好吃的,走了一阵子就去重庆小面随便将就了(wtf,一点点面20块钱?)
+吃面的时候,左边坐着一个老哥,胸前挂着和我一样的牌子,我和他搭讪,得知他是做云计算底层技术的,觉得没听到啥东西,太水了,很失望.Jeff表示理解,参见前
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/16/HangZhou-AICUG2018-II/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1745,16 +1624,17 @@
       
         
           
-            <p>仅代表来自SNH的记者Jeff的个人观点<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-16/76470016.jpg" alt=""></p>
-<h1 id="AICUG-2018-Hangzhou"><a href="#AICUG-2018-Hangzhou" class="headerlink" title="AICUG 2018 Hangzhou"></a>AICUG 2018 Hangzhou</h1><p>上午9.55到达东方豪生大酒店<br>外面酒店好冷清,里面what the fuck,没座位坐,服了<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-16/9088043.jpg" alt=""></p>
-<h3 id="科大讯飞"><a href="#科大讯飞" class="headerlink" title="科大讯飞"></a>科大讯飞</h3><p>科大讯飞的语音和语义理解有点东西<br>主要针对的案例业务场景是智能语音客服<br>模型包括speech to text, NLP中的自然语言理解各个部分,还是比较硬核的<br>关键是加入了自我学习,能够提升不少效率,为客户节约成本<br><strong><em>并且claim:强化学习+弱监督学习能够获得币深度学习更好的效果</em></strong><br>有点东西…</p>
-<h3 id="AWS"><a href="#AWS" class="headerlink" title="AWS"></a>AWS</h3><p>亚马逊来吹它的人工智能云服务解决方案啦!<br>这些官网上都有,我不是来听广告的…</p>
-<h3 id="HUAWEI-Cloud"><a href="#HUAWEI-Cloud" class="headerlink" title="HUAWEI Cloud"></a>HUAWEI Cloud</h3><p>华为云来吹它的人工智能云服务解决方案啦!<br>预告HC2018将要发布AI全栈解决方案<br>华为实力还是强的啊<br>又来给他的深度学习云打广告啦<br>大意就是软件使用方便,硬件牛逼<br>我不想听广告…</p>
-<h3 id="JD-com-AI-Lab"><a href="#JD-com-AI-Lab" class="headerlink" title="JD.com AI Lab"></a>JD.com AI Lab</h3><p>Jinfeng Yi 来讲,他是这个lab的director<br>查了一下,他是个科研猛男,有点东西<br>京东在南京又个很屌的AI Lab啊,周志华还是顾问?<br>一年在顶会到处和人合作发了50篇paper?<br>有点东西啊…<br>题目是 AI powered smart store (大概是这个)<br>给了一个短片demo,虚拟试衣(hackathon想烂的idea场景了啊)<br>idea没啥意思,但是人家有技术啊,不知道做的怎么样<br>还有做实体店会员人脸识别<br>还有AI和虚拟现实辅助设计<br>京东想做AI和时尚的东西,(女人的钱还是好赚啊!!)<br>不过目前市面上我没看到他用?</p>
-<p>接着开始吹他们智能零售的解决方案<br>然后开始吹他们的智能客服,加入了emotion(sentiment analyze)<br>京东用机器学习,NLP判别你是否可以退钱(refund without return)<br>京东用AI给商品和丽萍收件人写诗(类似微软小冰)<br>介绍他们推荐方面的工作 (repeat customer without repeat recoomandation Yi et. al NIPS 2017),这个很有现实意义. 顾客是否喜欢-》顾客是否需要</p>
-<p>这个talk不错,还是有点东西.<br>最后Yi灌了一波鸡汤,talk结束</p>
-
-          
+          仅代表来自SNH的记者Jeff的个人观点
+AICUG 2018 Hangzhou上午9.55到达东方豪生大酒店外面酒店好冷清,里面what the fuck,没座位坐,服了
+科大讯飞科大讯飞的语音和语义理解有点东西主要针对的案例业务场景是智能语音客服模型包括speech to text, NLP中的
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/16/HangZhou-AICUG2018/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1883,9 +1763,16 @@
       
         
           
-            <h1 id="我的非典型暑假以及非典型保研"><a href="#我的非典型暑假以及非典型保研" class="headerlink" title="我的非典型暑假以及非典型保研"></a>我的非典型暑假以及非典型保研</h1><p>今天没有总结的心情,之后再补上好吧…</p>
+          我的非典型暑假以及非典型保研今天没有总结的心情,之后再补上好吧…
 
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/11/2018-7-2018-9/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
