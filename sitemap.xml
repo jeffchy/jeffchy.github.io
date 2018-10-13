@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jeffchy.github.io/2018/10/13/%E7%AE%80%E5%8D%95%E8%AF%B4%E8%AF%B4BERT%E6%A8%A1%E5%9E%8B-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/</loc>
+    
+    <lastmod>2018-10-13T13:55:24.858Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jeffchy.github.io/2018/10/12/Quick-Review-On-Forward-Backward-Algorithm/</loc>
     
-    <lastmod>2018-10-12T14:00:33.270Z</lastmod>
+    <lastmod>2018-10-13T12:37:30.521Z</lastmod>
     
   </url>
   
@@ -254,14 +261,21 @@
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2016/12/31/2016/</loc>
+    <loc>https://jeffchy.github.io/2016/12/03/Hello-Cocos-ii-Debugging-and-Structure/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2017/01/18/Django-Part-II/</loc>
+    <loc>https://jeffchy.github.io/2016/12/17/LeetCode-75-Sort-Colors/</loc>
+    
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-222-Count-Complete-Binary-Tree-Element/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
@@ -275,14 +289,7 @@
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2017/01/18/Django-PART-III/</loc>
-    
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jeffchy.github.io/2017/01/27/Machine-Learning-Note-%E4%B8%80/</loc>
+    <loc>https://jeffchy.github.io/2016/12/10/Macro-Economics-Review/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
@@ -296,7 +303,14 @@
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2016/12/10/Macro-Economics-Review/</loc>
+    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-405-Convert-A-Number-to-Hexadecimal/</loc>
+    
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-203-Remove-Linked-List-Element/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
@@ -310,28 +324,21 @@
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2017/01/17/Django-PART-I/</loc>
+    <loc>https://jeffchy.github.io/2017/02/04/LeetCode-2-Add-Two-Num/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2016/12/12/Hello-8051/</loc>
+    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-1-Two-Sum/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2017/01/23/Django-Part-IV-staticfiles/</loc>
-    
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jeffchy.github.io/2016/12/03/Hello-Cocos-ii-Debugging-and-Structure/</loc>
+    <loc>https://jeffchy.github.io/2016/12/03/Hello-Cocos/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
@@ -359,13 +366,6 @@
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2016/12/03/Hello-Cocos/</loc>
-    
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jeffchy.github.io/2016/12/02/hello-hexo/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
@@ -373,7 +373,7 @@
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2017/01/15/python3-class/</loc>
+    <loc>https://jeffchy.github.io/2017/01/27/Machine-Learning-Note-%E4%B8%80/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
@@ -387,7 +387,7 @@
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2017/01/26/Django-Project-Simple-Gallery/</loc>
+    <loc>https://jeffchy.github.io/2017/01/15/python3-class/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
@@ -395,6 +395,27 @@
   
   <url>
     <loc>https://jeffchy.github.io/2016/12/10/%E7%AB%8B%E4%B8%AAFlag-%E6%88%91%E8%A6%81%E6%8A%8ALeetCode%E5%88%B7%E5%AE%8C/</loc>
+    
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jeffchy.github.io/2016/12/12/Hello-8051/</loc>
+    
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jeffchy.github.io/2017/01/13/Django-useful-learning-materials/</loc>
+    
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jeffchy.github.io/2017/01/26/Django-Project-Simple-Gallery/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
@@ -415,6 +436,34 @@
   </url>
   
   <url>
+    <loc>https://jeffchy.github.io/2017/01/23/Django-Part-IV-staticfiles/</loc>
+    
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jeffchy.github.io/2017/01/18/Django-PART-III/</loc>
+    
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jeffchy.github.io/2017/01/18/Django-Part-II/</loc>
+    
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jeffchy.github.io/2017/01/17/Django-PART-I/</loc>
+    
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jeffchy.github.io/2016/12/09/DW-Bootstrap-%E5%88%B6%E4%BD%9C%E5%93%8D%E5%BA%94%E5%BC%8F%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
@@ -422,35 +471,7 @@
   </url>
   
   <url>
-    <loc>https://jeffchy.github.io/2017/02/04/LeetCode-2-Add-Two-Num/</loc>
-    
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-222-Count-Complete-Binary-Tree-Element/</loc>
-    
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-1-Two-Sum/</loc>
-    
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-203-Remove-Linked-List-Element/</loc>
-    
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jeffchy.github.io/2017/01/13/Django-useful-learning-materials/</loc>
+    <loc>https://jeffchy.github.io/2016/12/31/2016/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
@@ -458,20 +479,6 @@
   
   <url>
     <loc>https://jeffchy.github.io/2017/01/12/2016%E7%A7%8B%E5%AD%A6%E6%9C%9F%E6%80%BB%E7%BB%93/</loc>
-    
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jeffchy.github.io/2016/12/17/LeetCode-75-Sort-Colors/</loc>
-    
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-405-Convert-A-Number-to-Hexadecimal/</loc>
     
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     
