@@ -81,7 +81,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Probability Theory,Natual Languate Processing,Algorithm,Machine Learning," />
+  <meta name="keywords" content="Group Meeting," />
 
 
 
@@ -97,18 +97,21 @@
 
 
 
-<meta name="description" content="余今日偶得屠师爷天书《Unsupervised Dependency Parsing本录》，有两词无法参透。谷歌搜索罢，略知一二，故在今日饭前稍作记录。 壹生成方法、判别方法乃是机器学习只根本方法，重中之重，余之前所学多为判别方法，今开始对生成方法多加关注，与各位同道分享一二。 Notation: $X$ data, $Y$ label 贰 Generative Approach learn $P">
-<meta name="keywords" content="Probability Theory,Natual Languate Processing,Algorithm,Machine Learning">
+<meta name="description" content="极简takeawayMultitask Learning 的用法 Predict What You Want 比如NER中的name对OOV非常敏感,所以我们可以先predict是否是name,这也就force模型学习到识别name的信息,然后再分别做 Reverse What You Dislike, 比如你有一个任务,Domain Adaption,你想要转换到不同的domain,所以你不希望">
+<meta name="keywords" content="Group Meeting">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Generative Model and Discriminative Model">
-<meta property="og:url" content="https://jeffchy.github.io/2018/08/07/GenDis/index.html">
+<meta property="og:title" content="2018-10-17组会takeaway">
+<meta property="og:url" content="https://jeffchy.github.io/2018/10/17/2018-10-17组会takeaway/index.html">
 <meta property="og:site_name" content="Jeff-Chiang">
-<meta property="og:description" content="余今日偶得屠师爷天书《Unsupervised Dependency Parsing本录》，有两词无法参透。谷歌搜索罢，略知一二，故在今日饭前稍作记录。 壹生成方法、判别方法乃是机器学习只根本方法，重中之重，余之前所学多为判别方法，今开始对生成方法多加关注，与各位同道分享一二。 Notation: $X$ data, $Y$ label 贰 Generative Approach learn $P">
+<meta property="og:description" content="极简takeawayMultitask Learning 的用法 Predict What You Want 比如NER中的name对OOV非常敏感,所以我们可以先predict是否是name,这也就force模型学习到识别name的信息,然后再分别做 Reverse What You Dislike, 比如你有一个任务,Domain Adaption,你想要转换到不同的domain,所以你不希望">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-07T05:12:25.107Z">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-17/20164286.jpg">
+<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-17/55329766.jpg">
+<meta property="og:updated_time" content="2018-10-17T12:42:59.883Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Generative Model and Discriminative Model">
-<meta name="twitter:description" content="余今日偶得屠师爷天书《Unsupervised Dependency Parsing本录》，有两词无法参透。谷歌搜索罢，略知一二，故在今日饭前稍作记录。 壹生成方法、判别方法乃是机器学习只根本方法，重中之重，余之前所学多为判别方法，今开始对生成方法多加关注，与各位同道分享一二。 Notation: $X$ data, $Y$ label 贰 Generative Approach learn $P">
+<meta name="twitter:title" content="2018-10-17组会takeaway">
+<meta name="twitter:description" content="极简takeawayMultitask Learning 的用法 Predict What You Want 比如NER中的name对OOV非常敏感,所以我们可以先predict是否是name,这也就force模型学习到识别name的信息,然后再分别做 Reverse What You Dislike, 比如你有一个任务,Domain Adaption,你想要转换到不同的domain,所以你不希望">
+<meta name="twitter:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-17/20164286.jpg">
 
 
 
@@ -138,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="https://jeffchy.github.io/2018/08/07/GenDis/"/>
+  <link rel="canonical" href="https://jeffchy.github.io/2018/10/17/2018-10-17组会takeaway/"/>
 
 
 
 
 
-  <title>Generative Model and Discriminative Model | Jeff-Chiang</title>
+  <title>2018-10-17组会takeaway | Jeff-Chiang</title>
   
 
 
@@ -300,7 +303,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/08/07/GenDis/">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/10/17/2018-10-17组会takeaway/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeff Chiang">
@@ -317,7 +320,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Generative Model and Discriminative Model</h1>
+          <h1 class="post-title" itemprop="name headline">2018-10-17组会takeaway</h1>
         
 
         <div class="post-meta">
@@ -329,8 +332,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T12:31:21+08:00">
-                2018-08-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-17T19:58:34+08:00">
+                2018-10-17
               </time>
             
 
@@ -340,50 +343,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NLP/" itemprop="url" rel="index">
-                    <span itemprop="name">NLP</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NLP/Note/" itemprop="url" rel="index">
-                    <span itemprop="name">Note</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NLP/Note/Machine-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Machine Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -392,9 +351,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/07/GenDis/#comments" itemprop="discussionUrl">
+                <a href="/2018/10/17/2018-10-17组会takeaway/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/07/GenDis/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/10/17/2018-10-17组会takeaway/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -422,22 +381,13 @@
       
 
       
-        <p>余今日偶得屠师爷天书《Unsupervised Dependency Parsing本录》，有两词无法参透。谷歌搜索罢，略知一二，故在今日饭前稍作记录。</p>
-<h3 id="壹"><a href="#壹" class="headerlink" title="壹"></a>壹</h3><p>生成方法、判别方法乃是机器学习只根本方法，重中之重，余之前所学多为判别方法，今开始对生成方法多加关注，与各位同道分享一二。</p>
-<p>Notation: $X$ data, $Y$ label</p>
-<h3 id="贰-Generative-Approach"><a href="#贰-Generative-Approach" class="headerlink" title="贰 Generative Approach"></a>贰 Generative Approach</h3><ul>
-<li>learn $P(X,Y)$</li>
-<li>marginailze to $P(X|Y)$ to classify</li>
-<li>reflect the <strong>similarity</strong> of data</li>
-<li>can be used to learn latent variable</li>
-<li>Naive Bayes、EM based GMM、DMV</li>
+        <h1 id="极简takeaway"><a href="#极简takeaway" class="headerlink" title="极简takeaway"></a>极简takeaway</h1><h2 id="Multitask-Learning-的用法"><a href="#Multitask-Learning-的用法" class="headerlink" title="Multitask Learning 的用法"></a>Multitask Learning 的用法</h2><ul>
+<li>Predict What You Want 比如NER中的name对OOV非常敏感,所以我们可以先predict是否是name,这也就force模型学习到识别name的信息,然后再分别做</li>
+<li>Reverse What You Dislike, 比如你有一个任务,Domain Adaption,你想要转换到不同的domain,所以你不希望区分domain的特征,所以在这个任务上加了一个classifier但是梯度反过来<img src="http://oj4pv4f25.bkt.clouddn.com/18-10-17/20164286.jpg" alt=""></li>
+<li>用作data agumentation的trick.<img src="http://oj4pv4f25.bkt.clouddn.com/18-10-17/55329766.jpg" alt=""></li>
+<li>添加任务使得神经网络更难.比如NMT中额外加了个任务预测parse tree,发现提升了NMT的效果.</li>
 </ul>
-<h3 id="叁-Discriminative-Approach"><a href="#叁-Discriminative-Approach" class="headerlink" title="叁 Discriminative Approach"></a>叁 Discriminative Approach</h3><ul>
-<li>learn $P(X|Y)$ drirect from <strong>features</strong></li>
-<li>reflect the <strong>distinction</strong> of data margin</li>
-<li>can not be used to learn latent variable</li>
-<li>KNN, regression, SVM, CRF</li>
-</ul>
+<h2 id="Constrained-Decoder"><a href="#Constrained-Decoder" class="headerlink" title="Constrained Decoder"></a>Constrained Decoder</h2><p>用有限状态机做decoder,利用别的更容易得到的信息做decoder,也算一种multitask,mark Johnson的<br>Guided Open Vocabulary Image Captiong with Constrained Beamn Search<br>还有Lexically Constrained Decoding for Sequence Generation Using Grid Beam Search</p>
 
       
     </div>
@@ -455,13 +405,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Probability-Theory/" rel="tag"># Probability Theory</a>
-          
-            <a href="/tags/Natual-Languate-Processing/" rel="tag"># Natual Languate Processing</a>
-          
-            <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
-          
-            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+            <a href="/tags/Group-Meeting/" rel="tag"># Group Meeting</a>
           
         </div>
       
@@ -474,8 +418,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/06/DMV/" rel="next" title="Dependency Model With Valence">
-                <i class="fa fa-chevron-left"></i> Dependency Model With Valence
+              <a href="/2018/10/17/Self-Orgnizing-Map/" rel="next" title="Self Organizing Map">
+                <i class="fa fa-chevron-left"></i> Self Organizing Map
               </a>
             
           </div>
@@ -483,10 +427,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/08/Prior-Distribution/" rel="prev" title="Prior & Posterial">
-                Prior & Posterial <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -670,7 +610,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#壹"><span class="nav-number">1.</span> <span class="nav-text">壹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贰-Generative-Approach"><span class="nav-number">2.</span> <span class="nav-text">贰 Generative Approach</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#叁-Discriminative-Approach"><span class="nav-number">3.</span> <span class="nav-text">叁 Discriminative Approach</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#极简takeaway"><span class="nav-number">1.</span> <span class="nav-text">极简takeaway</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Multitask-Learning-的用法"><span class="nav-number">1.1.</span> <span class="nav-text">Multitask Learning 的用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Constrained-Decoder"><span class="nav-number">1.2.</span> <span class="nav-text">Constrained Decoder</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -820,15 +760,32 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://jeffchy.github.io/2018/08/07/GenDis/';
-          this.page.identifier = '2018/08/07/GenDis/';
-          this.page.title = 'Generative Model and Discriminative Model';
+          this.page.url = 'https://jeffchy.github.io/2018/10/17/2018-10-17组会takeaway/';
+          this.page.identifier = '2018/10/17/2018-10-17组会takeaway/';
+          this.page.title = '2018-10-17组会takeaway';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://https-jeffchy-github-io.disqus.com/embed.js';
         s.setAttribute('data-timestamp', '' + +new Date());
         (d.head || d.body).appendChild(s);
-      </script>
+      </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
     
 
   
@@ -866,43 +823,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config("");
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
   
 
 
