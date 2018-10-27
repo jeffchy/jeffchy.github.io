@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="dXyzlo70j3" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Paper,Natual Language Processing," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="这是一个简洁的论文笔记,关于这篇文章:发表于ACL18 Introduction作者探讨了如何用正则表达式,提神神经网络模型的效果. tasks Speaking Language Understanding  一种是意图识别, intent classification, 其实就是一种text classification 还有一种是插槽, 其实就是一种sequence labeling任务">
+<meta name="keywords" content="Paper,Natual Language Processing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Marrying Up Regular Expression with Neural Network">
+<meta property="og:url" content="https://jeffchy.github.io/2018/10/26/Marrying-Up-Regular-Expression-with-Neural-Network/index.html">
+<meta property="og:site_name" content="Jeff-Chiang">
+<meta property="og:description" content="这是一个简洁的论文笔记,关于这篇文章:发表于ACL18 Introduction作者探讨了如何用正则表达式,提神神经网络模型的效果. tasks Speaking Language Understanding  一种是意图识别, intent classification, 其实就是一种text classification 还有一种是插槽, 其实就是一种sequence labeling任务">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-26/47023549.jpg">
+<meta property="og:image" content="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-26/72024242.jpg">
+<meta property="og:image" content="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-26/16459427.jpg">
+<meta property="og:image" content="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-26/18645714.jpg">
+<meta property="og:image" content="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-27/48204053.jpg">
+<meta property="og:image" content="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-27/61121072.jpg">
+<meta property="og:image" content="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-27/22919727.jpg">
+<meta property="og:image" content="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-27/91104759.jpg">
+<meta property="og:image" content="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-27/50843081.jpg">
+<meta property="og:updated_time" content="2018-10-27T12:20:25.484Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Marrying Up Regular Expression with Neural Network">
+<meta name="twitter:description" content="这是一个简洁的论文笔记,关于这篇文章:发表于ACL18 Introduction作者探讨了如何用正则表达式,提神神经网络模型的效果. tasks Speaking Language Understanding  一种是意图识别, intent classification, 其实就是一种text classification 还有一种是插槽, 其实就是一种sequence labeling任务">
+<meta name="twitter:image" content="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-26/47023549.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://jeffchy.github.io/2018/10/26/Marrying-Up-Regular-Expression-with-Neural-Network/"/>
+
+
+
+
+
+  <title>Marrying Up Regular Expression with Neural Network | Jeff-Chiang</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-123760763-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d6324a63a8be2ad81d8f3e82174037f4";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jeff-Chiang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Tech and Life</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/10/26/Marrying-Up-Regular-Expression-with-Neural-Network/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeff Chiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff-Chiang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Marrying Up Regular Expression with Neural Network</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-26T17:15:27+08:00">
+                2018-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/26/Marrying-Up-Regular-Expression-with-Neural-Network/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/10/26/Marrying-Up-Regular-Expression-with-Neural-Network/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这是一个简洁的论文笔记,关于这篇文章:发表于ACL18<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-26/47023549.jpg" alt=""></p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>作者探讨了如何用正则表达式,提神神经网络模型的效果.</p>
+<h1 id="tasks-Speaking-Language-Understanding"><a href="#tasks-Speaking-Language-Understanding" class="headerlink" title="tasks Speaking Language Understanding"></a>tasks Speaking Language Understanding</h1><p><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-26/72024242.jpg" alt=""></p>
+<ul>
+<li>一种是意图识别, intent classification, 其实就是一种text classification</li>
+<li>还有一种是插槽, 其实就是一种sequence labeling任务</li>
+</ul>
+<h1 id="Base-Model"><a href="#Base-Model" class="headerlink" title="Base Model"></a>Base Model</h1><h2 id="Intent-classification"><a href="#Intent-classification" class="headerlink" title="Intent classification"></a>Intent classification</h2><p>作者使用BiLSTM+self-attention得到句子表示去当baseline.<br>self attention就是query和每个key进行相似度计算得到attention权重，然后用对应的hidden state然后接一个softmax去预测label.$W$是一个权重矩阵,$c$是一个可以训练的信息向量,用于分类的信息词,我的理解就是Q=c, K,V都等于hidden state, W是一个weight matrix<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-26/16459427.jpg" alt=""></p>
+<h2 id="sequence-labeling"><a href="#sequence-labeling" class="headerlink" title="sequence labeling"></a>sequence labeling</h2><p>作者直接使用BiLSTM过一遍整个句子.</p>
+<h1 id="如何apply-RE-我们主要拿intent-classification举例子"><a href="#如何apply-RE-我们主要拿intent-classification举例子" class="headerlink" title="如何apply RE 我们主要拿intent classification举例子"></a>如何apply RE 我们主要拿intent classification举例子</h1><p>对于Intent classification的任务:<br>举个具体例子,一句话</p>
+<h2 id="Input-level-toy-example"><a href="#Input-level-toy-example" class="headerlink" title="Input level toy example"></a>Input level toy example</h2><p>比如数据中的label有: flights, airline<br>我们对这两个label分别设立他们的正则表达式,意思是,如果一个句子满足这个正则表达式,我们就认为这个句子应该属于这个label.<br>airline: RE: /list(the)?__AIRLINE/<br>flights: RE: /list(\w+){0,3} flights?/</p>
+<p>现在我们碰到了一个句子:</p>
+<blockquote>
+<p>sentence: list the Delta airlines flights to Miami<br>label: flights</p>
+</blockquote>
+<p>我们会先对上面两个airline, flights的RE跑一下,我们发现都匹配了!<br>所以我们给他们打上了airline, flights两个REtags,我们对所有的REtags有一个可以训练的embedding,所以我们把两个tag做一下平均,得到一个aggregate embedding,就是我们symbolic rules产生的额外信息,于是我们可以把这个向量加入到它最后的soft Max表示那里,做预测.<br>如图中的(1)<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-26/18645714.jpg" alt=""><br>作者之前还试过我们直接把这个embedding和每个词的embedding结合起来,结果发现,这些tag会重复很多次,所以最终performance不好.</p>
+<h2 id="NN-module-Network-level"><a href="#NN-module-Network-level" class="headerlink" title="NN module Network level"></a>NN module Network level</h2><p>在神经网络的层面,我们可以利用我们得到的tags来指导attention.<br>attention的式子如图所示<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-27/48204053.jpg" alt=""><br>这里面$h_i$就是BiLSTM对每个word的隐藏层.alpha是每个位置的attention weights, c是一个可以训练的,用于分类的信息词.<br>self attention就是query和每个key进行相似度计算得到attention权重，然后用对应的hidden state然后接一个softmax去预测label.W是一个权重矩阵,c是一个可以训练的信息向量,用于分类的信息词,我的理解就是Q=c, K,V都等于hidden state, W是一个weight matrix</p>
+<p><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-27/61121072.jpg" alt=""><br>直觉上来说,我们对一个句子针对flights这个label的规则成功匹配了flights from这个表达式,那么也就意味着(flights from)这两个词应该对最终的模型预测结果有更多的贡献, 为了区别不同的intents, 我们给每个intent label k一个不同的attention, 于是我们可以得到k个s矩阵,</p>
+<ul>
+<li>然后我们可以分别计算每个s的一个分数,组成logits,然后用一个softmax分类器去得到不同的intent label的概率,这个叫做aggregate attention<br>(我的理解是原先softmax是把s矩阵的维度映射成k维,现在相当于有k个s矩阵,然后都有一个向量w映射成一维度的,最后组成k维)</li>
+<li>然后我们加上一个attention loss去指导这个attention,其中$t_{ki}$为0,如果没有matching的RE,等于$\frac{1}{l_k}$如果matching word的长度是lk.</li>
+<li>我们会发现,然后我们利用这个loss去指导attention weights和推理出的matching word保持某一种一致性(我的理解是,越大的attention weights, 这个式子就会越接近0,其实我觉得应该有个负号)<br>然后我们把这个loss和之前的classification loss加起来就行了<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-27/22919727.jpg" alt=""><h2 id="Output-level"><a href="#Output-level" class="headerlink" title="Output level"></a>Output level</h2><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-27/91104759.jpg" alt=""><br>同样规则可以在输出层影响NN.<br>之前我们aggregate attention计算logic的结果可以进一步被规则指导.<br>这里$w$是trainable的, $z_k$是一个indicator,1代表有matching,0代表没有,$w_k$是trainable的weights,直接在logits这一层也可以被rules影响.直觉上来说,如果有被matching,那么我就提高这一类别的分数(为什么不直接在softmax之后成为概率之后操作?也是可以,但是效果不好,因为logits是unconstrained real value)</li>
+</ul>
+<h1 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h1><p>文章用了这个数据集,发现在小的数据结果下,效果是相当不错的,超过了baseline不少<br>(two就是它除了我们刚才说的attention以外又加上了negative的attention,我们刚才是希望匹配到的词鼓励attention weights, 可能也会有某些规则不鼓励 attention weights.)<br>(+pos/neg就是加了negative loss和positive loss)<br>mem是另一个模型.<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-27/50843081.jpg" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Paper/" rel="tag"># Paper</a>
+          
+            <a href="/tags/Natual-Language-Processing/" rel="tag"># Natual Language Processing</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/26/深度好奇-神经规则引擎-Neural-Rule-Engine/" rel="next" title="深度好奇-神经规则引擎: Neural Rule Engine">
+                <i class="fa fa-chevron-left"></i> 深度好奇-神经规则引擎: Neural Rule Engine
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Jeff Chiang" />
+          <p class="site-author-name" itemprop="name">Jeff Chiang</p>
+           
+              <p class="site-description motion-element" itemprop="description">Personal portal for Sharing Computer Science Technology and some petty things in my life</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/jeffchy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="jiangchy@shanghaitech.edu.cn" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/jeffchiang/" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                    
+                      微博
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tasks-Speaking-Language-Understanding"><span class="nav-number">2.</span> <span class="nav-text">tasks Speaking Language Understanding</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Base-Model"><span class="nav-number">3.</span> <span class="nav-text">Base Model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Intent-classification"><span class="nav-number">3.1.</span> <span class="nav-text">Intent classification</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sequence-labeling"><span class="nav-number">3.2.</span> <span class="nav-text">sequence labeling</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何apply-RE-我们主要拿intent-classification举例子"><span class="nav-number">4.</span> <span class="nav-text">如何apply RE 我们主要拿intent classification举例子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-level-toy-example"><span class="nav-number">4.1.</span> <span class="nav-text">Input level toy example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NN-module-Network-level"><span class="nav-number">4.2.</span> <span class="nav-text">NN module Network level</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output-level"><span class="nav-number">4.3.</span> <span class="nav-text">Output level</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Results"><span class="nav-number">5.</span> <span class="nav-text">Results</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeff Chiang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://https-jeffchy-github-io.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://jeffchy.github.io/2018/10/26/Marrying-Up-Regular-Expression-with-Neural-Network/';
+          this.page.identifier = '2018/10/26/Marrying-Up-Regular-Expression-with-Neural-Network/';
+          this.page.title = 'Marrying Up Regular Expression with Neural Network';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://https-jeffchy-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
