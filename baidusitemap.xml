@@ -11,9 +11,9 @@
         <title>take-away tips from a Deep Learning Midterm Project</title>
         <pubTime>2018-11-13T06:27:54.000Z</pubTime>
         
-        <tag>Deep Learning</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Deep Learning</tag>
          
          
            
@@ -232,9 +232,9 @@
         <title>Quick Review On Forward-Backward Algorithm</title>
         <pubTime>2018-10-12T13:14:25.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
         <tag>Probability Theory</tag>
+         
+        <tag>Algorithm</tag>
          
         <tag>Natual Language Processing</tag>
          
@@ -321,11 +321,11 @@
         
         <tag>Natural Language Processing</tag>
          
-        <tag>Paper</tag>
-         
         <tag>Probability Theory</tag>
          
         <tag>Embedding</tag>
+         
+        <tag>Paper</tag>
          
          
            
@@ -350,9 +350,9 @@
         
         <tag>Natural Language Processing</tag>
          
-        <tag>Paper</tag>
-         
         <tag>Probability Theory</tag>
+         
+        <tag>Paper</tag>
          
         <tag>Music Generation</tag>
          
@@ -394,9 +394,9 @@
         <title>compositional-vector-grammar</title>
         <pubTime>2018-09-17T05:40:47.000Z</pubTime>
         
-        <tag>Paper</tag>
-         
         <tag>Note</tag>
+         
+        <tag>Paper</tag>
          
          
            
@@ -500,11 +500,11 @@
         <title>XiaoIce Image to Poetry 论文解读</title>
         <pubTime>2018-08-25T06:57:37.000Z</pubTime>
         
-        <tag>Paper</tag>
+        <tag>Probability Theory</tag>
          
         <tag>Natual Languate Processing</tag>
          
-        <tag>Probability Theory</tag>
+        <tag>Paper</tag>
          
         <tag>Music Generation</tag>
          
@@ -529,11 +529,11 @@
         <title>XiaoIce Band 论文解读</title>
         <pubTime>2018-08-24T02:33:22.000Z</pubTime>
         
-        <tag>Paper</tag>
+        <tag>Probability Theory</tag>
          
         <tag>Natual Languate Processing</tag>
          
-        <tag>Probability Theory</tag>
+        <tag>Paper</tag>
          
         <tag>Music Generation</tag>
          
@@ -558,11 +558,11 @@
         <title>word2vec-introduction</title>
         <pubTime>2018-08-22T03:21:54.000Z</pubTime>
         
+        <tag>Probability Theory</tag>
+         
         <tag>Natual Languate Processing</tag>
          
         <tag>Algorithm</tag>
-         
-        <tag>Probability Theory</tag>
          
          
            
@@ -585,9 +585,9 @@
         <title>Image Data Augmentation</title>
         <pubTime>2018-08-20T10:12:34.000Z</pubTime>
         
-        <tag>Deep Learning</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Deep Learning</tag>
          
         <tag>Python</tag>
          
@@ -611,13 +611,13 @@
         <title>Neural Unsupervided Dependency Parsing</title>
         <pubTime>2018-08-10T15:31:21.000Z</pubTime>
         
-        <tag>Paper</tag>
+        <tag>Probability Theory</tag>
          
         <tag>Natual Languate Processing</tag>
          
         <tag>Algorithm</tag>
          
-        <tag>Probability Theory</tag>
+        <tag>Paper</tag>
          
          
            
@@ -662,11 +662,11 @@
         <title>Dependency Model With Valence</title>
         <pubTime>2018-08-06T14:31:21.000Z</pubTime>
         
+        <tag>Probability Theory</tag>
+         
         <tag>Natual Languate Processing</tag>
          
         <tag>Algorithm</tag>
-         
-        <tag>Probability Theory</tag>
          
          
            
@@ -739,11 +739,11 @@
         <title>Maximum Likelihood Estimation</title>
         <pubTime>2018-08-04T08:50:21.000Z</pubTime>
         
+        <tag>Probability Theory</tag>
+         
         <tag>Natual Languate Processing</tag>
          
         <tag>Algorithm</tag>
-         
-        <tag>Probability Theory</tag>
          
          
            
@@ -766,11 +766,11 @@
         <title>Generative Model and Discriminative Model</title>
         <pubTime>2018-08-07T04:31:21.000Z</pubTime>
         
+        <tag>Probability Theory</tag>
+         
         <tag>Natual Languate Processing</tag>
          
         <tag>Algorithm</tag>
-         
-        <tag>Probability Theory</tag>
          
         <tag>Machine Learning</tag>
          
@@ -798,11 +798,11 @@
         <title>Inside-Outside-Algorithm</title>
         <pubTime>2018-08-05T05:31:21.000Z</pubTime>
         
+        <tag>Probability Theory</tag>
+         
         <tag>Natual Languate Processing</tag>
          
         <tag>Algorithm</tag>
-         
-        <tag>Probability Theory</tag>
          
          
            
@@ -825,11 +825,11 @@
         <title>Expectation-Maximization Algorithm</title>
         <pubTime>2018-08-04T12:31:21.000Z</pubTime>
         
+        <tag>Probability Theory</tag>
+         
         <tag>Natual Languate Processing</tag>
          
         <tag>Algorithm</tag>
-         
-        <tag>Probability Theory</tag>
          
          
            
@@ -852,11 +852,11 @@
         <title>Naive Bayes</title>
         <pubTime>2018-08-04T05:31:21.000Z</pubTime>
         
+        <tag>Probability Theory</tag>
+         
         <tag>Natual Languate Processing</tag>
          
         <tag>Algorithm</tag>
-         
-        <tag>Probability Theory</tag>
          
          
            
@@ -969,14 +969,38 @@
     
     
   <url>
-    <loc>https://jeffchy.github.io/2017/01/15/python3-class/</loc>
+    <loc>https://jeffchy.github.io/2016/12/10/%E7%AB%8B%E4%B8%AAFlag-%E6%88%91%E8%A6%81%E6%8A%8ALeetCode%E5%88%B7%E5%AE%8C/</loc>
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     <data>
         <display>
-        <title>python3 class</title>
-        <pubTime>2017-01-15T12:06:40.000Z</pubTime>
+        <title>立个Flag 我要把LeetCode刷完</title>
+        <pubTime>2016-12-10T11:57:14.000Z</pubTime>
         
-        <tag>python</tag>
+        <tag>Flag</tag>
+         
+         
+           
+             
+              <breadCrumb title="Flag" url="https://jeffchy.github.io/categories/Flag/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jeffchy.github.io/2017/01/13/MySQL-%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/</loc>
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>MySQL 安装及配置 MOOC笔记(一)</title>
+        <pubTime>2017-01-13T13:15:38.000Z</pubTime>
+        
+        <tag>Web</tag>
+         
+        <tag>Database</tag>
+         
+        <tag>MySQL</tag>
          
          
            
@@ -986,8 +1010,25 @@
              
               <breadCrumb title="Note" url="https://jeffchy.github.io/categories/Tech/Note/"/>
           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jeffchy.github.io/2016/12/10/Macro-Economics-Review/</loc>
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>Macro Economics Review</title>
+        <pubTime>2016-12-10T08:39:31.000Z</pubTime>
+        
+        <tag>Macro Economics</tag>
+         
+         
+           
              
-              <breadCrumb title="Code" url="https://jeffchy.github.io/categories/Tech/Note/Code/"/>
+              <breadCrumb title="Economics" url="https://jeffchy.github.io/categories/Economics/"/>
           
         </display>
     </data>
@@ -995,23 +1036,19 @@
 
     
   <url>
-    <loc>https://jeffchy.github.io/2017/02/04/LeetCode-2-Add-Two-Num/</loc>
+    <loc>https://jeffchy.github.io/2017/01/27/Machine-Learning-Note-%E4%B8%80/</loc>
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     <data>
         <display>
-        <title>LeetCode 2 Add Two Num</title>
-        <pubTime>2017-02-04T10:12:34.000Z</pubTime>
+        <title>Machine Learning Note(一)</title>
+        <pubTime>2017-01-27T08:04:09.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
-        <tag>LeetCode</tag>
-         
-        <tag>cpp</tag>
+        <tag>Machine Learning</tag>
          
          
            
              
-              <breadCrumb title="Code" url="https://jeffchy.github.io/categories/Code/"/>
+              <breadCrumb title="Note" url="https://jeffchy.github.io/categories/Note/"/>
           
         </display>
     </data>
@@ -1019,23 +1056,19 @@
 
     
   <url>
-    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-203-Remove-Linked-List-Element/</loc>
+    <loc>https://jeffchy.github.io/2017/02/04/Machine-Learning-Note-ii/</loc>
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     <data>
         <display>
-        <title>LeetCode #203 Remove Linked List Element</title>
-        <pubTime>2016-12-15T05:13:56.000Z</pubTime>
+        <title>Machine Learning Note (ii)</title>
+        <pubTime>2017-02-04T15:36:16.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
-        <tag>LeetCode</tag>
-         
-        <tag>cpp</tag>
+        <tag>Machine Learning</tag>
          
          
            
              
-              <breadCrumb title="Code" url="https://jeffchy.github.io/categories/Code/"/>
+              <breadCrumb title="Note" url="https://jeffchy.github.io/categories/Note/"/>
           
         </display>
     </data>
@@ -1043,23 +1076,17 @@
 
     
   <url>
-    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-1-Two-Sum/</loc>
+    <loc>https://jeffchy.github.io/2016/12/31/2016/</loc>
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     <data>
         <display>
-        <title>LeetCode #1 Two Sum</title>
-        <pubTime>2016-12-15T05:10:14.000Z</pubTime>
+        <title>2016</title>
+        <pubTime>2016-12-31T08:25:29.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
-        <tag>LeetCode</tag>
-         
-        <tag>cpp</tag>
-         
          
            
              
-              <breadCrumb title="Code" url="https://jeffchy.github.io/categories/Code/"/>
+              <breadCrumb title="Diary" url="https://jeffchy.github.io/categories/Diary/"/>
           
         </display>
     </data>
@@ -1091,134 +1118,36 @@
 
     
   <url>
-    <loc>https://jeffchy.github.io/2016/12/04/Hello-Cocos-%E7%89%A2%E9%AA%9A%E7%AF%87/</loc>
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>Hello Cocos-牢骚篇</title>
-        <pubTime>2016-12-04T07:48:30.000Z</pubTime>
-        
-        <tag>Web</tag>
-         
-        <tag>CocosCreator</tag>
-         
-        <tag>Js</tag>
-         
-        <tag>Game</tag>
-         
-         
-           
-             
-              <breadCrumb title="Diary" url="https://jeffchy.github.io/categories/Diary/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://jeffchy.github.io/2016/12/03/Hello-Cocos/</loc>
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>Hello Cocos (i)OverView</title>
-        <pubTime>2016-12-03T04:16:34.000Z</pubTime>
-        
-        <tag>Web</tag>
-         
-        <tag>CocosCreator</tag>
-         
-        <tag>Js</tag>
-         
-        <tag>Game</tag>
-         
-         
-           
-             
-              <breadCrumb title="Tech" url="https://jeffchy.github.io/categories/Tech/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://jeffchy.github.io/2016/12/03/Hello-Cocos-iii-%E9%87%8D%E8%A6%81%E6%93%8D%E4%BD%9C%E5%8F%8A%E4%B8%80%E4%BA%9B%E5%9D%91/</loc>
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>Hello Cocos (iii)重要操作及一些坑</title>
-        <pubTime>2016-12-03T07:17:30.000Z</pubTime>
-        
-        <tag>Web</tag>
-         
-        <tag>CocosCreator</tag>
-         
-        <tag>Js</tag>
-         
-        <tag>Game</tag>
-         
-         
-           
-             
-              <breadCrumb title="Tech" url="https://jeffchy.github.io/categories/Tech/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://jeffchy.github.io/2016/12/31/2016/</loc>
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>2016</title>
-        <pubTime>2016-12-31T08:25:29.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="Diary" url="https://jeffchy.github.io/categories/Diary/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://jeffchy.github.io/2016/12/03/Hello-Cocos-ii-Debugging-and-Structure/</loc>
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>Hello Cocos (ii)Debugging and Structure</title>
-        <pubTime>2016-12-03T06:09:06.000Z</pubTime>
-        
-        <tag>Web</tag>
-         
-        <tag>CocosCreator</tag>
-         
-        <tag>Js</tag>
-         
-        <tag>Game</tag>
-         
-         
-           
-             
-              <breadCrumb title="Tech" url="https://jeffchy.github.io/categories/Tech/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://jeffchy.github.io/2016/12/15/LeetCode-405-Convert-A-Number-to-Hexadecimal/</loc>
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     <data>
         <display>
         <title>LeetCode #405 Convert A Number to Hexadecimal</title>
         <pubTime>2016-12-15T05:16:11.000Z</pubTime>
+        
+        <tag>Algorithm</tag>
+         
+        <tag>LeetCode</tag>
+         
+        <tag>cpp</tag>
+         
+         
+           
+             
+              <breadCrumb title="Code" url="https://jeffchy.github.io/categories/Code/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-222-Count-Complete-Binary-Tree-Element/</loc>
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode #222 Count Complete Binary Tree Element</title>
+        <pubTime>2016-12-15T05:14:39.000Z</pubTime>
         
         <tag>Algorithm</tag>
          
@@ -1276,19 +1205,274 @@
 
     
   <url>
-    <loc>https://jeffchy.github.io/2016/12/10/Macro-Economics-Review/</loc>
+    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-203-Remove-Linked-List-Element/</loc>
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     <data>
         <display>
-        <title>Macro Economics Review</title>
-        <pubTime>2016-12-10T08:39:31.000Z</pubTime>
+        <title>LeetCode #203 Remove Linked List Element</title>
+        <pubTime>2016-12-15T05:13:56.000Z</pubTime>
         
-        <tag>Macro Economics</tag>
+        <tag>Algorithm</tag>
+         
+        <tag>LeetCode</tag>
+         
+        <tag>cpp</tag>
          
          
            
              
-              <breadCrumb title="Economics" url="https://jeffchy.github.io/categories/Economics/"/>
+              <breadCrumb title="Code" url="https://jeffchy.github.io/categories/Code/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jeffchy.github.io/2017/02/04/LeetCode-2-Add-Two-Num/</loc>
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode 2 Add Two Num</title>
+        <pubTime>2017-02-04T10:12:34.000Z</pubTime>
+        
+        <tag>Algorithm</tag>
+         
+        <tag>LeetCode</tag>
+         
+        <tag>cpp</tag>
+         
+         
+           
+             
+              <breadCrumb title="Code" url="https://jeffchy.github.io/categories/Code/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jeffchy.github.io/2017/01/15/python3-class/</loc>
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>python3 class</title>
+        <pubTime>2017-01-15T12:06:40.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+         
+           
+             
+              <breadCrumb title="Tech" url="https://jeffchy.github.io/categories/Tech/"/>
+          
+             
+              <breadCrumb title="Note" url="https://jeffchy.github.io/categories/Tech/Note/"/>
+          
+             
+              <breadCrumb title="Code" url="https://jeffchy.github.io/categories/Tech/Note/Code/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jeffchy.github.io/2017/01/15/python3-module-and-namespaces/</loc>
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>python3 Modules and Namespaces</title>
+        <pubTime>2017-01-15T08:34:54.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+         
+           
+             
+              <breadCrumb title="Tech" url="https://jeffchy.github.io/categories/Tech/"/>
+          
+             
+              <breadCrumb title="Note" url="https://jeffchy.github.io/categories/Tech/Note/"/>
+          
+             
+              <breadCrumb title="Code" url="https://jeffchy.github.io/categories/Tech/Note/Code/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-1-Two-Sum/</loc>
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode #1 Two Sum</title>
+        <pubTime>2016-12-15T05:10:14.000Z</pubTime>
+        
+        <tag>Algorithm</tag>
+         
+        <tag>LeetCode</tag>
+         
+        <tag>cpp</tag>
+         
+         
+           
+             
+              <breadCrumb title="Code" url="https://jeffchy.github.io/categories/Code/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jeffchy.github.io/2016/12/13/NKG-1937-12-13/</loc>
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>NKG 1937.12.13</title>
+        <pubTime>2016-12-13T01:41:01.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Diary" url="https://jeffchy.github.io/categories/Diary/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jeffchy.github.io/2016/12/03/Hello-Cocos/</loc>
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>Hello Cocos (i)OverView</title>
+        <pubTime>2016-12-03T04:16:34.000Z</pubTime>
+        
+        <tag>Web</tag>
+         
+        <tag>CocosCreator</tag>
+         
+        <tag>Js</tag>
+         
+        <tag>Game</tag>
+         
+         
+           
+             
+              <breadCrumb title="Tech" url="https://jeffchy.github.io/categories/Tech/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jeffchy.github.io/2016/12/04/Hello-Cocos-%E7%89%A2%E9%AA%9A%E7%AF%87/</loc>
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>Hello Cocos-牢骚篇</title>
+        <pubTime>2016-12-04T07:48:30.000Z</pubTime>
+        
+        <tag>Web</tag>
+         
+        <tag>CocosCreator</tag>
+         
+        <tag>Js</tag>
+         
+        <tag>Game</tag>
+         
+         
+           
+             
+              <breadCrumb title="Diary" url="https://jeffchy.github.io/categories/Diary/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jeffchy.github.io/2016/12/03/Hello-Cocos-iii-%E9%87%8D%E8%A6%81%E6%93%8D%E4%BD%9C%E5%8F%8A%E4%B8%80%E4%BA%9B%E5%9D%91/</loc>
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>Hello Cocos (iii)重要操作及一些坑</title>
+        <pubTime>2016-12-03T07:17:30.000Z</pubTime>
+        
+        <tag>Web</tag>
+         
+        <tag>CocosCreator</tag>
+         
+        <tag>Js</tag>
+         
+        <tag>Game</tag>
+         
+         
+           
+             
+              <breadCrumb title="Tech" url="https://jeffchy.github.io/categories/Tech/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jeffchy.github.io/2016/12/03/Hello-Cocos-ii-Debugging-and-Structure/</loc>
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>Hello Cocos (ii)Debugging and Structure</title>
+        <pubTime>2016-12-03T06:09:06.000Z</pubTime>
+        
+        <tag>Web</tag>
+         
+        <tag>CocosCreator</tag>
+         
+        <tag>Js</tag>
+         
+        <tag>Game</tag>
+         
+         
+           
+             
+              <breadCrumb title="Tech" url="https://jeffchy.github.io/categories/Tech/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jeffchy.github.io/2017/01/20/%E9%98%BF%E9%87%8C%E4%BA%91ECS-LNMP%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%8F%8A%E5%B7%A5%E5%85%B7%E6%95%B4%E7%90%86/</loc>
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>阿里云ECS LNMP环境搭建及工具整理</title>
+        <pubTime>2017-01-20T15:28:57.000Z</pubTime>
+        
+        <tag>Web</tag>
+         
+        <tag>Aliyun</tag>
+         
+        <tag>CentOS</tag>
+         
+        <tag>LNMP</tag>
+         
+         
+           
+             
+              <breadCrumb title="Tech" url="https://jeffchy.github.io/categories/Tech/"/>
+          
+             
+              <breadCrumb title="Note" url="https://jeffchy.github.io/categories/Tech/Note/"/>
           
         </display>
     </data>
@@ -1311,6 +1495,33 @@
            
              
               <breadCrumb title="Tech" url="https://jeffchy.github.io/categories/Tech/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://jeffchy.github.io/2017/01/26/Django-Project-Simple-Gallery/</loc>
+    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>Django Project: Simple Gallery(一)</title>
+        <pubTime>2017-01-26T12:42:36.000Z</pubTime>
+        
+        <tag>Web</tag>
+         
+        <tag>python</tag>
+         
+        <tag>Django</tag>
+         
+         
+           
+             
+              <breadCrumb title="Tech" url="https://jeffchy.github.io/categories/Tech/"/>
+          
+             
+              <breadCrumb title="Note" url="https://jeffchy.github.io/categories/Tech/Note/"/>
           
         </display>
     </data>
@@ -1345,82 +1556,12 @@
 
     
   <url>
-    <loc>https://jeffchy.github.io/2017/01/15/python3-module-and-namespaces/</loc>
+    <loc>https://jeffchy.github.io/2017/02/01/Django-Project-Simple-Gallery-%E4%B8%80/</loc>
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     <data>
         <display>
-        <title>python3 Modules and Namespaces</title>
-        <pubTime>2017-01-15T08:34:54.000Z</pubTime>
-        
-        <tag>python</tag>
-         
-         
-           
-             
-              <breadCrumb title="Tech" url="https://jeffchy.github.io/categories/Tech/"/>
-          
-             
-              <breadCrumb title="Note" url="https://jeffchy.github.io/categories/Tech/Note/"/>
-          
-             
-              <breadCrumb title="Code" url="https://jeffchy.github.io/categories/Tech/Note/Code/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://jeffchy.github.io/2016/12/10/%E7%AB%8B%E4%B8%AAFlag-%E6%88%91%E8%A6%81%E6%8A%8ALeetCode%E5%88%B7%E5%AE%8C/</loc>
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>立个Flag 我要把LeetCode刷完</title>
-        <pubTime>2016-12-10T11:57:14.000Z</pubTime>
-        
-        <tag>Flag</tag>
-         
-         
-           
-             
-              <breadCrumb title="Flag" url="https://jeffchy.github.io/categories/Flag/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://jeffchy.github.io/2016/12/15/LeetCode-222-Count-Complete-Binary-Tree-Element/</loc>
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>LeetCode #222 Count Complete Binary Tree Element</title>
-        <pubTime>2016-12-15T05:14:39.000Z</pubTime>
-        
-        <tag>Algorithm</tag>
-         
-        <tag>LeetCode</tag>
-         
-        <tag>cpp</tag>
-         
-         
-           
-             
-              <breadCrumb title="Code" url="https://jeffchy.github.io/categories/Code/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://jeffchy.github.io/2017/01/26/Django-Project-Simple-Gallery/</loc>
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>Django Project: Simple Gallery(一)</title>
-        <pubTime>2017-01-26T12:42:36.000Z</pubTime>
+        <title>Django Project: Simple Gallery(二)</title>
+        <pubTime>2017-02-01T13:01:08.000Z</pubTime>
         
         <tag>Web</tag>
          
@@ -1469,33 +1610,6 @@
 
     
   <url>
-    <loc>https://jeffchy.github.io/2017/02/01/Django-Project-Simple-Gallery-%E4%B8%80/</loc>
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>Django Project: Simple Gallery(二)</title>
-        <pubTime>2017-02-01T13:01:08.000Z</pubTime>
-        
-        <tag>Web</tag>
-         
-        <tag>python</tag>
-         
-        <tag>Django</tag>
-         
-         
-           
-             
-              <breadCrumb title="Tech" url="https://jeffchy.github.io/categories/Tech/"/>
-          
-             
-              <breadCrumb title="Note" url="https://jeffchy.github.io/categories/Tech/Note/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://jeffchy.github.io/2017/01/18/Django-Part-II/</loc>
     <lastmod>2017-08-30T08:47:36.000Z</lastmod>
     <data>
@@ -1508,35 +1622,6 @@
         <tag>python</tag>
          
         <tag>Django</tag>
-         
-         
-           
-             
-              <breadCrumb title="Tech" url="https://jeffchy.github.io/categories/Tech/"/>
-          
-             
-              <breadCrumb title="Note" url="https://jeffchy.github.io/categories/Tech/Note/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://jeffchy.github.io/2017/01/20/%E9%98%BF%E9%87%8C%E4%BA%91ECS-LNMP%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%8F%8A%E5%B7%A5%E5%85%B7%E6%95%B4%E7%90%86/</loc>
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>阿里云ECS LNMP环境搭建及工具整理</title>
-        <pubTime>2017-01-20T15:28:57.000Z</pubTime>
-        
-        <tag>Web</tag>
-         
-        <tag>Aliyun</tag>
-         
-        <tag>CentOS</tag>
-         
-        <tag>LNMP</tag>
          
          
            
@@ -1621,91 +1706,6 @@
            
              
               <breadCrumb title="Tech" url="https://jeffchy.github.io/categories/Tech/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://jeffchy.github.io/2017/01/27/Machine-Learning-Note-%E4%B8%80/</loc>
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>Machine Learning Note(一)</title>
-        <pubTime>2017-01-27T08:04:09.000Z</pubTime>
-        
-        <tag>Machine Learning</tag>
-         
-         
-           
-             
-              <breadCrumb title="Note" url="https://jeffchy.github.io/categories/Note/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://jeffchy.github.io/2017/02/04/Machine-Learning-Note-ii/</loc>
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>Machine Learning Note (ii)</title>
-        <pubTime>2017-02-04T15:36:16.000Z</pubTime>
-        
-        <tag>Machine Learning</tag>
-         
-         
-           
-             
-              <breadCrumb title="Note" url="https://jeffchy.github.io/categories/Note/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://jeffchy.github.io/2017/01/13/MySQL-%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/</loc>
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>MySQL 安装及配置 MOOC笔记(一)</title>
-        <pubTime>2017-01-13T13:15:38.000Z</pubTime>
-        
-        <tag>Web</tag>
-         
-        <tag>Database</tag>
-         
-        <tag>MySQL</tag>
-         
-         
-           
-             
-              <breadCrumb title="Tech" url="https://jeffchy.github.io/categories/Tech/"/>
-          
-             
-              <breadCrumb title="Note" url="https://jeffchy.github.io/categories/Tech/Note/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://jeffchy.github.io/2016/12/13/NKG-1937-12-13/</loc>
-    <lastmod>2017-08-30T08:47:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>NKG 1937.12.13</title>
-        <pubTime>2016-12-13T01:41:01.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="Diary" url="https://jeffchy.github.io/categories/Diary/"/>
           
         </display>
     </data>
