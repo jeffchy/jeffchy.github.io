@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://jeffchy.github.io/"/>
-  <updated>2018-11-13T06:53:08.299Z</updated>
+  <updated>2018-11-30T08:40:54.752Z</updated>
   <id>https://jeffchy.github.io/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Using Self-organizing map on 1-D data input</title>
+    <link href="https://jeffchy.github.io/2018/11/28/Using-Self-organiziing-map-on-1-D-data-input/"/>
+    <id>https://jeffchy.github.io/2018/11/28/Using-Self-organiziing-map-on-1-D-data-input/</id>
+    <published>2018-11-28T06:57:48.000Z</published>
+    <updated>2018-11-30T08:40:54.752Z</updated>
+    
+    <content type="html"><![CDATA[<p>自组织映射是一种有效的无监督学习的方法，<a href="https://en.wikipedia.org/wiki/Self-organizing_map，" target="_blank" rel="external">https://en.wikipedia.org/wiki/Self-organizing_map，</a> 利用竞争式得学习方法来将（通常是）高维数据映射到低维数据上，可以看成是一种dimension reduction，也可以具体用在聚类任务上。</p><p>举个例子，我们将有三个feature的数据$x^i = [x_1, x_2, x_3]$，训练出一个有着$k$个神经元的SOM，着每</p><p>个$Neuron_k$可以认为是数据的prototype。SOM的好处是他学出的表示能够保留数据的拓扑结构,(preserve the topology of original data),如图所示, SOM(grid)被慢慢拉近到贴合到数据的分布上。<img src="http://r.photo.store.qq.com/psb?/V13VpI7R48odcs/ShG2lMS2nEd2mA*UnY4ERgA9kmWIBPbSq.ZiS*aKOSA!/r/dPMAAAAAAAAA" alt="SOM"></p><p>具体的算法这里不多介绍了，推荐的资源：</p><p>[ZH] <a href="https://www.cnblogs.com/surfzjy/p/7944454.html" target="_blank" rel="external">https://www.cnblogs.com/surfzjy/p/7944454.html</a></p><p>[EN] <a href="https://en.wikipedia.org/wiki/Self-organizing_map" target="_blank" rel="external">https://en.wikipedia.org/wiki/Self-organizing_map</a></p><p>这里主要介绍一个小的例子：找出最具代表性的“数字”。</p><p>我们使用开源的Python Package: minisom <a href="https://github.com/JustGlowing/minisom" target="_blank" rel="external">https://github.com/JustGlowing/minisom</a> ， 首先安装这个package。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install minisom</div></pre></td></tr></table></figure><p>我们这里的输入时N个数字，我们希望能找到最具代表性的k个数字prototype。</p><p>我们的input是</p><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">data = [[ <span class="number">1</span>],</div><div class="line">        [ <span class="number">2</span>],</div><div class="line">        [ <span class="number">3</span>],</div><div class="line">        [ <span class="number">14</span>],</div><div class="line">        [ <span class="number">1114</span>],</div><div class="line">        [ <span class="number">3</span>],</div><div class="line">        [ <span class="number">33</span>],</div><div class="line">        [ <span class="number">0.77</span>],</div><div class="line">        [ <span class="number">0.07</span>],</div><div class="line">        [<span class="number">-1</span>],</div><div class="line">        [<span class="number">-1000000</span>]]</div></pre></td></tr></table></figure><p>由于minisom这个包讲所有的输入数据做了一次normalize，还是按照行做的，所以如果我们的数据是一维的话，我们所有的数据都会被normalize成1，所以我们不能直接使用原来minisom，我们需要将【所有】如下normalize的代码都注释掉。(和导师聊过，我们认为这里的normalize在我们这个问题上是不需要的<a href="https://stackoverflow.com/questions/13687256/is-it-right-to-normalize-data-and-or-weight-vectors-in-a-som)，我么可以直接copy源代码的minisom类，然后将所有normalize的行都注释掉：）" target="_blank" rel="external">https://stackoverflow.com/questions/13687256/is-it-right-to-normalize-data-and-or-weight-vectors-in-a-som)，我么可以直接copy源代码的minisom类，然后将所有normalize的行都注释掉：）</a></p><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">self._weights[i, j] = self._weights[i, j] / norm</div></pre></td></tr></table></figure><p>接下来我们就可以操作了,</p><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> som <span class="keyword">import</span> MiniSom <span class="keyword">as</span> SOM</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> sys</div></pre></td></tr></table></figure><p>我们构建我们的SOM，我们选择使用一维排布的神经元，5x1。这里其实二维的也是ok的，这个depends on我们输入数据的形式，对于这个问题，我们的数据都在数轴上，那么其实一维的神经元排布更加能反应原本的拓扑结构。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">som = SOM(<span class="number">5</span>, <span class="number">1</span>, <span class="number">1</span>, sigma=<span class="number">0.03</span>, learning_rate=<span class="number">0.3</span>) <span class="comment"># initialization of 6x6 SOM</span></div><div class="line">print(<span class="string">"Training..."</span>)</div><div class="line"><span class="comment"># som.random_weights_init(data)</span></div><div class="line">som.train_random(data, <span class="number">1000</span>) <span class="comment"># trains the SOM with 100 iterations</span></div><div class="line">print(<span class="string">"...ready!"</span>)</div></pre></td></tr></table></figure><p>然后很快我们就能得到我们SOM的结果了,我们的数据被分成了5个类别，大家看基本是按照量级区分开了，同时我们weights vector就是我们最具有代表性的几个数字！</p><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">42</span>]:</div><div class="line">som.win_map(data)</div><div class="line">Out[<span class="number">42</span>]:</div><div class="line">defaultdict(list,</div><div class="line">            &#123;(<span class="number">0</span>, <span class="number">0</span>): [[<span class="number">-1000000</span>]],</div><div class="line">             (<span class="number">1</span>, <span class="number">0</span>): [[<span class="number">1114</span>]],</div><div class="line">             (<span class="number">2</span>, <span class="number">0</span>): [[<span class="number">33</span>]],</div><div class="line">             (<span class="number">3</span>, <span class="number">0</span>): [[<span class="number">14</span>]],</div><div class="line">             (<span class="number">4</span>, <span class="number">0</span>): [[<span class="number">1</span>], [<span class="number">2</span>], [<span class="number">3</span>], [<span class="number">3</span>], [<span class="number">0.77</span>], [<span class="number">0.07</span>], [<span class="number">-1</span>]]&#125;)</div><div class="line">In [<span class="number">43</span>]:</div><div class="line">som.get_weights()</div><div class="line">Out[<span class="number">43</span>]:</div><div class="line">array([[[<span class="number">-9.99999897e+05</span>]],</div><div class="line"></div><div class="line">       [[ <span class="number">1.11399996e+03</span>]],</div><div class="line"></div><div class="line">       [[ <span class="number">3.29995908e+01</span>]],</div><div class="line"></div><div class="line">       [[ <span class="number">1.39999492e+01</span>]],</div><div class="line"></div><div class="line">       [[ <span class="number">1.22937802e+00</span>]]])</div></pre></td></tr></table></figure><p>对于更多的例子大家可以看minisom的example。</p><p>这次blog主要是想传达，</p><ol><li>我们不需要每次都normalize我们SOM的weights。</li><li>1D的数据作为SOM的输入也是make sense的。</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;自组织映射是一种有效的无监督学习的方法，&lt;a href=&quot;https://en.wikipedia.org/wiki/Self-organizing_map，&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://en.wikipedia.org/
+      
+    
+    </summary>
+    
+      <category term="NLP" scheme="https://jeffchy.github.io/categories/NLP/"/>
+    
+      <category term="ML" scheme="https://jeffchy.github.io/categories/NLP/ML/"/>
+    
+      <category term="Code" scheme="https://jeffchy.github.io/categories/NLP/ML/Code/"/>
+    
+    
+      <category term="Algorithm" scheme="https://jeffchy.github.io/tags/Algorithm/"/>
+    
+      <category term="Natual Language Processing" scheme="https://jeffchy.github.io/tags/Natual-Language-Processing/"/>
+    
+  </entry>
   
   <entry>
     <title>take-away tips from a Deep Learning Midterm Project</title>
@@ -560,29 +591,6 @@
       <category term="Diary" scheme="https://jeffchy.github.io/tags/Diary/"/>
     
       <category term="Note" scheme="https://jeffchy.github.io/tags/Note/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2018.7-2018.9</title>
-    <link href="https://jeffchy.github.io/2018/09/11/2018-7-2018-9/"/>
-    <id>https://jeffchy.github.io/2018/09/11/2018-7-2018-9/</id>
-    <published>2018-09-11T07:54:40.000Z</published>
-    <updated>2018-09-13T02:54:02.553Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="我的非典型暑假以及非典型保研"><a href="#我的非典型暑假以及非典型保研" class="headerlink" title="我的非典型暑假以及非典型保研"></a>我的非典型暑假以及非典型保研</h1><p>今天没有总结的心情,之后再补上好吧…</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;我的非典型暑假以及非典型保研&quot;&gt;&lt;a href=&quot;#我的非典型暑假以及非典型保研&quot; class=&quot;headerlink&quot; title=&quot;我的非典型暑假以及非典型保研&quot;&gt;&lt;/a&gt;我的非典型暑假以及非典型保研&lt;/h1&gt;&lt;p&gt;今天没有总结的心情,之后再补上好吧…&lt;/p&gt;
-      
-    
-    </summary>
-    
-    
-      <category term="Diary" scheme="https://jeffchy.github.io/tags/Diary/"/>
     
   </entry>
   
