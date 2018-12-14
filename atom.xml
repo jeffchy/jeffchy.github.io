@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://jeffchy.github.io/"/>
-  <updated>2018-12-14T15:15:04.697Z</updated>
+  <updated>2018-12-14T15:20:38.001Z</updated>
   <id>https://jeffchy.github.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://jeffchy.github.io/2018/12/14/On-the-Dimensionality-of-Word-Embedding-NeuralPS2018-%E7%AE%80%E8%A6%81note/"/>
     <id>https://jeffchy.github.io/2018/12/14/On-the-Dimensionality-of-Word-Embedding-NeuralPS2018-简要note/</id>
     <published>2018-12-14T12:23:41.000Z</published>
-    <updated>2018-12-14T15:15:04.697Z</updated>
+    <updated>2018-12-14T15:20:38.001Z</updated>
     
-    <content type="html"><![CDATA[<p>今天简单说一下关于word embedding的一篇论文的大意, <a href="https://arxiv.org/abs/1812.04224" target="_blank" rel="external">https://arxiv.org/abs/1812.04224</a> ,<br>‘On the Dimensionality of Word Embedding’,这是一篇被NeurIPS 2018接受的Oral Paper。文章说了一件核心的事情，通过引入”Pairwise Inner Product(PIP) loss”,我们如何去将word embedding的dimension的selection变成一个bias-variance trade-off的问题，使得我们能够更好地找到最好的dimension。</p><h1 id="Introduction-and-Background"><a href="#Introduction-and-Background" class="headerlink" title="Introduction and Background"></a>Introduction and Background</h1><h2 id="Word-Embedding"><a href="#Word-Embedding" class="headerlink" title="Word Embedding"></a>Word Embedding</h2><p>我们通常把Word Embedding的方法大致分为两种，一种是基于矩阵分解的方法(LSA)，一种是基于神经网络prediction的方法(google word2vec)<br>word embedding我不太想过多的介绍了，其中最有名的是今年google的word2vec,我相信大家都熟知。这里提一下基于矩阵分解的方法，比如利用SVD分解PMI矩阵。</p><script type="math/tex; mode=display">PIM_{i,j} = log{\frac{p(v_i, v_j)}{p(v_i)p(v_j)}}</script><p>let $PMI = U \Sigma V^T$ (SVD分解)，一个k维度的embedding被证明可以这样产生，</p><script type="math/tex; mode=display">E = U_{1:k} D^{\alpha}_{1:k,1:k},\ \ \  \alpha \in [0,1 ], \text{the power}</script><p>其中呢$p(v_i)$代表这个单词在Count(w, context)表中出现的总次数，如下图所示：<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-12-14/431911.jpg" alt=""><br>有名的glove和Word2vec,比如(Skipgram)方法也被证明过是隐式的matrix factorization.</p><p>这方面如果想要了解更多的内容我推荐</p><ul><li><a href="http://web.stanford.edu/~jurafsky/li15/lec3.vector.pdf" target="_blank" rel="external">http://web.stanford.edu/~jurafsky/li15/lec3.vector.pdf</a> [Stanford 2015 LSA 311 Dan Jurafsky lecture slices 3][EN]</li><li><a href="http://www.shuang0420.com/2017/03/21/NLP%20%E7%AC%94%E8%AE%B0%20-%20%E5%86%8D%E8%B0%88%E8%AF%8D%E5%90%91%E9%87%8F/" target="_blank" rel="external">http://www.shuang0420.com/2017/03/21/NLP%20%E7%AC%94%E8%AE%B0%20-%20%E5%86%8D%E8%B0%88%E8%AF%8D%E5%90%91%E9%87%8F/</a> [真的很棒的中文博客][ZH]</li><li>当然还要相关论文</li></ul><h2 id="Word-Embedding-is-unitary-invariance"><a href="#Word-Embedding-is-unitary-invariance" class="headerlink" title="Word Embedding is unitary invariance"></a>Word Embedding is unitary invariance</h2><p>Unitary Invariance的意思是，一个Word的embedding都乘上一个unitary matrix（比如旋转矩阵）得到了一个新的embedding空间，那么他门等于没有改变。（你学习到的embedding整个空间旋转一下他的相对位置以及包含的信息还是没有改变不是嘛）<br>Unitary Matrix的定义也很简单：<br>$UU^T=U^TU=I$</p><h1 id="PIP-loss"><a href="#PIP-loss" class="headerlink" title="PIP loss"></a>PIP loss</h1><p>我们想要evaluate我们learned embedding是不是已经足够好，必须要有一个loss function，而他的input应该是Embedding Matrices。所以作者提出了一个<strong>符合Word embedding Unitary Invariance Property</strong>的loss function，如图所示，function和PIP matrix非常简单：<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-12-14/49009649.jpg" alt=""><br>这个loss function表示了，两个Embedding空间中的向量们之间的相对位置信息的不同(relative position shifts),同时如果两个Embedding $E_2 = E_1 U$, $E_2 E_2^T = (E_1 U)(U^T E_1^T)=E_1 E_1^T$</p><h1 id="开始推导了"><a href="#开始推导了" class="headerlink" title="开始推导了"></a>开始推导了</h1><p>首先一个lemma吗，后面要用<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-12-14/69956709.jpg" alt=""><br>然后对于$\alpha=0$的special case，同时我们假设我们的有一个Oracle embedding （global 语言信息得到一个合理的sigmal matrix [e.g. PMI]）然后根据SVD计算出来的Embedding Matrix, 和一个trained的embedding (根据training set统计出来的Signal Matrix计算出来的Embedding)，同时这两个embedding所有的column是orthonormal的，（内积等于1），我们能能将他们的loss写成bias variance trade off的形式<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-12-14/4476990.jpg" alt=""><br>其中的$d-k$代表了近似产生的信息的丢失，会随着$k$的增大而变小，(bias)最后面一项会随着$k$的增加而变大，因为“the noise perturbs the subspace spanned by E”（Matrix Perturbation Theory）(variance)</p><h2 id="更加general的版本："><a href="#更加general的版本：" class="headerlink" title="更加general的版本："></a>更加general的版本：</h2><p><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-12-14/3495160.jpg" alt=""></p><h1 id="如何选择dimension"><a href="#如何选择dimension" class="headerlink" title="如何选择dimension"></a>如何选择dimension</h1><p>作者用蒙特卡洛方法生成模拟signal matrix M以及noise matrix $\hat{M} = M + Z$,具体的方法是：其实我还是不太明白具体的方法….<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-12-14/63678809.jpg" alt=""></p><h1 id="一些实验结果"><a href="#一些实验结果" class="headerlink" title="一些实验结果"></a>一些实验结果</h1><p><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-12-14/30624435.jpg" alt=""></p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这篇文章感觉还是很牛逼的。。。毕竟是NeurIPS的oral，基本上就是，作者用了个合理的loss建模了什么事好的word embedding，同时在合理的设定下这个loss写成了bias-variance trade off 的形式，同时bias/variance项也很intuitively make sense.这可以说给了一个很不错的理论框架。作者还通过蒙特卡洛方法去估计了不同的方法的最优embedding dimension，是很有意义的工作。</p>]]></content>
+    <content type="html"><![CDATA[<p>今天简单说一下关于word embedding的一篇论文的大意, <a href="https://arxiv.org/abs/1812.04224" target="_blank" rel="external">https://arxiv.org/abs/1812.04224</a> ,<br>‘On the Dimensionality of Word Embedding’,这是一篇被NeurIPS 2018接受的Oral Paper。文章说了一件核心的事情，通过引入”Pairwise Inner Product(PIP) loss”,我们如何去将word embedding的dimension的selection变成一个bias-variance trade-off的问题，使得我们能够更好地找到最好的dimension。</p><h1 id="Introduction-and-Background"><a href="#Introduction-and-Background" class="headerlink" title="Introduction and Background"></a>Introduction and Background</h1><h2 id="Word-Embedding"><a href="#Word-Embedding" class="headerlink" title="Word Embedding"></a>Word Embedding</h2><p>我们通常把Word Embedding的方法大致分为两种，一种是基于矩阵分解的方法(LSA)，一种是基于神经网络prediction的方法(google word2vec)<br>word embedding我不太想过多的介绍了，其中最有名的是2013年google的word2vec,我相信大家都熟知。这里提一下基于矩阵分解的方法，比如利用SVD分解PMI矩阵。</p><script type="math/tex; mode=display">PIM_{i,j} = log{\frac{p(v_i, v_j)}{p(v_i)p(v_j)}}</script><p>let $PMI = U \Sigma V^T$ (SVD分解)，一个k维度的embedding被证明可以这样产生，</p><script type="math/tex; mode=display">E = U_{1:k} D^{\alpha}_{1:k,1:k},\ \ \  \alpha \in [0,1 ], \text{the power}</script><p>其中$p(v_i)$代表这个单词在Count(w, context)表中出现的总次数，如下图所示：<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-12-14/431911.jpg" alt=""><br>有名的glove和Word2vec,比如(Skipgram)方法也被证明过是隐式的matrix factorization.</p><p>这方面如果想要了解更多的内容我推荐</p><ul><li><a href="http://web.stanford.edu/~jurafsky/li15/lec3.vector.pdf" target="_blank" rel="external">http://web.stanford.edu/~jurafsky/li15/lec3.vector.pdf</a> [Stanford 2015 LSA 311 Dan Jurafsky lecture slices 3][EN]</li><li><a href="http://www.shuang0420.com/2017/03/21/NLP%20%E7%AC%94%E8%AE%B0%20-%20%E5%86%8D%E8%B0%88%E8%AF%8D%E5%90%91%E9%87%8F/" target="_blank" rel="external">http://www.shuang0420.com/2017/03/21/NLP%20%E7%AC%94%E8%AE%B0%20-%20%E5%86%8D%E8%B0%88%E8%AF%8D%E5%90%91%E9%87%8F/</a> [真的很棒的中文博客][ZH]</li><li>当然还要相关论文</li></ul><h2 id="Word-Embedding-is-unitary-invariance"><a href="#Word-Embedding-is-unitary-invariance" class="headerlink" title="Word Embedding is unitary invariance"></a>Word Embedding is unitary invariance</h2><p>Unitary Invariance的意思是，一个Word的embedding都乘上一个unitary matrix（比如旋转矩阵）得到了一个新的embedding空间，那么他等于没有改变。（你学习到的embedding整个空间旋转一下他的相对位置以及包含的信息还是一样的不是嘛）<br>Unitary Matrix的定义也很简单：<br>$UU^T=U^TU=I$</p><h1 id="PIP-loss"><a href="#PIP-loss" class="headerlink" title="PIP loss"></a>PIP loss</h1><p>我们想要evaluate我们learned embedding是不是已经足够好，必须要有一个loss function，而他的input应该是一个trained的Embedding Matrix和一个’gold’ Embedding Matrix。所以作者提出了一个<strong>符合Word embedding Unitary Invariance Property</strong>的loss function，如图所示，function和PIP matrix非常简单：<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-12-14/49009649.jpg" alt=""><br>这个loss function表示了，两个Embedding空间中的向量们之间的相对位置信息的不同(relative position shifts),同时如果两个Embedding $E_2 = E_1 U$, $E_2 E_2^T = (E_1 U)(U^T E_1^T)=E_1 E_1^T$</p><h1 id="开始推导了"><a href="#开始推导了" class="headerlink" title="开始推导了"></a>开始推导了</h1><p>首先一个lemma吗，后面要用<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-12-14/69956709.jpg" alt=""><br>然后对于$\alpha=0$的special case，同时我们假设我们的有一个Oracle embedding （global 语言信息得到一个合理的sigmal matrix [e.g. PMI]）然后根据SVD计算出来的Embedding Matrix, 和一个trained的embedding (根据training set统计出来的Signal Matrix计算出来的Embedding)，同时这两个embedding所有的column是orthonormal的，（内积等于1），我们能能将他们的loss写成bias variance trade off的形式<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-12-14/4476990.jpg" alt=""><br>其中的$d-k$代表了近似产生的信息的丢失，会随着$k$的增大而变小，(bias)最后面一项会随着$k$的增加而变大，因为“the noise perturbs the subspace spanned by E”（Matrix Perturbation Theory）(variance)</p><h2 id="更加general的版本："><a href="#更加general的版本：" class="headerlink" title="更加general的版本："></a>更加general的版本：</h2><p><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-12-14/3495160.jpg" alt=""></p><h1 id="如何选择dimension"><a href="#如何选择dimension" class="headerlink" title="如何选择dimension"></a>如何选择dimension</h1><p>作者用蒙特卡洛方法生成模拟signal matrix M以及noise matrix $\hat{M} = M + Z$,具体的方法是：其实我还是不太明白具体的方法….<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-12-14/63678809.jpg" alt=""></p><h1 id="一些实验结果"><a href="#一些实验结果" class="headerlink" title="一些实验结果"></a>一些实验结果</h1><p><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-12-14/30624435.jpg" alt=""></p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这篇文章感觉还是很牛逼的。。。毕竟是NeurIPS的oral，基本上就是，作者用了个合理的loss建模了什么是好的word embedding，同时在合理的设定下这个loss写成了bias-variance trade off 的形式，它表示出来的bias/variance项也intuitively make sense.这可以说给了一个很不错的理论框架。作者还通过蒙特卡洛方法去估计了不同的方法的最优embedding dimension，总的来说是特别有意义的工作。</p>]]></content>
     
     <summary type="html">
     
@@ -101,9 +101,9 @@
       <category term="Note" scheme="https://jeffchy.github.io/categories/Note/"/>
     
     
-      <category term="Machine Learning" scheme="https://jeffchy.github.io/tags/Machine-Learning/"/>
-    
       <category term="Deep Learning" scheme="https://jeffchy.github.io/tags/Deep-Learning/"/>
+    
+      <category term="Machine Learning" scheme="https://jeffchy.github.io/tags/Machine-Learning/"/>
     
   </entry>
   
@@ -465,11 +465,11 @@
     
       <category term="Natural Language Processing" scheme="https://jeffchy.github.io/tags/Natural-Language-Processing/"/>
     
+      <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
+    
       <category term="Probability Theory" scheme="https://jeffchy.github.io/tags/Probability-Theory/"/>
     
       <category term="Embedding" scheme="https://jeffchy.github.io/tags/Embedding/"/>
-    
-      <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
     
   </entry>
   
@@ -498,9 +498,9 @@
     
       <category term="Natural Language Processing" scheme="https://jeffchy.github.io/tags/Natural-Language-Processing/"/>
     
-      <category term="Probability Theory" scheme="https://jeffchy.github.io/tags/Probability-Theory/"/>
-    
       <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
+    
+      <category term="Probability Theory" scheme="https://jeffchy.github.io/tags/Probability-Theory/"/>
     
       <category term="Music Generation" scheme="https://jeffchy.github.io/tags/Music-Generation/"/>
     
@@ -548,9 +548,9 @@
     </summary>
     
     
-      <category term="Note" scheme="https://jeffchy.github.io/tags/Note/"/>
-    
       <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
+    
+      <category term="Note" scheme="https://jeffchy.github.io/tags/Note/"/>
     
   </entry>
   
