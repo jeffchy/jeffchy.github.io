@@ -81,7 +81,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Algorithm,Machine Learning," />
+  <meta name="keywords" content="Natural Language Processing,Paper," />
 
 
 
@@ -99,28 +99,21 @@
 
 
 
-<meta name="description" content="今天我们来学习一下Self organizing map,自组织映射.本文主要先参考Youtube的一些tutorialhttps://www.youtube.com/watch?v=H9H6s-x-0YE [How SOM Works]https://www.youtube.com/watch?v=_Euwc9fWBJw [How SOM Learn] SOM的输入输出如图所示:  Input">
-<meta name="keywords" content="Algorithm,Machine Learning">
+<meta name="description" content="说一下 NeurlPS 2018的第二篇Embedding相关文章。Frequency-Agnostic Word Representation https://arxiv.org/abs/1809.06858 首先作者发现了现有的word embedding的一个现象。不常见的词（low-frequency word)和常见的词(high-frequency word)通常聚集在embeddin">
+<meta name="keywords" content="Natural Language Processing,Paper">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Self Organizing Map">
-<meta property="og:url" content="https://jeffchy.github.io/2018/10/17/Self-Orgnizing-Map/index.html">
+<meta property="og:title" content="NeurlPS 2018 Word Embedding (II), FRAGE: frequency-agnostic word representation">
+<meta property="og:url" content="https://jeffchy.github.io/2019/01/17/NeurlPS-2018-Word-Embedding-II-FRAGE-frequency-agnostic-word-representation/index.html">
 <meta property="og:site_name" content="Jeff-Chiang">
-<meta property="og:description" content="今天我们来学习一下Self organizing map,自组织映射.本文主要先参考Youtube的一些tutorialhttps://www.youtube.com/watch?v=H9H6s-x-0YE [How SOM Works]https://www.youtube.com/watch?v=_Euwc9fWBJw [How SOM Learn] SOM的输入输出如图所示:  Input">
+<meta property="og:description" content="说一下 NeurlPS 2018的第二篇Embedding相关文章。Frequency-Agnostic Word Representation https://arxiv.org/abs/1809.06858 首先作者发现了现有的word embedding的一个现象。不常见的词（low-frequency word)和常见的词(high-frequency word)通常聚集在embeddin">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-17/3748111.jpg">
-<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-17/81541287.jpg">
-<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-17/7001971.jpg">
-<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-17/27314565.jpg">
-<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-17/23398176.jpg">
-<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-17/91384068.jpg">
-<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-17/40857344.jpg">
-<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-17/29158314.jpg">
-<meta property="og:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-17/73266070.jpg">
-<meta property="og:updated_time" content="2018-10-17T06:44:07.395Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/17/kpfgjH.md.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/17/kpfLuj.md.png">
+<meta property="og:updated_time" content="2019-01-17T13:53:29.672Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Self Organizing Map">
-<meta name="twitter:description" content="今天我们来学习一下Self organizing map,自组织映射.本文主要先参考Youtube的一些tutorialhttps://www.youtube.com/watch?v=H9H6s-x-0YE [How SOM Works]https://www.youtube.com/watch?v=_Euwc9fWBJw [How SOM Learn] SOM的输入输出如图所示:  Input">
-<meta name="twitter:image" content="http://oj4pv4f25.bkt.clouddn.com/18-10-17/3748111.jpg">
+<meta name="twitter:title" content="NeurlPS 2018 Word Embedding (II), FRAGE: frequency-agnostic word representation">
+<meta name="twitter:description" content="说一下 NeurlPS 2018的第二篇Embedding相关文章。Frequency-Agnostic Word Representation https://arxiv.org/abs/1809.06858 首先作者发现了现有的word embedding的一个现象。不常见的词（low-frequency word)和常见的词(high-frequency word)通常聚集在embeddin">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/01/17/kpfgjH.md.png">
 
 
 
@@ -150,13 +143,13 @@
 
 
 
-  <link rel="canonical" href="https://jeffchy.github.io/2018/10/17/Self-Orgnizing-Map/"/>
+  <link rel="canonical" href="https://jeffchy.github.io/2019/01/17/NeurlPS-2018-Word-Embedding-II-FRAGE-frequency-agnostic-word-representation/"/>
 
 
 
 
 
-  <title>Self Organizing Map | Jeff-Chiang</title>
+  <title>NeurlPS 2018 Word Embedding (II), FRAGE: frequency-agnostic word representation | Jeff-Chiang</title>
   
 
 
@@ -312,7 +305,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2018/10/17/Self-Orgnizing-Map/">
+    <link itemprop="mainEntityOfPage" href="https://jeffchy.github.io/2019/01/17/NeurlPS-2018-Word-Embedding-II-FRAGE-frequency-agnostic-word-representation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeff Chiang">
@@ -329,7 +322,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Self Organizing Map</h1>
+          <h1 class="post-title" itemprop="name headline">NeurlPS 2018 Word Embedding (II), FRAGE: frequency-agnostic word representation</h1>
         
 
         <div class="post-meta">
@@ -341,8 +334,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-17T13:22:27+08:00">
-                2018-10-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T21:35:38+08:00">
+                2019-01-17
               </time>
             
 
@@ -364,8 +357,19 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Note/" itemprop="url" rel="index">
-                    <span itemprop="name">Note</span>
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
                   </a>
                 </span>
 
@@ -382,9 +386,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/17/Self-Orgnizing-Map/#comments" itemprop="discussionUrl">
+                <a href="/2019/01/17/NeurlPS-2018-Word-Embedding-II-FRAGE-frequency-agnostic-word-representation/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/10/17/Self-Orgnizing-Map/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2019/01/17/NeurlPS-2018-Word-Embedding-II-FRAGE-frequency-agnostic-word-representation/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -412,33 +416,10 @@
       
 
       
-        <p>今天我们来学习一下Self organizing map,自组织映射.本文主要先参考Youtube的一些tutorial<br><a href="https://www.youtube.com/watch?v=H9H6s-x-0YE" target="_blank" rel="external">https://www.youtube.com/watch?v=H9H6s-x-0YE</a> [How SOM Works]<br><a href="https://www.youtube.com/watch?v=_Euwc9fWBJw" target="_blank" rel="external">https://www.youtube.com/watch?v=_Euwc9fWBJw</a> [How SOM Learn]</p>
-<h1 id="SOM的输入输出"><a href="#SOM的输入输出" class="headerlink" title="SOM的输入输出"></a>SOM的输入输出</h1><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-17/3748111.jpg" alt=""><br>如图所示:</p>
-<ul>
-<li>Input<ul>
-<li>$X=x_1 \cdots x_n$,每个$x_i$是一个feature的向量,每个entry可以理解成是一个attribute</li>
-<li>Neural的数目</li>
-<li>Epoch</li>
-<li>Learning Rate</li>
-<li>因为是无监督的一种人工神经网络所以我们不需要labelY</li>
-</ul>
-</li>
-<li>Output<ul>
-<li>每个$x$的类别 </li>
-</ul>
-</li>
-</ul>
-<h1 id="SOM-如何学习"><a href="#SOM-如何学习" class="headerlink" title="SOM 如何学习"></a>SOM 如何学习</h1><h2 id="传统的人工神经网络"><a href="#传统的人工神经网络" class="headerlink" title="传统的人工神经网络"></a>传统的人工神经网络</h2><p>如下图,假设输入X有三个column(feature),传统的ANN的weights是乘上x的某个feature,然后最后加起来<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-17/81541287.jpg" alt=""><br>也就是$\sum_i w_ix_i$</p>
-<h2 id="SOM有很大的区别"><a href="#SOM有很大的区别" class="headerlink" title="SOM有很大的区别"></a>SOM有很大的区别</h2><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-17/7001971.jpg" alt=""><br>SOM的weights不是乘上feature用的了,而变成了Node本身的attributes.可以理解为,一个Ghost Data Point!或者说想象出的datapoint.</p>
-<h2 id="Ghosts-Node-Neurons-与每个具体的datapoint的欧式距离评估并且互相竞争"><a href="#Ghosts-Node-Neurons-与每个具体的datapoint的欧式距离评估并且互相竞争" class="headerlink" title="Ghosts Node (Neurons)与每个具体的datapoint的欧式距离评估并且互相竞争"></a>Ghosts Node (Neurons)与每个具体的datapoint的欧式距离评估并且互相竞争</h2><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-17/27314565.jpg" alt=""><br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-17/23398176.jpg" alt=""><br>距离最小的neuron我们将它称为BMU(best matching unit)</p>
-<ul>
-<li>首先对每个neuron initialize feature</li>
-<li>给定某个input $x_i$,$X$的某一行(列为feature),我们找出那个BMU</li>
-<li>然后我们更新这个BMU<strong>以及它附近的neuron</strong>的权值.使得这一部分点更贴近这个数据</li>
-<li><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-17/91384068.jpg" alt="图from wikipedia"></li>
-</ul>
-<h2 id="如果有多个BMU-挨个儿drag"><a href="#如果有多个BMU-挨个儿drag" class="headerlink" title="如果有多个BMU,挨个儿drag"></a>如果有多个BMU,挨个儿drag</h2><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-17/40857344.jpg" alt=""><br>每次radius的大小会越来越小.最后会变成这样<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-17/29158314.jpg" alt=""></p>
-<p><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-17/73266070.jpg" alt=""></p>
+        <p>说一下 NeurlPS 2018的第二篇Embedding相关文章。<br>Frequency-Agnostic Word Representation <a href="https://arxiv.org/abs/1809.06858" target="_blank" rel="external">https://arxiv.org/abs/1809.06858</a></p>
+<p>首先作者发现了现有的word embedding的一个现象。不常见的词（low-frequency word)和常见的词(high-frequency word)通常聚集在embedding空间的不同区域，如图：<br><a href="https://imgchr.com/i/kpfgjH" target="_blank" rel="external"><img src="https://s2.ax1x.com/2019/01/17/kpfgjH.md.png" alt="kpfgjH.md.png"></a><br>这回导致比如peking这种少见词和beijing这种词的意义不接近。</p>
+<p>作者提出的方法有趣也简单，利用adversarial training，在训练task-specific word embedding的时候，额外训练一个Discriminator判别器，根据词的向量去做一个二元的分类，判断到底是low/high-frequency word。同时word embedding的训练过程也增加了一个目的（task-dependent loss），就是去fool这个discriminator，让他没办法判别正确这个embedding是否稀少。</p>
+<p>一个例子，设定实在language model下<br><a href="https://imgchr.com/i/kpfLuj" target="_blank" rel="external"><img src="https://s2.ax1x.com/2019/01/17/kpfLuj.md.png" alt="kpfLuj.md.png"></a></p>
 
       
     </div>
@@ -456,9 +437,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+            <a href="/tags/Natural-Language-Processing/" rel="tag"># Natural Language Processing</a>
           
-            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+            <a href="/tags/Paper/" rel="tag"># Paper</a>
           
         </div>
       
@@ -471,8 +452,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/16/论文解读-ACL18-Evaluating-and-Improving-their-Ability-to-Predict-Numbers/" rel="next" title="如何更好地建模数字:ACL18 Evaluating and Improving their Ability to Predict Numbers">
-                <i class="fa fa-chevron-left"></i> 如何更好地建模数字:ACL18 Evaluating and Improving their Ability to Predict Numbers
+              <a href="/2019/01/07/Python-Loading-Large-Dataset/" rel="next" title="Python Loading Large Dataset">
+                <i class="fa fa-chevron-left"></i> Python Loading Large Dataset
               </a>
             
           </div>
@@ -480,10 +461,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/17/2018-10-17组会takeaway/" rel="prev" title="2018-10-17组会takeaway">
-                2018-10-17组会takeaway <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -548,17 +525,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -664,22 +632,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SOM的输入输出"><span class="nav-number">1.</span> <span class="nav-text">SOM的输入输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SOM-如何学习"><span class="nav-number">2.</span> <span class="nav-text">SOM 如何学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#传统的人工神经网络"><span class="nav-number">2.1.</span> <span class="nav-text">传统的人工神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SOM有很大的区别"><span class="nav-number">2.2.</span> <span class="nav-text">SOM有很大的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ghosts-Node-Neurons-与每个具体的datapoint的欧式距离评估并且互相竞争"><span class="nav-number">2.3.</span> <span class="nav-text">Ghosts Node (Neurons)与每个具体的datapoint的欧式距离评估并且互相竞争</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果有多个BMU-挨个儿drag"><span class="nav-number">2.4.</span> <span class="nav-text">如果有多个BMU,挨个儿drag</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -824,9 +776,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://jeffchy.github.io/2018/10/17/Self-Orgnizing-Map/';
-          this.page.identifier = '2018/10/17/Self-Orgnizing-Map/';
-          this.page.title = 'Self Organizing Map';
+          this.page.url = 'https://jeffchy.github.io/2019/01/17/NeurlPS-2018-Word-Embedding-II-FRAGE-frequency-agnostic-word-representation/';
+          this.page.identifier = '2019/01/17/NeurlPS-2018-Word-Embedding-II-FRAGE-frequency-agnostic-word-representation/';
+          this.page.title = 'NeurlPS 2018 Word Embedding (II), FRAGE: frequency-agnostic word representation';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://https-jeffchy-github-io.disqus.com/embed.js';

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://jeffchy.github.io/"/>
-  <updated>2019-01-07T12:45:49.984Z</updated>
+  <updated>2019-01-17T13:53:29.672Z</updated>
   <id>https://jeffchy.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>NeurlPS 2018 Word Embedding (II), FRAGE: frequency-agnostic word representation</title>
+    <link href="https://jeffchy.github.io/2019/01/17/NeurlPS-2018-Word-Embedding-II-FRAGE-frequency-agnostic-word-representation/"/>
+    <id>https://jeffchy.github.io/2019/01/17/NeurlPS-2018-Word-Embedding-II-FRAGE-frequency-agnostic-word-representation/</id>
+    <published>2019-01-17T13:35:38.000Z</published>
+    <updated>2019-01-17T13:53:29.672Z</updated>
+    
+    <content type="html"><![CDATA[<p>说一下 NeurlPS 2018的第二篇Embedding相关文章。<br>Frequency-Agnostic Word Representation <a href="https://arxiv.org/abs/1809.06858" target="_blank" rel="external">https://arxiv.org/abs/1809.06858</a></p><p>首先作者发现了现有的word embedding的一个现象。不常见的词（low-frequency word)和常见的词(high-frequency word)通常聚集在embedding空间的不同区域，如图：<br><a href="https://imgchr.com/i/kpfgjH" target="_blank" rel="external"><img src="https://s2.ax1x.com/2019/01/17/kpfgjH.md.png" alt="kpfgjH.md.png"></a><br>这回导致比如peking这种少见词和beijing这种词的意义不接近。</p><p>作者提出的方法有趣也简单，利用adversarial training，在训练task-specific word embedding的时候，额外训练一个Discriminator判别器，根据词的向量去做一个二元的分类，判断到底是low/high-frequency word。同时word embedding的训练过程也增加了一个目的（task-dependent loss），就是去fool这个discriminator，让他没办法判别正确这个embedding是否稀少。</p><p>一个例子，设定实在language model下<br><a href="https://imgchr.com/i/kpfLuj" target="_blank" rel="external"><img src="https://s2.ax1x.com/2019/01/17/kpfLuj.md.png" alt="kpfLuj.md.png"></a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;说一下 NeurlPS 2018的第二篇Embedding相关文章。&lt;br&gt;Frequency-Agnostic Word Representation &lt;a href=&quot;https://arxiv.org/abs/1809.06858&quot; target=&quot;_blank&quot; r
+      
+    
+    </summary>
+    
+      <category term="NLP" scheme="https://jeffchy.github.io/categories/NLP/"/>
+    
+      <category term="Paper" scheme="https://jeffchy.github.io/categories/NLP/Paper/"/>
+    
+    
+      <category term="Natural Language Processing" scheme="https://jeffchy.github.io/tags/Natural-Language-Processing/"/>
+    
+      <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
+    
+  </entry>
   
   <entry>
     <title>Python Loading Large Dataset</title>
@@ -171,7 +200,7 @@
     <link href="https://jeffchy.github.io/2018/10/26/Marrying-Up-Regular-Expression-with-Neural-Network/"/>
     <id>https://jeffchy.github.io/2018/10/26/Marrying-Up-Regular-Expression-with-Neural-Network/</id>
     <published>2018-10-26T09:15:27.000Z</published>
-    <updated>2018-10-27T12:20:25.484Z</updated>
+    <updated>2019-01-17T13:36:22.296Z</updated>
     
     <content type="html"><![CDATA[<p>这是一个简洁的论文笔记,关于这篇文章:发表于ACL18<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-26/47023549.jpg" alt=""></p><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>作者探讨了如何用正则表达式,提神神经网络模型的效果.</p><h1 id="tasks-Speaking-Language-Understanding"><a href="#tasks-Speaking-Language-Understanding" class="headerlink" title="tasks Speaking Language Understanding"></a>tasks Speaking Language Understanding</h1><p><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-26/72024242.jpg" alt=""></p><ul><li>一种是意图识别, intent classification, 其实就是一种text classification</li><li>还有一种是插槽, 其实就是一种sequence labeling任务</li></ul><h1 id="Base-Model"><a href="#Base-Model" class="headerlink" title="Base Model"></a>Base Model</h1><h2 id="Intent-classification"><a href="#Intent-classification" class="headerlink" title="Intent classification"></a>Intent classification</h2><p>作者使用BiLSTM+self-attention得到句子表示去当baseline.<br>self attention就是query和每个key进行相似度计算得到attention权重，然后用对应的hidden state然后接一个softmax去预测label.$W$是一个权重矩阵,$c$是一个可以训练的信息向量,用于分类的信息词,我的理解就是Q=c, K,V都等于hidden state, W是一个weight matrix<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-26/16459427.jpg" alt=""></p><h2 id="sequence-labeling"><a href="#sequence-labeling" class="headerlink" title="sequence labeling"></a>sequence labeling</h2><p>作者直接使用BiLSTM过一遍整个句子.</p><h1 id="如何apply-RE-我们主要拿intent-classification举例子"><a href="#如何apply-RE-我们主要拿intent-classification举例子" class="headerlink" title="如何apply RE 我们主要拿intent classification举例子"></a>如何apply RE 我们主要拿intent classification举例子</h1><p>对于Intent classification的任务:<br>举个具体例子,一句话</p><h2 id="Input-level-toy-example"><a href="#Input-level-toy-example" class="headerlink" title="Input level toy example"></a>Input level toy example</h2><p>比如数据中的label有: flights, airline<br>我们对这两个label分别设立他们的正则表达式,意思是,如果一个句子满足这个正则表达式,我们就认为这个句子应该属于这个label.<br>airline: RE: /list(the)?__AIRLINE/<br>flights: RE: /list(\w+){0,3} flights?/</p><p>现在我们碰到了一个句子:</p><blockquote><p>sentence: list the Delta airlines flights to Miami<br>label: flights</p></blockquote><p>我们会先对上面两个airline, flights的RE跑一下,我们发现都匹配了!<br>所以我们给他们打上了airline, flights两个REtags,我们对所有的REtags有一个可以训练的embedding,所以我们把两个tag做一下平均,得到一个aggregate embedding,就是我们symbolic rules产生的额外信息,于是我们可以把这个向量加入到它最后的soft Max表示那里,做预测.<br>如图中的(1)<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-26/18645714.jpg" alt=""><br>作者之前还试过我们直接把这个embedding和每个词的embedding结合起来,结果发现,这些tag会重复很多次,所以最终performance不好.</p><h2 id="NN-module-Network-level"><a href="#NN-module-Network-level" class="headerlink" title="NN module Network level"></a>NN module Network level</h2><p>在神经网络的层面,我们可以利用我们得到的tags来指导attention.<br>attention的式子如图所示<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-27/48204053.jpg" alt=""><br>这里面$h_i$就是BiLSTM对每个word的隐藏层.alpha是每个位置的attention weights, c是一个可以训练的,用于分类的信息词.<br>self attention就是query和每个key进行相似度计算得到attention权重，然后用对应的hidden state然后接一个softmax去预测label.W是一个权重矩阵,c是一个可以训练的信息向量,用于分类的信息词,我的理解就是Q=c, K,V都等于hidden state, W是一个weight matrix</p><p><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-27/61121072.jpg" alt=""><br>直觉上来说,我们对一个句子针对flights这个label的规则成功匹配了flights from这个表达式,那么也就意味着(flights from)这两个词应该对最终的模型预测结果有更多的贡献, 为了区别不同的intents, 我们给每个intent label k一个不同的attention, 于是我们可以得到k个s矩阵,</p><ul><li>然后我们可以分别计算每个s的一个分数,组成logits,然后用一个softmax分类器去得到不同的intent label的概率,这个叫做aggregate attention<br>(我的理解是原先softmax是把s矩阵的维度映射成k维,现在相当于有k个s矩阵,然后都有一个向量w映射成一维度的,最后组成k维)</li><li>然后我们加上一个attention loss去指导这个attention,其中$t_{ki}$为0,如果没有matching的RE,等于$\frac{1}{l_k}$如果matching word的长度是lk.</li><li>我们会发现,然后我们利用这个loss去指导attention weights和推理出的matching word保持某一种一致性(我的理解是,越大的attention weights, 这个式子就会越接近0,其实我觉得应该有个负号)<br>然后我们把这个loss和之前的classification loss加起来就行了<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-27/22919727.jpg" alt=""><h2 id="Output-level"><a href="#Output-level" class="headerlink" title="Output level"></a>Output level</h2><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-27/91104759.jpg" alt=""><br>同样规则可以在输出层影响NN.<br>之前我们aggregate attention计算logic的结果可以进一步被规则指导.<br>这里$w$是trainable的, $z_k$是一个indicator,1代表有matching,0代表没有,$w_k$是trainable的weights,直接在logits这一层也可以被rules影响.直觉上来说,如果有被matching,那么我就提高这一类别的分数(为什么不直接在softmax之后成为概率之后操作?也是可以,但是效果不好,因为logits是unconstrained real value)</li></ul><h1 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h1><p>文章用了这个数据集,发现在小的数据结果下,效果是相当不错的,超过了baseline不少<br>(two就是它除了我们刚才说的attention以外又加上了negative的attention,我们刚才是希望匹配到的词鼓励attention weights, 可能也会有某些规则不鼓励 attention weights.)<br>(+pos/neg就是加了negative loss和positive loss)<br>mem是另一个模型.<br><img src="http://image-jeff.oss-cn-hangzhou.aliyuncs.com/18-10-27/50843081.jpg" alt=""></p>]]></content>
     
@@ -190,9 +219,9 @@
       <category term="Paper" scheme="https://jeffchy.github.io/categories/NLP/Paper/"/>
     
     
-      <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
+      <category term="Natural Language Processing" scheme="https://jeffchy.github.io/tags/Natural-Language-Processing/"/>
     
-      <category term="Natual Language Processing" scheme="https://jeffchy.github.io/tags/Natual-Language-Processing/"/>
+      <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
     
   </entry>
   
@@ -585,31 +614,6 @@
     
     
       <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>compositional-vector-grammar</title>
-    <link href="https://jeffchy.github.io/2018/09/17/compositional-vector-grammar/"/>
-    <id>https://jeffchy.github.io/2018/09/17/compositional-vector-grammar/</id>
-    <published>2018-09-17T05:40:47.000Z</published>
-    <updated>2018-09-17T05:41:17.223Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Tree-Recursive-Neural-Networks-and-Consitituency-Parsing"><a href="#Tree-Recursive-Neural-Networks-and-Consitituency-Parsing" class="headerlink" title="Tree Recursive Neural Networks and Consitituency Parsing"></a>Tree Recursive Neural Networks and Consitituency Parsing</h1><p>Basicly this is the summary of the stanford cs224n class lecture 14, see the youtube vedio if you have something unclear</p><p><a href="https://www.youtube.com/watch?v=RfwgqPkWZ1w&amp;index=15&amp;list=PL3FW7Lu3i5Jsnh1rnUwq_TcylNr7EkRe6" target="_blank" rel="external">https://www.youtube.com/watch?v=RfwgqPkWZ1w&amp;index=15&amp;list=PL3FW7Lu3i5Jsnh1rnUwq_TcylNr7EkRe6</a></p><h3 id="Recursion-is-Natural-for-describing-language"><a href="#Recursion-is-Natural-for-describing-language" class="headerlink" title="Recursion is Natural for describing language"></a>Recursion is Natural for describing language</h3><p>example: [the man from [the company that you spoke with about [the project ] yesterday ]]</p><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/50704315.jpg" alt=""></p><h3 id="Why-Recursive？"><a href="#Why-Recursive？" class="headerlink" title="Why Recursive？"></a>Why Recursive？</h3><p><img src="" alt=""></p><p>We have word vectors to encode the similarity of the words, but can we project longer phrase into the word vector space?</p><p>Because of the recursive structure of language, [the country of my birth] also “merged” into a “NP” noun phrase in the constituent parsing, and that’s natural to think that it should represent “country”, so it should be next to “China, Germany” in the same vector space. which are also “NP”s.</p><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/31919973.jpg" alt=""></p><p>To calculate it from bottom to up,  and we can use some technics which we will describe below.</p><h3 id="why-we-want-to-represent-the-“long-phrase”-or-“Non-terminal”"><a href="#why-we-want-to-represent-the-“long-phrase”-or-“Non-terminal”" class="headerlink" title="why we want to represent the “long phrase” or “Non-terminal”?"></a>why we want to represent the “long phrase” or “Non-terminal”?</h3><p>We can use it to refine the grammar! In other words, we can compute the subtypes of the CFGs, which will increasing the parsing accuracy</p><p><strong><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/18305879.jpg" alt=""></strong></p><p>See that? we can assign a vector to the nonterminal! which means we can assign a meaningful vector representation TO the non-terminals.</p><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/21223679.jpg" alt=""></p><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/63146581.jpg" alt=""></p><p>The CNN for Natural language, and Recursive Neural Network for Natural Language, the Recursive one seems more natural</p><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/2774444.jpg" alt=""></p><p>The Recursive Neural Network take two child (CNF) as an input and use it to predict and output two things, one is the vector representation of the parent non-terminal node, the other is a <strong>score telling you how reasonable the combination is</strong>, we can concat the children’s vector representations, feed into a small neural network layer, (linear transform and non-linearity), and output the predicted parent vector, <strong>p</strong>, and use the p, multiplied it with another trained vector <strong>U</strong>  to get the score.</p><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/72377585.jpg" alt=""></p><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/41043468.jpg" alt=""></p><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/34733902.jpg" alt=""></p><p>Loss Function</p><p><img src="C:\Users\Jeff\AppData\Roaming\Typora\typora-user-images\1537155769400.png" alt="1537155769400"></p><p><strong>It’s Greedy, we can’t explore all the parses, because we cannot use DP,(the vector representation varies)</strong></p><h3 id="Training-Backprop-through-structure"><a href="#Training-Backprop-through-structure" class="headerlink" title="Training: Backprop through structure"></a>Training: Backprop through structure</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/46113886.jpg" alt=""></p><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/87760407.jpg" alt=""></p><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-17/54331915.jpg" alt=""></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Tree-Recursive-Neural-Networks-and-Consitituency-Parsing&quot;&gt;&lt;a href=&quot;#Tree-Recursive-Neural-Networks-and-Consitituency-Parsing&quot; class=
-      
-    
-    </summary>
-    
-    
-      <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
-    
-      <category term="Note" scheme="https://jeffchy.github.io/tags/Note/"/>
     
   </entry>
   
