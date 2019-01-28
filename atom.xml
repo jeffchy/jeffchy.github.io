@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://jeffchy.github.io/"/>
-  <updated>2019-01-17T13:53:29.672Z</updated>
+  <updated>2019-01-28T14:58:59.923Z</updated>
   <id>https://jeffchy.github.io/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Uncovering divergent linguistic Information in word embeddings - Paper Notes</title>
+    <link href="https://jeffchy.github.io/2019/01/28/Uncovering-divergent-linguistic-Information-in-word-embeddings-Paper-Notes/"/>
+    <id>https://jeffchy.github.io/2019/01/28/Uncovering-divergent-linguistic-Information-in-word-embeddings-Paper-Notes/</id>
+    <published>2019-01-27T16:57:36.000Z</published>
+    <updated>2019-01-28T14:58:59.923Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://arxiv.org/pdf/1809.02094.pdf" target="_blank" rel="external">https://arxiv.org/pdf/1809.02094.pdf</a><br>Paper from arxiv, Eneko Agirre, IXA NLP Group</p><p>This paper answered some very interesting questions, In word-embedding evaluations, tasks focused on differrent aspects of (Word Similarity &amp; Relationship)</p><p>Two axis:</p><ul><li>Similar - Relatedness (reflacts 1 or 2 order coocurrance) </li><li>Syntax - Semantics (rings - ring, happy - glad) </li></ul><p>This paper found that, We can use a <strong>linear transformation</strong> to adjust the learned word embedding to the intrinsic task-specific region!<br>Interesting results haha</p><p>This paper interpreted these aspects as axis, and claim that we cannot reach a optimum that have best performance for every perspective, or in other words, we always have some trade-off between them.</p><p>In the downstream tasks, supervised tasks can learn the optimal transformation automaticly, but those unsupervised tasks that dirrectly use the embeddings cannot be transformed.</p><p>So this paper shows that our word embeddings captures more informations than we expected.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/1809.02094.pdf&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://arxiv.org/pdf/1809.02094.pdf&lt;/a&gt;&lt;br&gt;Paper from arxi
+      
+    
+    </summary>
+    
+      <category term="NLP" scheme="https://jeffchy.github.io/categories/NLP/"/>
+    
+      <category term="Paper" scheme="https://jeffchy.github.io/categories/NLP/Paper/"/>
+    
+    
+      <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
+    
+      <category term="Probability Theory" scheme="https://jeffchy.github.io/tags/Probability-Theory/"/>
+    
+      <category term="Algorithm" scheme="https://jeffchy.github.io/tags/Algorithm/"/>
+    
+      <category term="Natural Languate Processing" scheme="https://jeffchy.github.io/tags/Natural-Languate-Processing/"/>
+    
+  </entry>
   
   <entry>
     <title>NeurlPS 2018 Word Embedding (II), FRAGE: frequency-agnostic word representation</title>
@@ -591,29 +624,6 @@
       <category term="Probability Theory" scheme="https://jeffchy.github.io/tags/Probability-Theory/"/>
     
       <category term="Music Generation" scheme="https://jeffchy.github.io/tags/Music-Generation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Natual Language Parsing (Supervised) - Paper list</title>
-    <link href="https://jeffchy.github.io/2018/09/19/Natual-Language-Parsing-Supervised-Paper-list/"/>
-    <id>https://jeffchy.github.io/2018/09/19/Natual-Language-Parsing-Supervised-Paper-list/</id>
-    <published>2018-09-19T03:00:19.000Z</published>
-    <updated>2018-09-19T03:29:11.010Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="This-is-the-paper-list-about-Natual-Language-Parsing"><a href="#This-is-the-paper-list-about-Natual-Language-Parsing" class="headerlink" title="This is the paper list about Natual Language Parsing"></a>This is the paper list about Natual Language Parsing</h1><p>[Klein&amp;Manning. ACL 2003] Accurate Unlexicalized Parsing <a href="http://nlp.cs.berkeley.edu/pubs/Klein-Manning_2003_UnlexParsing_paper.pdf" target="_blank" rel="external">http://nlp.cs.berkeley.edu/pubs/Klein-Manning_2003_UnlexParsing_paper.pdf</a></p><p>[Petrov et al. 2008] Learning Accurate, Compact, and Interpretable Tree Annotation<br><a href="https://pdfs.semanticscholar.org/d84b/9507ff9687a900fde451f27106d930c1b838.pdf" target="_blank" rel="external">https://pdfs.semanticscholar.org/d84b/9507ff9687a900fde451f27106d930c1b838.pdf</a></p><p>[Zhao et al. ACL 2018] Gaussian Mixture Latent Vector Grammars <a href="https://arxiv.org/abs/1805.04688" target="_blank" rel="external">https://arxiv.org/abs/1805.04688</a></p><p>[Socher et al. 2013] Parsing with compositional vector grammars <a href="http://aclweb.org/anthology/P/P13/P13-1045.pdf" target="_blank" rel="external">http://aclweb.org/anthology/P/P13/P13-1045.pdf</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;This-is-the-paper-list-about-Natual-Language-Parsing&quot;&gt;&lt;a href=&quot;#This-is-the-paper-list-about-Natual-Language-Parsing&quot; class=&quot;headerl
-      
-    
-    </summary>
-    
-    
-      <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
     
   </entry>
   
