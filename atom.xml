@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://jeffchy.github.io/"/>
-  <updated>2019-01-28T14:58:59.923Z</updated>
+  <updated>2019-07-08T04:17:06.637Z</updated>
   <id>https://jeffchy.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RNN-properties</title>
+    <link href="https://jeffchy.github.io/2019/07/08/RNN-properties/"/>
+    <id>https://jeffchy.github.io/2019/07/08/RNN-properties/</id>
+    <published>2019-07-08T03:49:17.000Z</published>
+    <updated>2019-07-08T04:17:06.637Z</updated>
+    
+    <content type="html"><![CDATA[<p>RNN computational properties:<br>adopted from NAACL-HLT 2018 paper<br><a href="https://www.aclweb.org/anthology/N18-1205" target="_blank" rel="external">https://www.aclweb.org/anthology/N18-1205</a> [Recurrent Neural Networks as Weighted Language Recognizers, Chen et. al]<br>如图：<img src="https://s2.ax1x.com/2019/07/08/ZDzmkV.png" alt="ZDzmkV.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;RNN computational properties:&lt;br&gt;adopted from NAACL-HLT 2018 paper&lt;br&gt;&lt;a href=&quot;https://www.aclweb.org/anthology/N18-1205&quot; target=&quot;_blank&quot;
+      
+    
+    </summary>
+    
+      <category term="Note" scheme="https://jeffchy.github.io/categories/Note/"/>
+    
+    
+      <category term="Deep Learning" scheme="https://jeffchy.github.io/tags/Deep-Learning/"/>
+    
+      <category term="Machine Learning" scheme="https://jeffchy.github.io/tags/Machine-Learning/"/>
+    
+  </entry>
   
   <entry>
     <title>Uncovering divergent linguistic Information in word embeddings - Paper Notes</title>
@@ -591,39 +618,6 @@
       <category term="Probability Theory" scheme="https://jeffchy.github.io/tags/Probability-Theory/"/>
     
       <category term="Embedding" scheme="https://jeffchy.github.io/tags/Embedding/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>论文笔记：End-to-End Sequence Labeling via Bi-directional LSTM-CNN-CRF</title>
-    <link href="https://jeffchy.github.io/2018/09/24/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%EF%BC%9AEnd-to-End-Sequence-Labeling-via-Bi-directional-LSTM-CNN-CRF/"/>
-    <id>https://jeffchy.github.io/2018/09/24/论文笔记：End-to-End-Sequence-Labeling-via-Bi-directional-LSTM-CNN-CRF/</id>
-    <published>2018-09-24T06:57:37.000Z</published>
-    <updated>2018-10-08T04:03:03.434Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="论文摘要-End-to-end-Sequence-Labeling-via-Bi-directional-LSTM-CNN-CRF"><a href="#论文摘要-End-to-end-Sequence-Labeling-via-Bi-directional-LSTM-CNN-CRF" class="headerlink" title="论文摘要 End-to-end Sequence Labeling via Bi-directional LSTM-CNN-CRF"></a>论文摘要 End-to-end Sequence Labeling via Bi-directional LSTM-CNN-CRF</h1><p>今天来将一些 End-to-end Sequence Labeling via Bi-directional LSTM-CNN-CRF 这篇文章吧，这是一篇CMU的工作。简单来说就是用一个完全End-to-end的模型来解决sequence labeling的问题，在NER和POStagging的问题上做了测试，达到了state-of-the-art，亮点在于不需要繁琐的feature engineering了。</p><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>在Introduction中，作者就大概阐述了整个End-to-end model的architecture。</p><blockquote><p>We first use convolutional<br>neural networks (CNNs) (LeCun et al.,<br>1989) to encode character-level information of a<br>word into its character-level representation. Then<br>we combine character- and word-level representations<br>and feed them into bi-directional LSTM<br>(BLSTM) to model context information of each<br>word. On top of BLSTM, we use a sequential<br>CRF to jointly decode labels for the whole sentence.</p></blockquote><p>用CNN去得到char-level representation，然后结合char-level和word-level（word vectors）输入一个Bi-LSTM在建模上下文信息，最后我们再用一个sequential的CRF去decode label。</p><h2 id="Model-Architecture"><a href="#Model-Architecture" class="headerlink" title="Model Architecture"></a>Model Architecture</h2><h3 id="CNN-for-char-level-representation"><a href="#CNN-for-char-level-representation" class="headerlink" title="CNN for char-level representation"></a>CNN for char-level representation</h3><p>为什么我们需要CNN来encode char-level的信息？因为char-level可以比较好的表示一些词的一些构词特性。比如一些前缀后缀，pre-，post-，un-，im，或者ing、ed等等。</p><p>基本的结构和图像的有</p><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-24/56895944.jpg" alt=""></p><p>分享一个github里面开源的Keras实现</p><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">_build_model</span><span class="params">(self)</span>:</span></div><div class="line">       <span class="string">"""</span></div><div class="line"><span class="string">       Build and compile the Character Level CNN model</span></div><div class="line"><span class="string">       Returns: None</span></div><div class="line"><span class="string">       """</span></div><div class="line">       <span class="comment"># Input layer</span></div><div class="line">       inputs = Input(shape=(self.input_size,), name=<span class="string">'sent_input'</span>, dtype=<span class="string">'int64'</span>)</div><div class="line">       <span class="comment"># Embedding layers</span></div><div class="line">       x = Embedding(self.alphabet_size + <span class="number">1</span>, self.embedding_size, input_length=self.input_size)(inputs)</div><div class="line">       <span class="comment"># Convolution layers</span></div><div class="line">       <span class="keyword">for</span> cl <span class="keyword">in</span> self.conv_layers:</div><div class="line">           x = Convolution1D(cl[<span class="number">0</span>], cl[<span class="number">1</span>])(x)</div><div class="line">           x = ThresholdedReLU(self.threshold)(x)</div><div class="line">           <span class="keyword">if</span> cl[<span class="number">2</span>] != <span class="number">-1</span>:</div><div class="line">               x = MaxPooling1D(cl[<span class="number">2</span>])(x)</div><div class="line">       x = Flatten()(x)</div><div class="line">       <span class="comment"># Fully connected layers</span></div><div class="line">       <span class="keyword">for</span> fl <span class="keyword">in</span> self.fully_connected_layers:</div><div class="line">           x = Dense(fl)(x)</div><div class="line">           x = ThresholdedReLU(self.threshold)(x)</div><div class="line">           x = Dropout(self.dropout_p)(x)</div><div class="line">       <span class="comment"># Output layer</span></div><div class="line">       predictions = Dense(self.num_of_classes, activation=<span class="string">'softmax'</span>)(x)</div><div class="line">       <span class="comment"># Build and compile model</span></div><div class="line">       model = Model(inputs=inputs, outputs=predictions)</div><div class="line">       model.compile(optimizer=self.optimizer, loss=self.loss)</div><div class="line">       self.model = model</div><div class="line">       print(<span class="string">"CharCNNZhang model built: "</span>)</div><div class="line">       self.model.summary()</div></pre></td></tr></table></figure><p>参考<a href="https://github.com/chaitjo/character-level-cnn/blob/master/models/char_cnn_zhang.py" target="_blank" rel="external">https://github.com/chaitjo/character-level-cnn/blob/master/models/char_cnn_zhang.py</a></p><p>CharCNN的其他的一些原理以及技术分享</p><p><a href="https://blog.csdn.net/liuchonge/article/details/70947995" target="_blank" rel="external">https://blog.csdn.net/liuchonge/article/details/70947995</a></p><h3 id="BI-LSTM-to-Encode-Context-Information"><a href="#BI-LSTM-to-Encode-Context-Information" class="headerlink" title="BI-LSTM to Encode Context Information"></a>BI-LSTM to Encode Context Information</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-24/50364748.jpg" alt=""></p><p>LSTM unit不需要过多介绍了，简单来说通过构造一个gradient的highway以及与forget、output、input gate之间的互动来解决一部分vanishing gradient的问题。</p><p>至于Bidirectional RNN，<a href="https://www.youtube.com/watch?v=uRFegQXnY54" target="_blank" rel="external">https://www.youtube.com/watch?v=uRFegQXnY54</a></p><p>这个有介绍。因为LSTM只能通过过去predict未来，但是有的时候我们也需要知道句子后面的context，这个时候用Bi-directional RNN会有不错的效果。</p><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-24/74031804.jpg" alt=""></p><p>Bi-directional RNN 用人话来讲就是，除了forward的一个LSTM，再加一个backward的LSTM，神经网络的forward pass就是上图中紫色的$a^{<1>},a^{<2>},a^{<3>}，a^{<4>}$，然后绿色的$a^{<4>},a^{<3>},a^{<2>}，a^{<1>}$，backward pass就是反过来。最后每一个time slot都会得到两个hidden state，一个紫色的一个绿色的，一般来说把他们的表示concat然后输入一个activation function(比如softmax)或者当做feature输入别的判别函数即可。</1></2></3></4></4></3></2></1></p><h3 id="CRF"><a href="#CRF" class="headerlink" title="CRF"></a>CRF</h3><p>我们融合了char、word-level的representation，再加上了context information，通过Bi-LSTM得到了一个隐藏层的表示。接下来我们将这个表示输入一个CRF进行predict。<br>我们令$z = \{z_1, \cdots, z_n \}$表示我们之前影藏层得到的vector（feature vector）<br>我们用$y = \{ y_1, \cdots, y_n \}$表示我们生成的对应的每一个label<br>我们用$Y(z)$来表示可能的label的集合。<br>所以我们的条件概率可以这样表示$P(y | z; W,b)$<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-24/39346110.jpg" alt=""><br>最后训练的目标就是得到最大的Maximum Likelihood<br>$L(W,b) = \sum_i log p(y | z; W,b)$<br>最后在做Decoding的时候我们只要search label sequence $y^{\star}$，是的他条件概率最大就可以了！<br>$y^{\star} = argmax_{y \in Y(z)} p(y | z; W, b)$</p><h3 id="最后整体的模型"><a href="#最后整体的模型" class="headerlink" title="最后整体的模型"></a>最后整体的模型</h3><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-9-24/77056616.jpg" alt=""></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;论文摘要-End-to-end-Sequence-Labeling-via-Bi-directional-LSTM-CNN-CRF&quot;&gt;&lt;a href=&quot;#论文摘要-End-to-end-Sequence-Labeling-via-Bi-directional-LS
-      
-    
-    </summary>
-    
-      <category term="NLP" scheme="https://jeffchy.github.io/categories/NLP/"/>
-    
-      <category term="Paper" scheme="https://jeffchy.github.io/categories/NLP/Paper/"/>
-    
-    
-      <category term="Natural Language Processing" scheme="https://jeffchy.github.io/tags/Natural-Language-Processing/"/>
-    
-      <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
-    
-      <category term="Probability Theory" scheme="https://jeffchy.github.io/tags/Probability-Theory/"/>
-    
-      <category term="Music Generation" scheme="https://jeffchy.github.io/tags/Music-Generation/"/>
     
   </entry>
   
