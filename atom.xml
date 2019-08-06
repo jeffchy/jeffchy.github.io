@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://jeffchy.github.io/"/>
-  <updated>2019-07-08T04:17:06.637Z</updated>
+  <updated>2019-08-06T02:55:07.988Z</updated>
   <id>https://jeffchy.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Some Tensor Arithmetic</title>
+    <link href="https://jeffchy.github.io/2019/08/06/Some-Tensor-Arithmetic/"/>
+    <id>https://jeffchy.github.io/2019/08/06/Some-Tensor-Arithmetic/</id>
+    <published>2019-08-06T02:52:05.000Z</published>
+    <updated>2019-08-06T02:55:07.988Z</updated>
+    
+    <content type="html"><![CDATA[<p>Recommend 2 websites for some tensor arithmetics for beginner (ZH), including tensor k-mode product with vector and matrix, tensor matricization …<br>Very good beginner’s guide.</p><p><a href="http://www.xiongfuli.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2016-06/tensor-decomposition-part1.html" target="_blank" rel="external">http://www.xiongfuli.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2016-06/tensor-decomposition-part1.html</a></p><p><a href="https://zhuanlan.zhihu.com/p/24824550" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/24824550</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Recommend 2 websites for some tensor arithmetics for beginner (ZH), including tensor k-mode product with vector and matrix, tensor matric
+      
+    
+    </summary>
+    
+      <category term="Note" scheme="https://jeffchy.github.io/categories/Note/"/>
+    
+    
+      <category term="Deep Learning" scheme="https://jeffchy.github.io/tags/Deep-Learning/"/>
+    
+      <category term="Algorithm" scheme="https://jeffchy.github.io/tags/Algorithm/"/>
+    
+      <category term="Machine Learning" scheme="https://jeffchy.github.io/tags/Machine-Learning/"/>
+    
+  </entry>
   
   <entry>
     <title>RNN-properties</title>
@@ -66,9 +95,9 @@
       <category term="Paper" scheme="https://jeffchy.github.io/categories/NLP/Paper/"/>
     
     
-      <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
-    
       <category term="Probability Theory" scheme="https://jeffchy.github.io/tags/Probability-Theory/"/>
+    
+      <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
     
       <category term="Algorithm" scheme="https://jeffchy.github.io/tags/Algorithm/"/>
     
@@ -585,39 +614,6 @@
       <category term="Deep Learning" scheme="https://jeffchy.github.io/tags/Deep-Learning/"/>
     
       <category term="Natural Language Parsing" scheme="https://jeffchy.github.io/tags/Natural-Language-Parsing/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ELMo-论文解读</title>
-    <link href="https://jeffchy.github.io/2018/09/25/ELMo-%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
-    <id>https://jeffchy.github.io/2018/09/25/ELMo-论文解读/</id>
-    <published>2018-09-25T07:02:54.000Z</published>
-    <updated>2018-10-08T04:03:15.449Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天来讲一讲这一篇论文啦. Deep contextualized word representations, 也就是最近火的不行的ELMo. <a href="https://arxiv.org/pdf/1802.05365.pdf" target="_blank" rel="external">https://arxiv.org/pdf/1802.05365.pdf</a><br>文章提出了一种新型的word embedding,使用它可以提高NLP很多任务的精度.<br>扔一篇很好的中文知乎介绍先, <a href="https://zhuanlan.zhihu.com/p/38254332" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/38254332</a> (抛玉引砖?)<br>这篇文章讲得相当好…我不知道我能讲啥了.<br>我尽量补充一些吧</p><p>首先默认大家看了前面的那个知乎专栏,其实里面有一个比较容易让人疑惑的点,那就是ELMo到底是怎么用的.<br>下面引用一篇博客的内容,我也是如此理解的.</p><blockquote><p>具体来讲如何使用ElMo产生的表征呢？对于一个supervised NLP任务，可以分以下三步:<br>1.产生pre-trained biLM模型。模型由两层bi-LSTM组成，之间用residual connection连接起来。<br>2.在任务语料上(注意是语料，忽略label)fine-tuning上一步得到的biLM模型。可以把这一步看为biLM的domain transfer。<br>3.利用ELMo的word embedding来对任务进行训练。通常的做法是把它们作为输入加到已有的模型中，一般能够明显的提高原模型的表现。</p></blockquote><hr><p>本文来自 triplemeng 的CSDN 博客 ，全文地址请点击：<a href="https://blog.csdn.net/triplemeng/article/details/82380202?utm_source=copy" target="_blank" rel="external">https://blog.csdn.net/triplemeng/article/details/82380202?utm_source=copy</a> </p><p>而加到已知模型中的方法就如知乎专栏那一篇所说</p><blockquote><p>（1）直接将ELMo词向量 ELMo_k 与普通的词向量 x_k拼接（concat）[ $x_k$;$ELMo_k$ ]。<br> （2) 直接将ELMo词向量ELMo_k 与隐层输出向量 h_k 拼接[ $h_k$;$ELMo_k$ ]，在SNLI,SQuAD上都有提升。</p></blockquote><p>finetune应该还是比较慢的…之前的finetune,或者说对不同的语料来说,每个词之间的contextual information是不一样的,所以在此之前还是最好过一遍BiLSTM模型,得到针对这个语料库的隐藏表示,而这个部分是非常慢的.即便不finetune,我们也要根据我们拿来的pretrained的BiLSTM跑一下整个语料库,一句一句跑(因为我们需要得到hidden layer),然后把所有的词的hidden layer和embedding dump下来存起来.整个encoding的过程还是有点慢的…反正会比pretrained wordvec 要慢不少咯</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;今天来讲一讲这一篇论文啦. Deep contextualized word representations, 也就是最近火的不行的ELMo. &lt;a href=&quot;https://arxiv.org/pdf/1802.05365.pdf&quot; target=&quot;_blank&quot; re
-      
-    
-    </summary>
-    
-      <category term="NLP" scheme="https://jeffchy.github.io/categories/NLP/"/>
-    
-      <category term="Paper" scheme="https://jeffchy.github.io/categories/NLP/Paper/"/>
-    
-    
-      <category term="Natural Language Processing" scheme="https://jeffchy.github.io/tags/Natural-Language-Processing/"/>
-    
-      <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
-    
-      <category term="Probability Theory" scheme="https://jeffchy.github.io/tags/Probability-Theory/"/>
-    
-      <category term="Embedding" scheme="https://jeffchy.github.io/tags/Embedding/"/>
     
   </entry>
   
