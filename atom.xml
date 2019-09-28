@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://jeffchy.github.io/"/>
-  <updated>2019-08-06T02:55:07.988Z</updated>
+  <updated>2019-09-28T06:49:19.797Z</updated>
   <id>https://jeffchy.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Effective Adversarial Regulariztion for Machine Translation (Notes)</title>
+    <link href="https://jeffchy.github.io/2019/09/28/Effective-Adversarial-Regulariztion-for-Machine-Translation-Notes/"/>
+    <id>https://jeffchy.github.io/2019/09/28/Effective-Adversarial-Regulariztion-for-Machine-Translation-Notes/</id>
+    <published>2019-09-28T00:44:53.000Z</published>
+    <updated>2019-09-28T06:49:19.797Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近想看看别的领域的文章，博客就随意记录一下。<br>文章是 Effective Adversarial Regulariztion for Machine Translation, Motoki Sato et al, ACL 18. <a href="https://www.aclweb.org/anthology/P19-1020" target="_blank" rel="external">https://www.aclweb.org/anthology/P19-1020</a>.</p><p>把 Adversarial Regularization 技术用在MT上。</p><h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>计算机视觉中利用[扰动input]产生adversarial training example去reduce error，但是NLP中很难，因为通常是离散的symbol。之前有方法利用直接去扰动word embedding来达到这个adversarial training的效果。在文本分类上说明有用。作者这篇文章用在NMT的主流baseline上面。</p><h2 id="Adversarial-Training-On-MT"><a href="#Adversarial-Training-On-MT" class="headerlink" title="Adversarial Training On MT"></a>Adversarial Training On MT</h2><p>我不想打公式啊，我决定随便说说，想知道详细的还是去看paper吧。<br>思路很简单，MT train的时候是建模给定onehot sequence $X\{ x_1, x_2, \cdots x_i\}$ 和 参数$\Theta$产生一个sequence $Y=\{y_1, y_2, \cdots, y_j\}$的对数概率分布, MT的training如图所示,<br><img src="https://image-jeff.oss-cn-hangzhou.aliyuncs.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-09-28%20%E4%B8%8B%E5%8D%882.42.42.png" alt="MT Training 1"><br><img src="https://image-jeff.oss-cn-hangzhou.aliyuncs.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-09-28%20%E4%B8%8B%E5%8D%882.41.56.png" alt="MT Training 2"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最近想看看别的领域的文章，博客就随意记录一下。&lt;br&gt;文章是 Effective Adversarial Regulariztion for Machine Translation, Motoki Sato et al, ACL 18. &lt;a href=&quot;https://w
+      
+    
+    </summary>
+    
+      <category term="NLP" scheme="https://jeffchy.github.io/categories/NLP/"/>
+    
+      <category term="Paper" scheme="https://jeffchy.github.io/categories/NLP/Paper/"/>
+    
+    
+      <category term="Natural Language Processing" scheme="https://jeffchy.github.io/tags/Natural-Language-Processing/"/>
+    
+      <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
+    
+  </entry>
   
   <entry>
     <title>Some Tensor Arithmetic</title>
@@ -95,9 +124,9 @@
       <category term="Paper" scheme="https://jeffchy.github.io/categories/NLP/Paper/"/>
     
     
-      <category term="Probability Theory" scheme="https://jeffchy.github.io/tags/Probability-Theory/"/>
-    
       <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
+    
+      <category term="Probability Theory" scheme="https://jeffchy.github.io/tags/Probability-Theory/"/>
     
       <category term="Algorithm" scheme="https://jeffchy.github.io/tags/Algorithm/"/>
     
@@ -579,41 +608,6 @@
       <category term="Probability Theory" scheme="https://jeffchy.github.io/tags/Probability-Theory/"/>
     
       <category term="Note" scheme="https://jeffchy.github.io/tags/Note/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>论文解读:Recurrent Neural Network Grammars</title>
-    <link href="https://jeffchy.github.io/2018/10/08/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0:%20Recurrent-Neural-Network-Grammars/"/>
-    <id>https://jeffchy.github.io/2018/10/08/论文笔记: Recurrent-Neural-Network-Grammars/</id>
-    <published>2018-10-08T03:43:13.000Z</published>
-    <updated>2018-10-08T16:03:05.371Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天主要来说说 NAACL16 CMU的一篇, RNNG, Recurrent Neural Network Grammars. 这篇文章提出了RNNG,可以用作Parsing和language Modeling,并且实验结果表明在EN和ZH两个语言上达到了state-of-the-art.<br>韦阳dalao在知乎上也分享过,另外推荐他的一系列知乎专栏 - 特别是这篇 <a href="https://zhuanlan.zhihu.com/p/45527481" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/45527481</a><br>搬运完毕,我开始说论文了. 可能还是大部分用英文吧.</p><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>RNN, A sequential deep learning models solved many problems effectively these days, such as machine translation, image captioning, chatbots…But is language a sequential stuff?</p><blockquote><p>Despite these impressive results, sequential models are a priori inappropriate models of natural language, since re- lationships among words are largely organized in terms of latent nested structures rather than sequen- tial surface order (Chomsky, 1957).</p></blockquote><p>My tutor also believes that natural language cannot just be analyzed and learned by a deep learning sequential structure, because it actually contains more complex latent structure.</p><p>This paper proposed RNNG, a new generative probabilistic model of sentences, which can model nested, hierarchical relationships, This grammar generate the parse tree from top-down just like transition-based parsing of CFG, but each action(decition also parameterized using RNNs, condition on the action and generating process’s history) so it also relax context-free assumption.</p><p>They give two variants:</p><ul><li>Generative Model for parsing and language modeling</li><li>Discrimitive Model for parsing (using the techniques of importance sampling)</li></ul><h1 id="RNN-Grammars"><a href="#RNN-Grammars" class="headerlink" title="RNN Grammars"></a>RNN Grammars</h1><p>$(N, \Sigma, \Theta)$ refers to (finite set of nonterminals, finite set of terminals which is disjoint from $\Sigma$, neural network parameters) respectively.</p><p>Note that, the key difference between RNNG and PCFG is: we do not need the production rules, or we say grammar rules. But we encode it to the “action” of transiand learn it automaticly.</p><h1 id="Top-down-Discriminative-Parsing-of-RNNG"><a href="#Top-down-Discriminative-Parsing-of-RNNG" class="headerlink" title="Top-down Discriminative Parsing of RNNG"></a>Top-down Discriminative Parsing of RNNG</h1><p>Parsing: given corpus of sentences $X=\{x_1, \cdots, x_n\}$ get it’s parse tree $T=\{t_1, \cdots, t_n\}$<br>We want to model $P(T|X)$</p><p>As we said, the RNNG is based on top-down version of transition-based parsing.</p><ul><li>We have stack Buffer $B$ which contains <strong>Unprocessed terminal symbols(words,..)</strong></li><li>We have stack $S$, which contains <strong>{terminal symbols, “open” nonterminal symbols, completed constituents(all its sub-constituents are found)}</strong></li><li>We have a corpus which makes up the terminal sets and nonterminal sets $(N, \Sigma)$</li><li>We have following actions $A$<ul><li>$NT(X)$ move a nonterminal to the top of stack, thus make it “open”</li><li>$SHIFT$ removes the terminal $x$ from buffer $B$ and push it to the top of stack $S$</li><li>$REDUCE$ “close” the nonterminals, more detaily, keep poping the terminals until we get an “open” nonterminals, and make a complete constituents</li></ul></li></ul><p>Lets see an example. We initialize the Buffer with all the terminals(words), and stack with empty, than we use $NT(S)$ to push the root nonterminal to the top of stack, than we follow the actions to get a parse tree.<br>The Figure.1 shows the detail of three actions, Figure.2 shows an parsing example, with some of my notes.<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/76108219.jpg" alt=""></p><h2 id="When-to-stop"><a href="#When-to-stop" class="headerlink" title="When to stop?"></a>When to stop?</h2><p>When there’s 1 single constituent (the parse tree) in the stack, and no word in the buffer, we complete.</p><h2 id="Constraints-on-parser-transitions"><a href="#Constraints-on-parser-transitions" class="headerlink" title="Constraints on parser transitions."></a>Constraints on parser transitions.</h2><p>Denote $n$ as number of “open” nonterminals on the stack</p><ul><li>$NT(X)$ operation is appliable if $B$ is not empty and $n &lt; 100$,<ul><li>If $B$ is empty, and we introduce a new open nonterminal, we are not able to close it and make a complete constituent</li><li>If $n &gt;= 100$ to limit the nonterminal sizes of a parse tree. (This one I’m not quite sure, if you know the reason, please give me some comments.)</li></ul></li><li>$SHIFT$ operations can only be applied if $B$ is not empty and $n \le 1$ <ul><li>If $B$ is empty we cannot shift elements in it to the stack</li><li>If $n = 0$, there’s only no open nonterminal, so introducing new word will not be able to include have parent</li></ul></li><li>$REDUCE$ operation can only be applied if the top of the stack is not an open nonterminal symbol. because if the open nonterminal is on the top of stack, you need at least 1 nonterminal/constituents to be its child.</li><li>$REDUCE$ can only be applied if $n \le 2$ or the buffer is empty<ul><li>because if $n = 1$, it can only be $\ \ (S\ \ $ thus if buffer is not empty, it is not possible<br>$A_D(B,S,n)$</li></ul></li></ul><h1 id="Top-down-Generative-Parsing-of-RNNG"><a href="#Top-down-Generative-Parsing-of-RNNG" class="headerlink" title="Top-down Generative Parsing of RNNG"></a>Top-down Generative Parsing of RNNG</h1><p>We want to model $P(Tree,X)$, so we need to generate the parse trees, and terminals (words) at the same time, So there’s no Buffer anymore, but output buffer $T$, and we replace $SHIFT$ operation with $GEN(x)$, which generate a terminal $x$ from the vocabulary $\Sigma$, and then add it to the top of stack (just lick $SHIFT$), and we stochastically selected the actions according to the conditional distribution that depends on the current output buffer and stack(I think now it should be the stack while the paper said we samples depends on (T ,B), but B buffer does not exist anymore)?<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/49703311.jpg" alt=""></p><h2 id="Constraints"><a href="#Constraints" class="headerlink" title="Constraints"></a>Constraints</h2><ul><li>$GEN(x)$ operation can only be applied if $n \le 1$, just like $SHIFT$</li><li>$REDUCE$ operation can only be applied if top of stack is not an open nonterminal, and $n \le 1$, $n \le 1$ here’s $n$ can be equals to 1 because when $n=1$ and reduce, we do not have input buffer, so by stopping $GEN(x)$ operation, we can end the process legally.</li></ul><h2 id="We-denote-the-set-of-actions-A-G-T-S-n"><a href="#We-denote-the-set-of-actions-A-G-T-S-n" class="headerlink" title="We denote the set of actions $A_G(T,S,n)$"></a>We denote the set of actions $A_G(T,S,n)$</h2><h1 id="Generative-Model-Detail"><a href="#Generative-Model-Detail" class="headerlink" title="Generative Model Detail"></a>Generative Model Detail</h1><p>Let’s denote: $y$ as the parse tree, $x$ as the terminals, we want to model $P(x,y)$, but how to model is the key problem.<br>As we are parsing from top to down, we futher denote $u_t$ as the embedding of the current parsing state, and $r_a$ as the action embedding, the sentence can be generate using the following formular using chain rule(language model)<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/50397204.jpg" alt=""></p><p>How we compute $u_t$? the current state is related to the history of $S,T,A$, stack, output buffer, actions, we denote them as $o_t,s_t,h_t$ respectively, by concat them, taking a linear transform, and add a nonlinear, we can represent $u_t$, see the following figure for details.<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/39438407.jpg" alt=""><br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/19123141.jpg" alt=""></p><h2 id="Represent-elements-in-stack"><a href="#Represent-elements-in-stack" class="headerlink" title="Represent elements in stack"></a>Represent elements in stack</h2><p>We use a bi-LSTM to encode the open non-terminals, terminals, closed constituents. see the figure:<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/4624452.jpg" alt=""><br>We add the parent non-terminal to the head and tail.</p><h2 id="word-generation"><a href="#word-generation" class="headerlink" title="word generation"></a>word generation</h2><p>When generate a word, we first predict the action, $GEN$, and if the action is $GEN$, we predict which word $x$ it generates. To reduce the time complexity, we use a class-factored softmax, we splits the vocabulary to several classes, we first predict which class we should use, then for each class we predict the words in it. They cluster their words using brown clustering. <a href="https://en.wikipedia.org/wiki/Brown_clustering" target="_blank" rel="external">https://en.wikipedia.org/wiki/Brown_clustering</a><br>So we can reduce the time complexity of predicting a word from $O(|\Sigma|)$ to $O(\sqrt|\Sigma|)$ by split the vocabulary to $\sqrt|\Sigma|$ classes</p><h2 id="Convert-to-the-discrimitive-parsing-model"><a href="#Convert-to-the-discrimitive-parsing-model" class="headerlink" title="Convert to the discrimitive parsing model"></a>Convert to the discrimitive parsing model</h2><p>Converting is easy, change the embedding of output buffer $T_t$ to the embedding of input buffer, and retrain and max the conditional likelihood, given input string.</p><h1 id="Inference-the-Generative-model-via-importance-sampling"><a href="#Inference-the-Generative-model-via-importance-sampling" class="headerlink" title="Inference the Generative model via importance sampling"></a>Inference the Generative model via importance sampling</h1><p>We modeled $P(x,y)$, if we want to get a language model, we need to compute $P(x) = \sum_y P(x,y)$ by marginalize all possible parse trees $y$, however, the genarative process is not bounded, so number of parse trees will be large, it’s intractable to enumerate them all.</p><p>Similarly, to use the generative model for parsing, we need to select the best parse tree, so $y = argmax_y P(x,y)$, also intractable.</p><p>So we solve it by importance sampling.</p><h2 id="importance-sampling"><a href="#importance-sampling" class="headerlink" title="importance sampling"></a>importance sampling</h2><p>We define a conditional proposal distribution $q(y|x)$, with following property:</p><ul><li>$p(x,y)&gt;0 =&gt; q(y|x)&gt;0$</li><li>$y \sim q(y|x)$ can be obtained easily</li><li>$q(y|x)$ are known</li></ul><p><strong>The Discrimitive trained parser satisfy all these property.</strong><br>So we sample from the discrimitive parser.<br>We define $w(x,y) = p(x,y)/q(y|x)$<br>Thus the $p(x)$ can be obtained by:<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/42461349.jpg" alt=""><br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-8/8518009.jpg" alt=""></p><h1 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h1><p><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-9/54224601.jpg" alt=""></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;今天主要来说说 NAACL16 CMU的一篇, RNNG, Recurrent Neural Network Grammars. 这篇文章提出了RNNG,可以用作Parsing和language Modeling,并且实验结果表明在EN和ZH两个语言上达到了state-of
-      
-    
-    </summary>
-    
-      <category term="NLP" scheme="https://jeffchy.github.io/categories/NLP/"/>
-    
-      <category term="Paper" scheme="https://jeffchy.github.io/categories/NLP/Paper/"/>
-    
-      <category term="Note" scheme="https://jeffchy.github.io/categories/NLP/Paper/Note/"/>
-    
-    
-      <category term="Natural Language Processing" scheme="https://jeffchy.github.io/tags/Natural-Language-Processing/"/>
-    
-      <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
-    
-      <category term="Deep Learning" scheme="https://jeffchy.github.io/tags/Deep-Learning/"/>
-    
-      <category term="Natural Language Parsing" scheme="https://jeffchy.github.io/tags/Natural-Language-Parsing/"/>
     
   </entry>
   
