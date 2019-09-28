@@ -109,7 +109,10 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://image-jeff.oss-cn-hangzhou.aliyuncs.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-09-28%20%E4%B8%8B%E5%8D%882.42.42.png">
 <meta property="og:image" content="https://image-jeff.oss-cn-hangzhou.aliyuncs.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-09-28%20%E4%B8%8B%E5%8D%882.41.56.png">
-<meta property="og:updated_time" content="2019-09-28T06:49:19.797Z">
+<meta property="og:image" content="https://image-jeff.oss-cn-hangzhou.aliyuncs.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-09-28%20%E4%B8%8B%E5%8D%882.42.27.png">
+<meta property="og:image" content="https://image-jeff.oss-cn-hangzhou.aliyuncs.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-09-28%20%E4%B8%8B%E5%8D%882.42.34.png">
+<meta property="og:image" content="https://image-jeff.oss-cn-hangzhou.aliyuncs.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-09-28%20%E4%B8%8B%E5%8D%883.08.36.png">
+<meta property="og:updated_time" content="2019-09-28T07:44:28.914Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Effective Adversarial Regulariztion for Machine Translation (Notes)">
 <meta name="twitter:description" content="最近想看看别的领域的文章，博客就随意记录一下。文章是 Effective Adversarial Regulariztion for Machine Translation, Motoki Sato et al, ACL 18. https://www.aclweb.org/anthology/P19-1020. 把 Adversarial Regularization 技术用在MT上。 Intr">
@@ -419,7 +422,9 @@
         <p>最近想看看别的领域的文章，博客就随意记录一下。<br>文章是 Effective Adversarial Regulariztion for Machine Translation, Motoki Sato et al, ACL 18. <a href="https://www.aclweb.org/anthology/P19-1020" target="_blank" rel="external">https://www.aclweb.org/anthology/P19-1020</a>.</p>
 <p>把 Adversarial Regularization 技术用在MT上。</p>
 <h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>计算机视觉中利用[扰动input]产生adversarial training example去reduce error，但是NLP中很难，因为通常是离散的symbol。之前有方法利用直接去扰动word embedding来达到这个adversarial training的效果。在文本分类上说明有用。作者这篇文章用在NMT的主流baseline上面。</p>
-<h2 id="Adversarial-Training-On-MT"><a href="#Adversarial-Training-On-MT" class="headerlink" title="Adversarial Training On MT"></a>Adversarial Training On MT</h2><p>我不想打公式啊，我决定随便说说，想知道详细的还是去看paper吧。<br>思路很简单，MT train的时候是建模给定onehot sequence $X\{ x_1, x_2, \cdots x_i\}$ 和 参数$\Theta$产生一个sequence $Y=\{y_1, y_2, \cdots, y_j\}$的对数概率分布, MT的training如图所示,<br><img src="https://image-jeff.oss-cn-hangzhou.aliyuncs.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-09-28%20%E4%B8%8B%E5%8D%882.42.42.png" alt="MT Training 1"><br><img src="https://image-jeff.oss-cn-hangzhou.aliyuncs.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-09-28%20%E4%B8%8B%E5%8D%882.41.56.png" alt="MT Training 2"></p>
+<h2 id="Adversarial-Training-On-MT"><a href="#Adversarial-Training-On-MT" class="headerlink" title="Adversarial Training On MT"></a>Adversarial Training On MT</h2><p>我不想打公式啊，我决定随便说说，想知道详细的还是去看paper吧。<br>思路很简单，MT train的时候是建模给定onehot sequence $X\{ x_1, x_2, \cdots x_i\}$ 和 参数$\Theta$产生一个sequence $Y=\{y_1, y_2, \cdots, y_j\}$的对数概率分布, MT的training如图所示,<br><img src="https://image-jeff.oss-cn-hangzhou.aliyuncs.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-09-28%20%E4%B8%8B%E5%8D%882.42.42.png" alt="MT Training 1"><br><img src="https://image-jeff.oss-cn-hangzhou.aliyuncs.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-09-28%20%E4%B8%8B%E5%8D%882.41.56.png" alt="MT Training 2"><br>本文的Adversarial，如之前所说，是在embedding部分加了扰动：<br><img src="https://image-jeff.oss-cn-hangzhou.aliyuncs.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-09-28%20%E4%B8%8B%E5%8D%882.42.27.png" alt="Adversarial Training 1"><br><img src="https://image-jeff.oss-cn-hangzhou.aliyuncs.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-09-28%20%E4%B8%8B%E5%8D%882.42.34.png" alt="Adversarial Training 2"><br>我们的目的是得到最能够干扰模型的扰动，所以我们要maximize这个loss，其中$r$是所有$r_i$的一个concatenation. 经过一些近似，我么可以得到最终的adversarial training的表达式：<br><img src="https://image-jeff.oss-cn-hangzhou.aliyuncs.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-09-28%20%E4%B8%8B%E5%8D%883.08.36.png" alt="Adversarial Training 3"><br>对于MT来说，我么可以在 encoder 的embedding上面加，在也可以在decoder 层的embedding上面加！结果自然是好的，我真的懒得截图了，自行移步好吧。</p>
+<p>看完这篇paper我表示，好像不值得我累死累活写博客，额总结下就是，用一下adversarial training 到NMT上，挺无聊的，over。</p>
+<p>下次我看好paper再决定写不写吧，越来越佛了，真的。</p>
 
       
     </div>
