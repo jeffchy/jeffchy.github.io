@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://jeffchy.github.io/"/>
-  <updated>2019-10-01T04:34:21.098Z</updated>
+  <updated>2019-10-01T04:46:50.988Z</updated>
   <id>https://jeffchy.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>热烈庆祝祖国母亲70周年！</title>
+    <link href="https://jeffchy.github.io/2019/10/01/%E7%83%AD%E7%83%88%E5%BA%86%E7%A5%9D%E7%A5%96%E5%9B%BD%E6%AF%8D%E4%BA%B270%E5%91%A8%E5%B9%B4%EF%BC%81/"/>
+    <id>https://jeffchy.github.io/2019/10/01/热烈庆祝祖国母亲70周年！/</id>
+    <published>2019-10-01T04:36:03.000Z</published>
+    <updated>2019-10-01T04:46:50.988Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="热烈庆祝中华人民共和国70周年！"><a href="#热烈庆祝中华人民共和国70周年！" class="headerlink" title="热烈庆祝中华人民共和国70周年！"></a>热烈庆祝中华人民共和国70周年！</h1><h1 id="Celebrate-the-70th-anniversary-of-People’s-Republic-of-China"><a href="#Celebrate-the-70th-anniversary-of-People’s-Republic-of-China" class="headerlink" title="Celebrate the 70th anniversary of People’s Republic of China!"></a>Celebrate the 70th anniversary of People’s Republic of China!</h1><h1 id="我爱我的祖国！"><a href="#我爱我的祖国！" class="headerlink" title="我爱我的祖国！"></a>我爱我的祖国！</h1><h1 id="I-LOVE-CHINA！"><a href="#I-LOVE-CHINA！" class="headerlink" title="I LOVE CHINA！"></a>I LOVE CHINA！</h1><h1 id="感谢先辈，致以最崇高的敬意！"><a href="#感谢先辈，致以最崇高的敬意！" class="headerlink" title="感谢先辈，致以最崇高的敬意！"></a>感谢先辈，致以最崇高的敬意！</h1><h1 id="Highest-respect-for-the-forerunners！"><a href="#Highest-respect-for-the-forerunners！" class="headerlink" title="Highest respect for the forerunners！"></a>Highest respect for the forerunners！</h1><p>![CHN70]<a href="https://image-jeff.oss-cn-hangzhou.aliyuncs.com/a61c2c59eaf94fc5a847a1503ed3489d.jpeg" target="_blank" rel="external">https://image-jeff.oss-cn-hangzhou.aliyuncs.com/a61c2c59eaf94fc5a847a1503ed3489d.jpeg</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;热烈庆祝中华人民共和国70周年！&quot;&gt;&lt;a href=&quot;#热烈庆祝中华人民共和国70周年！&quot; class=&quot;headerlink&quot; title=&quot;热烈庆祝中华人民共和国70周年！&quot;&gt;&lt;/a&gt;热烈庆祝中华人民共和国70周年！&lt;/h1&gt;&lt;h1 id=&quot;Celebrate
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Delta Embedding Learning (ACL19) Notes</title>
@@ -153,9 +174,9 @@
       <category term="Paper" scheme="https://jeffchy.github.io/categories/NLP/Paper/"/>
     
     
-      <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
-    
       <category term="Probability Theory" scheme="https://jeffchy.github.io/tags/Probability-Theory/"/>
+    
+      <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
     
       <category term="Algorithm" scheme="https://jeffchy.github.io/tags/Algorithm/"/>
     
@@ -572,37 +593,6 @@
     
     
       <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
-    
-      <category term="Natual Language Processing" scheme="https://jeffchy.github.io/tags/Natual-Language-Processing/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Quick Review On Forward-Backward Algorithm</title>
-    <link href="https://jeffchy.github.io/2018/10/12/Quick-Review-On-Forward-Backward-Algorithm/"/>
-    <id>https://jeffchy.github.io/2018/10/12/Quick-Review-On-Forward-Backward-Algorithm/</id>
-    <published>2018-10-12T13:14:25.000Z</published>
-    <updated>2018-10-13T12:37:30.521Z</updated>
-    
-    <content type="html"><![CDATA[<p>I strongly recommend these short vedio lecture :) from <strong>mathematicalmonk</strong> <a href="https://www.youtube.com/user/mathematicalmonk" target="_blank" rel="external">https://www.youtube.com/user/mathematicalmonk</a><br>He made many really wonderful videos</p><p>I’m such a lazy guy :), I hate typing so much latex, but 我是一个勤劳的搬运工</p><h3 id="Forward-Backward-Algorithm-Intro"><a href="#Forward-Backward-Algorithm-Intro" class="headerlink" title="Forward-Backward Algorithm Intro"></a>Forward-Backward Algorithm Intro</h3><p><a href="https://www.youtube.com/watch?v=7zDARfKVm7s" target="_blank" rel="external">https://www.youtube.com/watch?v=7zDARfKVm7s</a></p><h3 id="Forward-Algorithm"><a href="#Forward-Algorithm" class="headerlink" title="Forward Algorithm"></a>Forward Algorithm</h3><p><a href="https://www.youtube.com/watch?v=M7afek1nEKM" target="_blank" rel="external">https://www.youtube.com/watch?v=M7afek1nEKM</a><br><a href="https://www.youtube.com/watch?v=MPmrFu4jFk4" target="_blank" rel="external">https://www.youtube.com/watch?v=MPmrFu4jFk4</a></p><h3 id="Backward-Algorithm"><a href="#Backward-Algorithm" class="headerlink" title="Backward Algorithm"></a>Backward Algorithm</h3><p><a href="https://www.youtube.com/watch?v=jwYuki9GgJo" target="_blank" rel="external">https://www.youtube.com/watch?v=jwYuki9GgJo</a></p><h3 id="log-sum-exp-trick"><a href="#log-sum-exp-trick" class="headerlink" title="log-sum-exp trick"></a>log-sum-exp trick</h3><p><a href="https://www.youtube.com/watch?v=-RVM21Voo7Q&amp;index=105&amp;list=PLD0F06AA0D2E8FFBA&amp;t=0s" target="_blank" rel="external">https://www.youtube.com/watch?v=-RVM21Voo7Q&amp;index=105&amp;list=PLD0F06AA0D2E8FFBA&amp;t=0s</a></p><h3 id="Viterbi-algorithm"><a href="#Viterbi-algorithm" class="headerlink" title="Viterbi algorithm"></a>Viterbi algorithm</h3><p><a href="https://www.youtube.com/watch?v=RwwfUICZLsA&amp;index=106&amp;list=PLD0F06AA0D2E8FFBA&amp;t=34s" target="_blank" rel="external">https://www.youtube.com/watch?v=RwwfUICZLsA&amp;index=106&amp;list=PLD0F06AA0D2E8FFBA&amp;t=34s</a><br><a href="https://www.youtube.com/watch?v=t3JIk3Jgifs&amp;index=107&amp;list=PLD0F06AA0D2E8FFBA&amp;t=0s" target="_blank" rel="external">https://www.youtube.com/watch?v=t3JIk3Jgifs&amp;index=107&amp;list=PLD0F06AA0D2E8FFBA&amp;t=0s</a></p><p>Watch these videos, and it’s done.<br>Subscribe! Mathematicalmonk!</p><h2 id="Code-Application-Pytorch-Tutorial-Bi-directional-CRF-tagger"><a href="#Code-Application-Pytorch-Tutorial-Bi-directional-CRF-tagger" class="headerlink" title="Code Application: Pytorch Tutorial: Bi-directional CRF tagger :)"></a>Code Application: Pytorch Tutorial: Bi-directional CRF tagger :)</h2><p><a href="https://pytorch.org/tutorials/beginner/nlp/advanced_tutorial.html" target="_blank" rel="external">https://pytorch.org/tutorials/beginner/nlp/advanced_tutorial.html</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;I strongly recommend these short vedio lecture :) from &lt;strong&gt;mathematicalmonk&lt;/strong&gt; &lt;a href=&quot;https://www.youtube.com/user/mathematic
-      
-    
-    </summary>
-    
-      <category term="NLP" scheme="https://jeffchy.github.io/categories/NLP/"/>
-    
-      <category term="Note" scheme="https://jeffchy.github.io/categories/NLP/Note/"/>
-    
-    
-      <category term="Probability Theory" scheme="https://jeffchy.github.io/tags/Probability-Theory/"/>
-    
-      <category term="Algorithm" scheme="https://jeffchy.github.io/tags/Algorithm/"/>
     
       <category term="Natual Language Processing" scheme="https://jeffchy.github.io/tags/Natual-Language-Processing/"/>
     
