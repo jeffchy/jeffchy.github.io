@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://jeffchy.github.io/"/>
-  <updated>2019-09-28T07:44:28.914Z</updated>
+  <updated>2019-10-01T04:34:21.098Z</updated>
   <id>https://jeffchy.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Delta Embedding Learning (ACL19) Notes</title>
+    <link href="https://jeffchy.github.io/2019/10/01/Delta-Word-Embedding-ACL19-Notes/"/>
+    <id>https://jeffchy.github.io/2019/10/01/Delta-Word-Embedding-ACL19-Notes/</id>
+    <published>2019-10-01T04:18:24.000Z</published>
+    <updated>2019-10-01T04:34:21.098Z</updated>
+    
+    <content type="html"><![CDATA[<p>Delta Embedding Learning, Zhang et al, ACL19<br><a href="https://aclweb.org/anthology/papers/P/P19/P19-1322/" target="_blank" rel="external">https://aclweb.org/anthology/papers/P/P19/P19-1322/</a></p><p>ACL的一篇short，方法简单地令人震惊，但是从结果看特别有效，我觉得就很离谱，就，分享一下。</p><p>就简要说说，详细的话去看paper，我保证不需要15分钟就看完了。</p><p>传统的word embedding的使用方法通常是，作为模型的 initialization，然后finetune它，或者不finetune，直接fixed这部分。（如果词表太大这样可以减少很多学习的参数）。</p><p>作者提出了一种新的方法，对比 <strong>作为模型的 initialization，然后finetune它</strong>， 作者固定 pretrained embedding，<strong>再加一个可以训练的embedding</strong> 作为模型的输入，然后对这个可以训练的embedding进行约束，确保他是“delta”的，也就是embedding vector norm比较小，而且vector比较稀疏。</p><p>稍微总结一下，就是训练一个小的embedding，用来“扰动”、“纠正”，fixed的pretrain word embedding。</p><p>其实和finetune相比没有引入更多的参数，结果效果在很多情况下比finetune好，就离谱。</p><p>模型就这么简单，图的话如下：</p><p><img src="https://image-jeff.oss-cn-hangzhou.aliyuncs.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-10-01%20%E4%B8%8B%E5%8D%8812.33.34.png" alt="Delta-Word-Embedding"></p><p>方法的优劣不是看简不简单，而是看有不有效。一堆方法凑在一起，还不如一个小的改变有效，真是讽刺呢。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Delta Embedding Learning, Zhang et al, ACL19&lt;br&gt;&lt;a href=&quot;https://aclweb.org/anthology/papers/P/P19/P19-1322/&quot; target=&quot;_blank&quot; rel=&quot;extern
+      
+    
+    </summary>
+    
+      <category term="NLP" scheme="https://jeffchy.github.io/categories/NLP/"/>
+    
+      <category term="Paper" scheme="https://jeffchy.github.io/categories/NLP/Paper/"/>
+    
+    
+      <category term="Natural Language Processing" scheme="https://jeffchy.github.io/tags/Natural-Language-Processing/"/>
+    
+      <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
+    
+  </entry>
   
   <entry>
     <title>Effective Adversarial Regulariztion for Machine Translation (Notes)</title>
@@ -124,9 +153,9 @@
       <category term="Paper" scheme="https://jeffchy.github.io/categories/NLP/Paper/"/>
     
     
-      <category term="Probability Theory" scheme="https://jeffchy.github.io/tags/Probability-Theory/"/>
-    
       <category term="Paper" scheme="https://jeffchy.github.io/tags/Paper/"/>
+    
+      <category term="Probability Theory" scheme="https://jeffchy.github.io/tags/Probability-Theory/"/>
     
       <category term="Algorithm" scheme="https://jeffchy.github.io/tags/Algorithm/"/>
     
@@ -576,38 +605,6 @@
       <category term="Algorithm" scheme="https://jeffchy.github.io/tags/Algorithm/"/>
     
       <category term="Natual Language Processing" scheme="https://jeffchy.github.io/tags/Natual-Language-Processing/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Brown Clustering</title>
-    <link href="https://jeffchy.github.io/2018/10/09/Brown-Clustering/"/>
-    <id>https://jeffchy.github.io/2018/10/09/Brown-Clustering/</id>
-    <published>2018-10-09T06:45:59.000Z</published>
-    <updated>2018-10-09T08:22:50.597Z</updated>
-    
-    <content type="html"><![CDATA[<p>我还是用回中文吧. 上一篇我们介绍了RNNG,其中为了减少softmax选择vocabulary的复杂度的时候,使用了Brown Clustering,这是一个古老但是非常有效的算法,今天我们就看看Brown Clustering是什么吧.</p><p><strong>本篇主要基于M.Collins的Video Lecture <a href="https://www.youtube.com/watch?v=xGfQMrYoIx4&amp;list=PLO9y7hOkmmSEAqCc0wrNBrsoJMTmIN98M" target="_blank" rel="external">https://www.youtube.com/watch?v=xGfQMrYoIx4&amp;list=PLO9y7hOkmmSEAqCc0wrNBrsoJMTmIN98M</a></strong></p><h1 id="Intruduction-什么是Brown-Clustering"><a href="#Intruduction-什么是Brown-Clustering" class="headerlink" title="Intruduction 什么是Brown Clustering"></a>Intruduction 什么是Brown Clustering</h1><p>Brown Clustering可以将单词归为不同的类,比如<br>K1: Monday, Thursday, Weekends, …<br>K2: Water, Gas, Coal, …</p><p>Brown Clustering还可以将单词层级化<br>比如途中的 boy,girl,是一类,都是人,再加上apple,pear,形成了一类比如名词.我们可以用0,1表示这样的类别关系<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-9/48409628.jpg" alt=""></p><h1 id="我们如何Clustering"><a href="#我们如何Clustering" class="headerlink" title="我们如何Clustering"></a>我们如何Clustering</h1><p>Intuition - similar words - similar left and right words (context)<br>比如Monday, Tuesday,他们是类似的,那么应用他们的上下文也通常比较类似. 比如I go to school on Monday / Tuesday…</p><h2 id="Formulation"><a href="#Formulation" class="headerlink" title="Formulation"></a>Formulation</h2><ul><li>$V$ 是数据集中的所有vocabulary</li><li>$C$ Cluster,是一个把单词映射到k个类别的函数, $V \to \{1,2,3,\cdots,k\}$, 比如 $C(the)=C(a)=1, C(one)=2$</li><li>与HMM非常相似,我们定义evidence $e(w_i|C(w_i))$比如$e(the|1)$ 反映了已知现在类别是1的情况下the出现的概率</li><li>同样我们定义 $q(C(w_i)|C(w_{i-1}))$,表示已知前一个词的类别,那现在这个单词所属的类别的分布是什么</li><li>所以我们的整个数据的产生概率为 $p(w_1,\cdots,w_n) = \prod_{i=1}^n e(w_i|C(w_i))q(C(w_i)|C(w_{i-1}))$ emm其实就是likelihood</li><li>然后写成log likelihood: $log p(w_1,\cdots,w_n) = \sum_{i=1}^n log e(w_i|C(w_i))q(C(w_i)|C(w_{i-1}))$ </li><li>一个例子 <img src="http://oj4pv4f25.bkt.clouddn.com/18-10-9/87807444.jpg" alt=""></li></ul><h2 id="小小总结一下"><a href="#小小总结一下" class="headerlink" title="小小总结一下"></a>小小总结一下</h2><p>Brown CLustering可以表示为</p><ul><li>输入<ul><li>$V$ vocabulary</li><li>$X$ corpus</li></ul></li><li>输出<ul><li>一个函数映射$C: V \to {1 \cdots k}$</li><li>e分布的参数 $e(v|c)$ 对于所有的 $v \in V, c \in \{1,\cdots,k\}$</li><li>q分布的$q(c|c’)$ 对于所有的 $c \in \{1,\cdots,k\}\  c’ \in \{1,\cdots,k\}$</li></ul></li></ul><h2 id="如何找到这些参数"><a href="#如何找到这些参数" class="headerlink" title="如何找到这些参数"></a>如何找到这些参数</h2><p>我们用我们前面derive的式子来衡量$C$<br>第二个等号使用互信息得到<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-9/87288170.jpg" alt=""></p><h2 id="算法1"><a href="#算法1" class="headerlink" title="算法1"></a>算法1</h2><p>我们有$|V|$个vocabulary,每个自成一类，我们的目标是找到$k$个cluster,所以我们greedy地merge $|V|-k$次<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-9/3293337.jpg" alt=""><br>通过枚举所有的pair,太慢了</p><h2 id="算法2"><a href="#算法2" class="headerlink" title="算法2"></a>算法2</h2><p>我们找出最常见的M=1000个单词，每个单词给一个类别。然后我们对剩下的单词中最常见的number $M+1$的单词一个类别，所以现在有$M+1$个类别，然后选出最合适的pair进行merge，变为$M$类，多所有VOCABULARY进行重复，最后我们会把所有的词归到M类上，完成以后再做M-1次merge即可得到层级表示。<br><img src="http://oj4pv4f25.bkt.clouddn.com/18-10-9/86185324.jpg" alt=""></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;我还是用回中文吧. 上一篇我们介绍了RNNG,其中为了减少softmax选择vocabulary的复杂度的时候,使用了Brown Clustering,这是一个古老但是非常有效的算法,今天我们就看看Brown Clustering是什么吧.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;本
-      
-    
-    </summary>
-    
-      <category term="NLP" scheme="https://jeffchy.github.io/categories/NLP/"/>
-    
-      <category term="Note" scheme="https://jeffchy.github.io/categories/NLP/Note/"/>
-    
-    
-      <category term="Natural Language Processing" scheme="https://jeffchy.github.io/tags/Natural-Language-Processing/"/>
-    
-      <category term="Probability Theory" scheme="https://jeffchy.github.io/tags/Probability-Theory/"/>
-    
-      <category term="Note" scheme="https://jeffchy.github.io/tags/Note/"/>
     
   </entry>
   
