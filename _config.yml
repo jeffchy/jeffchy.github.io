@@ -48,8 +48,10 @@ linkedin_username: ChengyueJiang
 # about_title: About Me
 about_profile_image: images/me.jpeg
 about_content: | # this will include new lines to allow paragraphs
-  Hi, my name's Chengyue Jiang and I'm currently a PhD student at ShanghaiTech University. I majored in Computer Science, and I'm doing research
-  focusing on Natural Language Processing. More specifically, I'm finding proper ways to use symbolic knowledge (e.g. Regular Expressions) to help
+  Hi, my name's Chengyue Jiang and I'm currently a PhD student at ShanghaiTech University. 
+  I majored in Computer Science, and I'm doing research focusing on <mark>Natural Language Processing (NLP)</mark>, and I'm supervised by Prof. [Kewei Tu](http://sist.shanghaitech.edu.cn/faculty/).
+  
+  More specifically, I'm finding proper ways to use symbolic knowledge (e.g. Regular Expressions) to help
   NLP models reach better performance and have better interpretability on NLP tasks.
 
 content:
