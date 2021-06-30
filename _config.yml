@@ -58,18 +58,18 @@ content:
   - title: Education # Title for the section
     layout: text # Type of content section (list/text)
     content: | # this will include new lines to allow paragraphs
-     - I recieve my <mark>Bachelor<\mark> degree in Computer Science in ShanghaiTech University, (June 2015 - June 2019).
-     - And I'm now a <mark>PhD<\mark> student in ShanghaiTech University, supervised by Prof. [Kewei Tu](http://sist.shanghaitech.edu.cn/faculty/).
+     - I recieve my <mark>Bachelor</mark> degree in Computer Science in ShanghaiTech University, (June 2015 - June 2019).
+     - And I'm now a <mark>PhD</mark> student in ShanghaiTech University, supervised by Prof. [Kewei Tu](http://sist.shanghaitech.edu.cn/faculty/).
       
   - title: Publication # Title for the section
     layout: list # Type of content section (list/text)
     content:
       - layout: left
         title: EMNLP 2020
-        link: boringcompany.com
-        # link_text: boringcompany.com
-        sub_title: Senior Network System Administrator
-        caption: November 2017 - Present
+        link: https://www.aclweb.org/anthology/2020.emnlp-main.258/
+        link_text: (Paper)
+        description:  Yinggong Zhao, Shanbo Chu, Libin Shen, and Kewei Tu. "Cold-start and Interpretability: Turning Regular Expressions into Trainable Recurrent Neural Networks". 
+        *In Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing*
       - layout: middle
         title: The Boring Company
         link: boringcompany.com
