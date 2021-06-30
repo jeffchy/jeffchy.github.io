@@ -49,9 +49,9 @@ linkedin_username: ChengyueJiang
 about_profile_image: images/me.jpeg
 about_content: | # this will include new lines to allow paragraphs
   Hi, my name's Chengyue Jiang and I'm currently a PhD student at ShanghaiTech University. 
-  I majored in Computer Science, and I'm doing research focusing on <mark>Natural Language Processing (NLP)</mark>, and I'm supervised by Prof. [Kewei Tu](http://sist.shanghaitech.edu.cn/faculty/).
+  I majored in Computer Science, and I'm doing research focusing on Natural Language Processing <mark>(NLP)</mark>, and I'm supervised by Prof. [Kewei Tu](http://sist.shanghaitech.edu.cn/faculty/).
   
-  More specifically, I'm finding proper ways to use symbolic knowledge (e.g. Regular Expressions) to help
+  More specifically, I'm finding proper ways to use <mark>symbolic knowledge</mark> (e.g. Regular Expressions) to help
   NLP models reach better performance and have better interpretability on NLP tasks.
 
 content:
@@ -60,10 +60,11 @@ content:
     content:
       - layout: left
         title: ShanghaiTech University, Shanghai
+        sub_title: Bachelor of Computer Science
           # - title:  Github page for project (eg. sproogen/modern-resume-theme)
           #   icon: fab fa-github
           #   url: Link to project (eg. sproogen.github.io/modern-resume-theme)
-        caption: '2015 - 2019, Bachelor of Computer Science, GPA: 3.7/4.'
+        caption: '2015 - 2019, GPA: 3.7/4.'
         quote: >
           This is probably one of the greatest apps ever created, if you don't agree you're probably wrong.
         description: | # this will include new lines to allow paragraphs
