@@ -69,7 +69,7 @@ content:
         link: https://www.aclweb.org/anthology/2020.emnlp-main.258/
         link_text: (Paper)
         description:  Yinggong Zhao, Shanbo Chu, Libin Shen, and Kewei Tu. "Cold-start and Interpretability: Turning Regular Expressions into Trainable Recurrent Neural Networks". 
-        *In Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing*
+        In Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing.
       - layout: middle
         title: The Boring Company
         link: boringcompany.com
