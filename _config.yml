@@ -64,6 +64,12 @@ content:
     layout: list # Type of content section (list/text)
     content:
       - layout: left
+      title: EMNLP 2021
+      description: |
+        **Chengyue Jiang**, Zijian Jin, Kewei Tu. **"Neuralizing Regular Expressions for Slot Filling"**. 
+        In *Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing*. [(Paper)](https://aclanthology.org/2021.emnlp-main.747/) [(Code)](https://github.com/jeffchy/RE2NN-SEQ)
+
+      - layout: left
         title: EMNLP 2020
         description: |
           **Chengyue Jiang**, Yinggong Zhao, Shanbo Chu, Libin Shen, and Kewei Tu. **"Cold-start and Interpretability: Turning Regular Expressions into Trainable Recurrent Neural Networks"**. 
