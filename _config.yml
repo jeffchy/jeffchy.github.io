@@ -64,6 +64,11 @@ content:
     layout: list # Type of content section (list/text)
     content:
       - layout: left
+        title: EMNLP 2022
+        description: |
+          **Chengyue Jiang**, Yong Jiang, Weiqi Wu, Zhongqiang Huang, Pengjun Xie, Kewei Tu **"Modeling Label Correlations for Ultra-Fine Entity Typing with Neural Pairwise Conditional Random Field"**. 
+          In *Proceedings of the 2022 Conference on Empirical Methods in Natural Language Processing*. [(Paper)](https://aclanthology.org/2022.emnlp-main.747/) [(Code)](https://github.com/jeffchy/NPCRF)
+      - layout: left
         title: EMNLP 2021
         description: |
           **Chengyue Jiang**, Zijian Jin, Kewei Tu. **"Neuralizing Regular Expressions for Slot Filling"**. 
@@ -90,7 +95,7 @@ content:
       - layout: left
         title: Research Intern
         sub_title: Alibaba Damo Academy, Hangzhou
-        caption: Augest 2021 -- Present
+        caption: August 2021 -- Present
         description: |
           Doing some research about pretraining language model and doing information extraction.
       - layout: left
