@@ -48,14 +48,16 @@ linkedin_username: ChengyueJiang
 # about_title: About Me
 about_profile_image: images/me.jpeg
 about_content: | # this will include new lines to allow paragraphs
-  Hi, my name's Chengyue Jiang and I'm currently a PhD student at ShanghaiTech University. 
+  Hi, my name's Chengyue Jiang and I'm currently a 4th year PhD student at ShanghaiTech University. 
   I majored in Computer Science, and I'm doing research focusing on Natural Language Processing <mark>(NLP)</mark>, and I'm supervised by Prof. [Kewei Tu](http://sist.shanghaitech.edu.cn/faculty/).
   
   More specifically, My NLP research interests are 
   - use <mark>symbolic knowledge</mark> (e.g. Regular Expressions) to help NLP models reach better performance and have better interpretability on NLP tasks. 
   - <mark>information extraction</mark>, such as entity typing and named entity recognition.
   - investigate the <mark>ontological knowledge</mark> in large pretrained language models. 
-  - large language models (LLM)
+  - ready to embrace large language models (LLM)
+  
+  I'm <mark>open to the job market this Autumn</mark>, feel free to contact me through my email: jiangchy@shanghaitech.edu.cn
   
 content:
   - title: Education # Title for the section
