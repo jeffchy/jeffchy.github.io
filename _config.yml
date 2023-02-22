@@ -118,15 +118,15 @@ content:
         description: |
           Software engineer internship. Participating in developing a webapp using Django backend and MySQL. The webapp is a simple
           cloud platform, used for managing costumers.
-  - title: Projects # Title for the section
-    layout: list # Type of content section (list/text)
-    content:
-      - layout: left
-        title: [Adaseq](https://github.com/modelscope/AdaSeq/blob/master/) (core contributor)
-        description: |
-           Adaseq is the open source sequence understanding libarary presented by DAMO NLP. It contains SOTA Named Entity Recognition, 
-           Entity Typing, Relation Extraction models. I act as the core developer of the entity typing part of the [Adaseq](https://github.com/modelscope/AdaSeq/blob/master/) Project in DAMO academy.  
-           Implemente and replicate entity typing models including multi-label MLC, [NPCRF](https://aclanthology.org/2022.emnlp-main.747/), [MCCE](https://arxiv.org/abs/2212.09125), Prompt Learning, etc.
+#   - title: Projects # Title for the section
+#     layout: list # Type of content section (list/text)
+#     content:
+#       - layout: left
+#         title: [Adaseq](https://github.com/modelscope/AdaSeq/blob/master/) (core contributor)
+#         description: |
+#            Adaseq is the open source sequence understanding libarary presented by DAMO NLP. It contains SOTA Named Entity Recognition, 
+#            Entity Typing, Relation Extraction models. I act as the core developer of the entity typing part of the [Adaseq](https://github.com/modelscope/AdaSeq/blob/master/) Project in DAMO academy.  
+#            Implemente and replicate entity typing models including multi-label MLC, [NPCRF](https://aclanthology.org/2022.emnlp-main.747/), [MCCE](https://arxiv.org/abs/2212.09125), Prompt Learning, etc.
 
 # Footer
 footer_show_references: true
