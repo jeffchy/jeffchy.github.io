@@ -51,8 +51,10 @@ about_content: | # this will include new lines to allow paragraphs
   Hi, my name's Chengyue Jiang and I'm currently a PhD student at ShanghaiTech University. 
   I majored in Computer Science, and I'm doing research focusing on Natural Language Processing <mark>(NLP)</mark>, and I'm supervised by Prof. [Kewei Tu](http://sist.shanghaitech.edu.cn/faculty/).
   
-  More specifically, I'm finding proper ways to use <mark>symbolic knowledge</mark> (e.g. Regular Expressions) to help
-  NLP models reach better performance and have better interpretability on NLP tasks.
+  More specifically, My NLP research interests are (1) use <mark>symbolic knowledge</mark> (e.g. Regular Expressions) to help
+  NLP models reach better performance and have better interpretability on NLP tasks. (2)  <mark>information extraction</mark>, such as entity typing and named entity recognition.
+  (3) investigate the <mark>ontological knowledge</mark> in large pretrained language models. (4) large language models (LLM)
+  
 content:
   - title: Education # Title for the section
     layout: text # Type of content section (list/text)
@@ -98,11 +100,11 @@ content:
     layout: list # Type of content section (list/text)
     content:
       - layout: left
-        title: Research Intern
+        title: NLP Research Intern
         sub_title: Alibaba Damo Academy, Hangzhou
         caption: August 2021 -- Present
         description: |
-          Doing some research about pretraining language model and doing information extraction.
+          Doing some research about <mark>pretraining language model<mark> and <mark>information extraction<mark>. Act as the core developer of the entity typing part of the [Adaseq](https://github.com/modelscope/AdaSeq/blob/master/) Project in DAMO academy. 
       - layout: left
         title: Software Intern
         sub_title: Honeywell, Nanjing
@@ -116,6 +118,15 @@ content:
         description: |
           Software engineer internship. Participating in developing a webapp using Django backend and MySQL. The webapp is a simple
           cloud platform, used for managing costumers.
+  - title: Projects # Title for the section
+    layout: list # Type of content section (list/text)
+    content:
+      - layout: left
+        title: [Adaseq](https://github.com/modelscope/AdaSeq/blob/master/) (core contributor)
+        description: |
+           Adaseq is the open source sequence understanding libarary presented by DAMO NLP. It contains SOTA Named Entity Recognition, 
+           Entity Typing, Relation Extraction models. I act as the core developer of the entity typing part of the [Adaseq](https://github.com/modelscope/AdaSeq/blob/master/) Project in DAMO academy.  
+           Implemente and replicate entity typing models including multi-label MLC, [NPCRF](https://aclanthology.org/2022.emnlp-main.747/), [MCCE](https://arxiv.org/abs/2212.09125), Prompt Learning, etc.
 
 # Footer
 footer_show_references: true
