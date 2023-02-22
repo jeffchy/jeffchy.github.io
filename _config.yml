@@ -137,7 +137,7 @@ content:
         title: RegExp to Neural Network
         sub_title: author
         description: |
-          The source codes of my papers  **"Cold-start and Interpretability: Turning Regular Expressions into Trainable Recurrent Neural Networks"** and  **"Neuralizing Regular Expressions for Slot Filling"**, reaches over 130 stars on GitHub.
+          The source codes([RE2NN](https://github.com/jeffchy/RE2RNN),[RE2NN-SEQ](https://github.com/jeffchy/RE2RNN-SEQ)) of my papers  **"Cold-start and Interpretability: Turning Regular Expressions into Trainable Recurrent Neural Networks"** and  **"Neuralizing Regular Expressions for Slot Filling"**, reaches over 130 stars on GitHub.
           The repos change regular expressions for text classification and slot filling into neural networks.
 # Footer
 footer_show_references: true
