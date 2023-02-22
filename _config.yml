@@ -131,12 +131,10 @@ content:
            Entity Typing, Relation Extraction models. I act as the core developer of the entity typing part of the [Adaseq](https://github.com/modelscope/AdaSeq/blob/master/) Project in DAMO academy.  
            Implemente and replicate entity typing models including multi-label MLC, [NPCRF](https://aclanthology.org/2022.emnlp-main.747/), [MCCE](https://arxiv.org/abs/2212.09125), Prompt Learning, etc.
       - layout: left
-        title: Adaseq (core contributor)
+        title: RegExp to Neural Network
         description: |
-           Adaseq is the open source sequence understanding libarary presented by DAMO NLP. It contains SOTA Named Entity Recognition, 
-           Entity Typing, Relation Extraction models. I act as the core developer of the entity typing part of the [Adaseq](https://github.com/modelscope/AdaSeq/blob/master/) Project in DAMO academy.  
-           Implemente and replicate entity typing models including multi-label MLC, [NPCRF](https://aclanthology.org/2022.emnlp-main.747/), [MCCE](https://arxiv.org/abs/2212.09125), Prompt Learning, etc.
-
+          The source codes of my papers  **"Cold-start and Interpretability: Turning Regular Expressions into Trainable Recurrent Neural Networks"** and  **"Neuralizing Regular Expressions for Slot Filling"**, reaches over 130 stars on GitHub.
+          The repos change regular expressions for text classification and slot filling into neural networks.
 # Footer
 footer_show_references: true
 # references_title: References on request (Override references text)
