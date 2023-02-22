@@ -51,9 +51,11 @@ about_content: | # this will include new lines to allow paragraphs
   Hi, my name's Chengyue Jiang and I'm currently a PhD student at ShanghaiTech University. 
   I majored in Computer Science, and I'm doing research focusing on Natural Language Processing <mark>(NLP)</mark>, and I'm supervised by Prof. [Kewei Tu](http://sist.shanghaitech.edu.cn/faculty/).
   
-  More specifically, My NLP research interests are (1) use <mark>symbolic knowledge</mark> (e.g. Regular Expressions) to help
-  NLP models reach better performance and have better interpretability on NLP tasks. (2)  <mark>information extraction</mark>, such as entity typing and named entity recognition.
-  (3) investigate the <mark>ontological knowledge</mark> in large pretrained language models. (4) large language models (LLM)
+  More specifically, My NLP research interests are 
+  - use <mark>symbolic knowledge</mark> (e.g. Regular Expressions) to help NLP models reach better performance and have better interpretability on NLP tasks. 
+  - <mark>information extraction</mark>, such as entity typing and named entity recognition.
+  - investigate the <mark>ontological knowledge</mark> in large pretrained language models. 
+  - large language models (LLM)
   
 content:
   - title: Education # Title for the section
@@ -104,7 +106,7 @@ content:
         sub_title: Alibaba Damo Academy, Hangzhou
         caption: August 2021 -- Present
         description: |
-          Doing some research about <mark>pretraining language model<mark> and <mark>information extraction<mark>. Act as the core developer of the entity typing part of the [Adaseq](https://github.com/modelscope/AdaSeq/blob/master/) Project in DAMO academy. 
+          Doing some research about <mark>pretraining language model<mark> and <mark>information extraction</mark>. Act as the core developer of the entity typing part of the [Adaseq](https://github.com/modelscope/AdaSeq/blob/master/) Project in DAMO academy. 
       - layout: left
         title: Software Intern
         sub_title: Honeywell, Nanjing
