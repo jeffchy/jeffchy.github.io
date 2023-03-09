@@ -140,8 +140,10 @@ content:
           The source codes([RE2NN](https://github.com/jeffchy/RE2RNN),[RE2NN-SEQ](https://github.com/jeffchy/RE2RNN-SEQ)) of my papers  **"Cold-start and Interpretability: Turning Regular Expressions into Trainable Recurrent Neural Networks"** and  **"Neuralizing Regular Expressions for Slot Filling"**, reaches over 130 stars on GitHub.
           The repos change regular expressions for text classification and slot filling into neural networks.
           
-  - title: Services: ACL2023 EACL2023 AACL2022 # Title for the section
-
+  - title: Services # Title for the section
+    layout: text # Type of content section (list/text)
+    content: | # this will include new lines to allow paragraphs
+     - ACL2023 EACL2023 AACL2022 ICLR2022
 # Footer
 footer_show_references: true
 # references_title: References on request (Override references text)
