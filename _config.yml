@@ -55,9 +55,9 @@ about_content: | # this will include new lines to allow paragraphs
   - use <mark>symbolic knowledge</mark> (e.g. Regular Expressions) to help NLP models reach better performance and have better interpretability on NLP tasks. 
   - <mark>information extraction</mark>, such as entity typing and named entity recognition.
   - investigate the <mark>ontological knowledge</mark> in large pretrained language models. 
-  - **<font size=5> I'm currently <mark>VERY INTERESTED</mark> at <mark>Large Language Models (LLM)</mark> and keeps exploring and trying related techniques<font>**
   
-  **<font size=5> I'm <mark>open to the job market this Autumn</mark>, feel free to contact me through my email: jiangchy@shanghaitech.edu.cn <font>**
+  <font size=5> I'm currently <mark>VERY INTERESTED</mark> at <mark>Large Language Models (LLM)</mark> and keeps exploring and trying related techniques<font>
+  <font size=5> I'm <mark>open to the job market this Autumn</mark>, feel free to contact me through my email: jiangchy@shanghaitech.edu.cn <font>
   
 content:
   - title: Education # Title for the section
