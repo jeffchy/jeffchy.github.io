@@ -78,7 +78,7 @@ content:
       - layout: left
         title: Preprint 2022
         description: |
-          **Chengyue Jiang**, **Wenyang Hui**, Yong Jiang, Xiaobin Wang, Pengjun Xie, Kewei Tu **Recall, Expand and Multi-Candidate Cross-Encode: Fast and Accurate Ultra-Fine Entity Typing**. [(Paper)](https://arxiv.org/abs/2212.09125)
+          **Chengyue Jiang**, **Wenyang Hui**, Yong Jiang, Xiaobin Wang, Pengjun Xie, Kewei Tu **“Recall, Expand and Multi-Candidate Cross-Encode: Fast and Accurate Ultra-Fine Entity Typing”**. [(Paper)](https://arxiv.org/abs/2212.09125)
       - layout: left
         title: EMNLP 2022
         description: |
