@@ -54,11 +54,10 @@ about_content: | # this will include new lines to allow paragraphs
   More specifically, My NLP research interests are 
   - use <mark>symbolic knowledge</mark> (e.g. Regular Expressions) to help NLP models reach better performance and have better interpretability on NLP tasks. 
   - <mark>information extraction</mark>, such as entity typing and named entity recognition.
+  - <mark>information retrieval</mark>, familiar with related techniques.
   - investigate the <mark>ontological knowledge</mark> in large pretrained language models. 
   
-  <font size=5> I'm currently <mark>VERY INTERESTED</mark> at <mark>Large Language Models (LLM)</mark> and keeps exploring and trying related techniques<font>
-  
-  
+  <font size=5> I'm currently <mark>VERY INTERESTED</mark> at <mark>Large Language Models (LLM)</mark> and keeps exploring and trying related techniques (Instruction Tuning, Meta ICL, Lora, Self-instruct (Alpaca))<font>
   <font size=5> I'm <mark>open to the job market this Autumn</mark>, feel free to contact me through my email: jiangchy@shanghaitech.edu.cn <font>
   
 content:
@@ -76,6 +75,10 @@ content:
         description: |
           **Chengyue Jiang**, Yong Jiang, Weiqi Wu, Yuting Zheng, Pengjun Xie, Kewei Tu **"COMBO: A Complete Benchmark for Open KG Canonicalization"**. 
           In *Proceedings of the 17th Conference of the European Chapter of the Association for Computational Linguistics: Main Volume*. [(Paper)](https://github.com/jeffchy/COMBO) [(Code)](https://github.com/jeffchy/COMBO)
+      - layout: left
+        title: Preprint 2022
+        description: |
+          **Chengyue Jiang**, **Wenyang Hui**, Yong Jiang, Xiaobin Wang, Pengjun Xie, Kewei Tu **Recall, Expand and Multi-Candidate Cross-Encode: Fast and Accurate Ultra-Fine Entity Typing**. [(Paper)](https://arxiv.org/abs/2212.09125)
       - layout: left
         title: EMNLP 2022
         description: |
