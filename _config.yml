@@ -113,7 +113,7 @@ content:
         sub_title: Alibaba Damo Academy, Hangzhou
         caption: August 2021 -- Present
         description: |
-          Doing some research about <mark>pretraining language model</mark> and <mark>information extraction</mark>. Act as the core developer of the entity typing part of the [Adaseq](https://github.com/modelscope/AdaSeq/blob/master/) Project in DAMO academy. 
+          Doing some research about <mark>large language model (LLM)</mark> and <mark>information extraction</mark>. Act as the core developer of the entity typing part of the [Adaseq](https://github.com/modelscope/AdaSeq/blob/master/) Project in DAMO academy. 
       - layout: left
         title: Software Intern
         sub_title: Honeywell, Nanjing
