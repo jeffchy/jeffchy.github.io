@@ -57,7 +57,7 @@ about_content: | # this will include new lines to allow paragraphs
   - <mark>information retrieval</mark>, familiar with related techniques.
   - investigate the <mark>ontological knowledge</mark> in large pretrained language models. 
   
-  <font size=5> I'm currently <mark>VERY INTERESTED</mark> at <mark>Large Language Models (LLM)</mark> and keeps exploring and trying related techniques (Instruction Tuning, Meta ICL, Lora, Self-instruct (Alpaca))<font>
+  <font size=5> I'm currently <mark>VERY INTERESTED</mark> at <mark>Large Language Models (LLM)</mark> and keeps exploring and trying related techniques (Instruction Tuning, Meta ICL, Lora, Self-instruct (Alpaca))<font> <br>
   <font size=5> I'm <mark>open to the job market this Autumn</mark>, feel free to contact me through my email: jiangchy@shanghaitech.edu.cn <font>
   
 content:
