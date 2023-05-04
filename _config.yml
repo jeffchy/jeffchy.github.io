@@ -83,7 +83,7 @@ content:
         description: |
           **Chengyue Jiang**, Yong Jiang, Weiqi Wu, Yuting Zheng, Pengjun Xie, Kewei Tu **"COMBO: A Complete Benchmark for Open KG Canonicalization"**. 
           In *Proceedings of the 17th Conference of the European Chapter of the Association for Computational Linguistics: Main Volume*. [(Paper)](https://github.com/jeffchy/COMBO) [(Code)](https://github.com/jeffchy/COMBO)
-     - layout: left
+      - layout: left
         title: EMNLP 2022
         description: |
           **Chengyue Jiang**, Yong Jiang, Weiqi Wu, Zhongqiang Huang, Pengjun Xie, Kewei Tu **"Modeling Label Correlations for Ultra-Fine Entity Typing with Neural Pairwise Conditional Random Field"**. 
