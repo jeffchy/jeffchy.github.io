@@ -77,7 +77,7 @@ content:
       - layout: left
         title: ACL 2023
         description: |
-          **Weiqi Wu**, Chengyue Jiang, Yong Jiang, Xiaobin Wang, Pengjun Xie, Kewei Tu **“Do PLMs Know and Understand Ontological Knowledge?”**. [Accepted to ACL2023, not ready for camera]
+          Weiqi Wu, **Chengyue Jiang**, Yong Jiang, Xiaobin Wang, Pengjun Xie, Kewei Tu **“Do PLMs Know and Understand Ontological Knowledge?”**. [Accepted to ACL2023, not ready for camera]
       - layout: left
         title: EACL 2023
         description: |
