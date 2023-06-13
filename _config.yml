@@ -114,8 +114,14 @@ content:
     content:
       - layout: left
         title: NLP Research Intern
+        sub_title: Mihoyo, Lumi NLP
+        caption: June 2023 -- Present
+        description: |
+          Doing some exploration about <mark>large language model (LLM)</mark>.
+      - layout: left
+        title: NLP Research Intern
         sub_title: Alibaba Damo Academy, Hangzhou
-        caption: August 2021 -- Present
+        caption: August 2021 -- June 2023
         description: |
           Doing some research about <mark>large language model (LLM)</mark> and <mark>information extraction</mark>. Act as the core developer of the entity typing part of the [Adaseq](https://github.com/modelscope/AdaSeq/blob/master/) Project in DAMO academy. 
       - layout: left
