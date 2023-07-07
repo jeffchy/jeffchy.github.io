@@ -75,9 +75,9 @@ content:
         description: |
           **Chengyue Jiang**, **Wenyang Hui** (Equal Contribution), Yong Jiang, Xiaobin Wang, Pengjun Xie, Kewei Tu **“Recall, Expand and Multi-Candidate Cross-Encode: Fast and Accurate Ultra-Fine Entity Typing”**. [(Paper)](https://arxiv.org/abs/2212.09125)
       - layout: left
-        title: ACL 2023
+        title: ACL 2023 (Outstanding Paper Award)
         description: |
-          Weiqi Wu, **Chengyue Jiang**, Yong Jiang, Xiaobin Wang, Pengjun Xie, Kewei Tu **“Do PLMs Know and Understand Ontological Knowledge?”**. [Accepted to ACL2023, not ready for camera]
+          Weiqi Wu, **Chengyue Jiang**, Yong Jiang, Xiaobin Wang, Pengjun Xie, Kewei Tu **“Do PLMs Know and Understand Ontological Knowledge?”**. [(Paper)](https://faculty.sist.shanghaitech.edu.cn/faculty/tukw/acl23probe.pdf)
       - layout: left
         title: EACL 2023
         description: |
