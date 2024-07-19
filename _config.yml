@@ -48,7 +48,7 @@ linkedin_username: ChengyueJiang
 # about_title: About Me
 about_profile_image: images/me.jpeg
 about_content: | # this will include new lines to allow paragraphs
-  Hi, my name's Chengyue Jiang and I'm currently a 4th year PhD student at ShanghaiTech University. 
+  Hi, my name's Chengyue Jiang, PhD at ShanghaiTech University. 
   I majored in Computer Science, and I'm doing research focusing on Natural Language Processing <mark>(NLP)</mark>, and I'm supervised by Prof. [Kewei Tu](http://sist.shanghaitech.edu.cn/faculty/).
   
   More specifically, My NLP research interests are 
@@ -112,12 +112,6 @@ content:
   - title: Experience # Title for the section
     layout: list # Type of content section (list/text)
     content:
-      - layout: left
-        title: NLP Research Intern
-        sub_title: Mihoyo, Lumi NLP
-        caption: June 2023 -- Present
-        description: |
-          Doing some exploration about <mark>large language model (LLM)</mark>.
       - layout: left
         title: NLP Research Intern
         sub_title: Alibaba Damo Academy, Hangzhou
